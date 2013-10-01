@@ -289,6 +289,7 @@ extern int tdep_access_fpreg (struct cursor *c, unw_regnum_t reg,
 #define UNW_ARM_METHOD_DWARF        0x01
 #define UNW_ARM_METHOD_FRAME        0x02
 #define UNW_ARM_METHOD_EXIDX        0x04
+#define UNW_ARM_METHOD_LR           0x08
 
 #define unwi_unwind_method   UNW_OBJ(unwind_method)
 extern int unwi_unwind_method;

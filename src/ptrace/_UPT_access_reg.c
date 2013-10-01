@@ -225,6 +225,47 @@ _UPT_access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val,
       }
 #endif /* End of IA64 */
 
+#ifdef UNW_TARGET_MIPS
+
+#ifdef HAVE_TTRACE
+#	warning No support for ttrace() yet.
+#else
+  typedef struct {
+      uint64_t regs[32];
+      uint64_t lo;
+      uint64_t hi;
+      uint64_t epc;
+      uint64_t badvaddr;
+      uint64_t status;
+      uint64_t cause;
+  } user_regs_struct;
+  user_regs_struct regs;
+  if (write)
+    {
+    }
+  else
+    {
+      if (ptrace(PTRACE_GETREGS, pid, 0, &regs))
+        {
+          goto badreg;
+        }
+
+      if (reg <= UNW_MIPS_R31)
+        {
+          *val = regs.regs[reg];
+          return 0;
+        }
+      else if (reg == UNW_MIPS_PC)
+        {
+          *val = regs.epc;
+          return 0;
+        }
+      goto badreg;
+    }
+#endif
+
+#endif /* End of mips */
+
   if ((unsigned) reg >= ARRAY_SIZE (_UPT_reg_offset))
     {
 #if UNW_DEBUG
