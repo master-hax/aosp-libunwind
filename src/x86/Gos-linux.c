@@ -255,23 +255,23 @@ x86_r_uc_addr (ucontext_t *uc, int reg)
 
   switch (reg)
     {
-    case UNW_X86_GS:  addr = &uc->uc_mcontext.gregs[REG_GS]; break;
-    case UNW_X86_FS:  addr = &uc->uc_mcontext.gregs[REG_FS]; break;
-    case UNW_X86_ES:  addr = &uc->uc_mcontext.gregs[REG_ES]; break;
-    case UNW_X86_DS:  addr = &uc->uc_mcontext.gregs[REG_DS]; break;
-    case UNW_X86_EAX: addr = &uc->uc_mcontext.gregs[REG_EAX]; break;
-    case UNW_X86_EBX: addr = &uc->uc_mcontext.gregs[REG_EBX]; break;
-    case UNW_X86_ECX: addr = &uc->uc_mcontext.gregs[REG_ECX]; break;
-    case UNW_X86_EDX: addr = &uc->uc_mcontext.gregs[REG_EDX]; break;
-    case UNW_X86_ESI: addr = &uc->uc_mcontext.gregs[REG_ESI]; break;
-    case UNW_X86_EDI: addr = &uc->uc_mcontext.gregs[REG_EDI]; break;
-    case UNW_X86_EBP: addr = &uc->uc_mcontext.gregs[REG_EBP]; break;
-    case UNW_X86_EIP: addr = &uc->uc_mcontext.gregs[REG_EIP]; break;
-    case UNW_X86_ESP: addr = &uc->uc_mcontext.gregs[REG_ESP]; break;
-    case UNW_X86_TRAPNO:  addr = &uc->uc_mcontext.gregs[REG_TRAPNO]; break;
-    case UNW_X86_CS:  addr = &uc->uc_mcontext.gregs[REG_CS]; break;
-    case UNW_X86_EFLAGS:  addr = &uc->uc_mcontext.gregs[REG_EFL]; break;
-    case UNW_X86_SS:  addr = &uc->uc_mcontext.gregs[REG_SS]; break;
+    case UNW_X86_GS:  addr = &uc->uc_mcontext.gs; break;
+    case UNW_X86_FS:  addr = &uc->uc_mcontext.fs; break;
+    case UNW_X86_ES:  addr = &uc->uc_mcontext.es; break;
+    case UNW_X86_DS:  addr = &uc->uc_mcontext.ds; break;
+    case UNW_X86_EAX: addr = &uc->uc_mcontext.eax; break;
+    case UNW_X86_EBX: addr = &uc->uc_mcontext.ebx; break;
+    case UNW_X86_ECX: addr = &uc->uc_mcontext.ecx; break;
+    case UNW_X86_EDX: addr = &uc->uc_mcontext.edx; break;
+    case UNW_X86_ESI: addr = &uc->uc_mcontext.esi; break;
+    case UNW_X86_EDI: addr = &uc->uc_mcontext.edi; break;
+    case UNW_X86_EBP: addr = &uc->uc_mcontext.ebp; break;
+    case UNW_X86_EIP: addr = &uc->uc_mcontext.eip; break;
+    case UNW_X86_ESP: addr = &uc->uc_mcontext.esp; break;
+    case UNW_X86_TRAPNO:  addr = &uc->uc_mcontext.trapno; break;
+    case UNW_X86_CS:  addr = &uc->uc_mcontext.cs; break;
+    case UNW_X86_EFLAGS:  addr = &uc->uc_mcontext.eflags; break;
+    case UNW_X86_SS:  addr = &uc->uc_mcontext.ss; break;
 
     default:
       addr = NULL;
@@ -296,12 +296,14 @@ x86_local_resume (unw_addr_space_t as, unw_cursor_t *cursor, void *arg)
       struct sigcontext *sc = (struct sigcontext *) c->sigcontext_addr;
 
       Debug (8, "resuming at ip=%x via sigreturn(%p)\n", c->dwarf.ip, sc);
-      sigreturn (sc);
+      // TODO: cferris fixme define this function.
+      //sigreturn (sc);
     }
   else
     {
       Debug (8, "resuming at ip=%x via setcontext()\n", c->dwarf.ip);
-      setcontext (uc);
+      // TODO: cferris fixme define this function.
+      //setcontext (uc);
     }
   return -UNW_EINVAL;
 }
