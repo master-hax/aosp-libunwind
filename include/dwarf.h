@@ -302,6 +302,7 @@ typedef struct dwarf_cursor
     unw_word_t ret_addr_column;	/* column for return-address */
     unw_word_t eh_args[UNW_TDEP_NUM_EH_REGS];
     unsigned int eh_valid_mask;
+    unsigned int frame;
 
     dwarf_loc_t loc[DWARF_NUM_PRESERVED_REGS];
 
