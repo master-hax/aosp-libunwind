@@ -272,11 +272,17 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
 		   unw_word_t start, unw_word_t end)
 {
   struct unw_debug_frame_list *w, *fdesc = 0;
-  char path[PATH_MAX];
-  char *name = path;
   int err;
   char *buf;
   size_t bufsize;
+  /* ANDROID support update. */
+  char *path = (char*)malloc(PATH_MAX);
+  char *name = path;
+
+  if (path == NULL) {
+    return NULL;
+  }
+  /* End of ANDROID update. */
 
   /* First, see if we loaded this frame already.  */
 
@@ -297,6 +303,7 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
         {
 	  Debug (15, "tried to locate binary for 0x%" PRIx64 ", but no luck\n",
 		 (uint64_t) addr);
+          free(path);
           return 0;
 	}
     }
@@ -319,6 +326,7 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
       as->debug_frames = fdesc;
     }
   
+  free(path);
   return fdesc;
 }
 
