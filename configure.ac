@@ -33,6 +33,8 @@ esac
 
 CHECK_ATOMIC_OPS
 
+CHECK_ANDROID
+
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(asm/ptrace_offsets.h endian.h sys/endian.h execinfo.h \
