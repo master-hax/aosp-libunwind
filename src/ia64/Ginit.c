@@ -78,13 +78,43 @@ access_mem (unw_addr_space_t as, unw_word_t addr, unw_word_t *val, int write,
 {
   if (write)
     {
+      /* ANDROID support update. */
+#if defined (__linux__)
+      if (maps_is_writable(as->map_list, addr))
+        {
+          Debug (12, "mem[%lx] <- %lx\n", addr, *val);
+          *(unw_word_t *) addr = *val;
+        }
+      else
+        {
+          Debug (12, "Unwritable memory mem[%lx] <- %lx\n", addr, *val);
+          return -1;
+        }
+#else
       Debug (12, "mem[%lx] <- %lx\n", addr, *val);
       *(unw_word_t *) addr = *val;
+#endif
+      /* End of ANDROID update. */
     }
   else
     {
+      /* ANDROID support update. */
+#if defined(__linux__)
+      if (maps_is_readable(as->map_list, addr))
+        {
+          *val = *(unw_word_t *) addr;
+          Debug (12, "mem[%lx] -> %lx\n", addr, *val);
+        }
+      else
+        {
+          Debug (12, "Unreadable memory mem[%lx] -> XXX\n", addr);
+          return -1;
+        }
+#else
       *val = *(unw_word_t *) addr;
       Debug (12, "mem[%lx] -> %lx\n", addr, *val);
+#endif
+      /* End of ANDROID update. */
     }
   return 0;
 }
@@ -351,6 +381,13 @@ get_static_proc_name (unw_addr_space_t as, unw_word_t ip,
   return _Uelf64_get_proc_name (as, getpid (), ip, buf, buf_len, offp);
 }
 
+/* ANDROID support update. */
+#if defined(__linux__)
+static define_lock (_U_map_init_lock);
+static struct map_info *_U_map_list = NULL;
+#endif
+/* End of ANDROID update. */
+
 HIDDEN void
 ia64_local_addr_space_init (void)
 {
@@ -371,6 +408,18 @@ ia64_local_addr_space_init (void)
   local_addr_space.acc.resume = ia64_local_resume;
   local_addr_space.acc.get_proc_name = get_static_proc_name;
   unw_flush_cache (&local_addr_space, 0, 0);
+
+  /* ANDROID support update. */
+#if defined(__linux__)
+  mutex_lock (&_U_map_init_lock);
+  if (_U_map_list == NULL)
+    {
+      _U_map_list = maps_create_list(getpid());
+    }
+  mutex_unlock (&_U_map_init_lock);
+  local_addr_space.map_list = _U_map_list;
+#endif
+  /* End of ANDROID update. */
 }
 
 #endif /* !UNW_REMOTE_ONLY */

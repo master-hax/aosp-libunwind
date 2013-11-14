@@ -27,6 +27,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #ifndef os_linux_h
 #define os_linux_h
 
+enum map_flags
+  {
+    MAP_FLAGS_READABLE = 0x1,
+    MAP_FLAGS_WRITABLE = 0x2,
+    MAP_FLAGS_EXECUTABLE = 0x4,
+  };
+
 struct map_iterator
   {
     off_t offset;
@@ -201,7 +208,8 @@ scan_string (char *cp, char *valp, size_t buf_size)
 
 static inline int
 maps_next (struct map_iterator *mi,
-	   unsigned long *low, unsigned long *high, unsigned long *offset)
+	   unsigned long *low, unsigned long *high, unsigned long *offset,
+	   unsigned long *flags)
 {
   char perm[16], dash = 0, colon = 0, *cp;
   unsigned long major, minor, inum;
@@ -275,6 +283,22 @@ maps_next (struct map_iterator *mi,
       cp = scan_string (cp, NULL, 0);
       if (dash != '-' || colon != ':')
 	continue;	/* skip line with unknown or bad format */
+      if (flags)
+        {
+          *flags = 0;
+          if (perm[0] == 'r')
+            {
+              *flags |= MAP_FLAGS_READABLE;
+            }
+          if (perm[1] == 'w')
+            {
+              *flags |= MAP_FLAGS_WRITABLE;
+            }
+          if (perm[2] == 'x')
+            {
+              *flags |= MAP_FLAGS_EXECUTABLE;
+            }
+        }
       return 1;
     }
   return 0;

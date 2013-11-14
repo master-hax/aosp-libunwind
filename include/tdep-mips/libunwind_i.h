@@ -39,6 +39,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #include "mempool.h"
 #include "dwarf.h"
 
+/* ANDROID support update. */
+#if defined(__linux__)
+#include "map_info.h"
+#endif
+/* End of ANDROID update. */
+
 typedef struct
   {
     /* no mips-specific fast trace */
@@ -63,6 +69,11 @@ struct unw_addr_space
     unw_word_t dyn_info_list_addr;	/* (cached) dyn_info_list_addr */
     struct dwarf_rs_cache global_cache;
     struct unw_debug_frame_list *debug_frames;
+    /* ANDROID support update. */
+#if defined(__linux__)
+    struct map_info *map_list;
+#endif
+    /* End of ANDROID update. */
 };
 
 #define tdep_big_endian(as)		((as)->big_endian)

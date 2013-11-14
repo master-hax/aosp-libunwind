@@ -32,6 +32,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #include "elf64.h"
 #include "mempool.h"
 
+/* ANDROID support update. */
+#if defined(__linux__)
+#include "map_info.h"
+#endif
+/* End of ANDROID update. */
+
 typedef struct
   {
     /* no ia64-specific fast trace */
@@ -109,6 +115,12 @@ struct unw_addr_space
 #endif
 
     struct ia64_script_cache global_cache;
+
+    /* ANDROID support update. */
+#if defined(__linux__)
+    struct map_info *map_list;
+#endif
+    /* End of ANDROID update. */
    };
 
 /* Note: The ABI numbers in the ABI-markers (.unwabi directive) are
