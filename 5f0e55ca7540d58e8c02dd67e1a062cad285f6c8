@@ -1,0 +1,8 @@
+Code-Review+2: Elliott Hughes <enh@google.com>
+Code-Review+2: Christopher Ferris <cferris@google.com>
+Verified+1: Christopher Ferris <cferris@google.com>
+Submitted-by: Christopher Ferris <cferris@google.com>
+Submitted-at: Fri, 15 Nov 2013 18:32:26 +0000
+Reviewed-on: https://android-review.googlesource.com/70107
+Project: platform/external/libunwind
+Branch: refs/heads/master
