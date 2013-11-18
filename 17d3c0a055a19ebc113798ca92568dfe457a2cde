@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe71ed53_50ea1295",
+        "filename": "include/tdep-aarch64/libunwind_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2013-11-18T17:12:19Z",
+      "side": 1,
+      "message": "i liked what you did in your other patch where you had something more intention-revealing like CONSERVE_STACK. this isn\u0027t just some \"build on Android\" hack, this a useful feature (that i personally can\u0027t imagine not wanting in my stack unwinder --- i feel like i\u0027m most likely to be unwinding stacks when something\u0027s already gone wrong!).",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_f001be95",
+        "filename": "src/aarch64/Ginit.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2013-11-18T17:12:19Z",
+      "side": 1,
+      "message": "it would remove some preprocessor cruft to just have a #if inside maps_is_writable that always returns true on other platforms. (plus i did write equivalent code for Mac OS for art, should we ever need it.)",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e64b999_0b69c154",
+        "filename": "src/hppa/Ginit.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2013-11-18T17:12:19Z",
+      "side": 1,
+      "message": "why do they have so many copies of this? (and what does the first parameter to Debug mean, since that appears to be the only difference so far?)",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_30f8a661",
+        "filename": "src/os-linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2013-11-18T17:12:19Z",
+      "side": 1,
+      "message": "worth logging an error?",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_901ddaf4",
+        "filename": "src/os-linux.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2013-11-18T17:12:19Z",
+      "side": 1,
+      "message": "or there are the regular PROT_* constants.",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
