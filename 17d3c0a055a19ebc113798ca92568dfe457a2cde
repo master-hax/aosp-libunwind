@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e08f1da_a99d890d",
+        "filename": "include/tdep-aarch64/libunwind_i.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2013-11-19T00:50:51Z",
+      "side": 1,
+      "message": "Actually, I like the idea of just making this code part of the normal flow. I\u0027ve sent a note out to the libunwind developers with a patch that just adds this function without any conditional compilation. I\u0027m also going to rewrite this to match this new idea.",
+      "parentUuid": "fe71ed53_50ea1295",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe71ed53_f001be95",
         "filename": "src/aarch64/Ginit.c",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-18T17:12:19Z",
       "side": 1,
       "message": "it would remove some preprocessor cruft to just have a #if inside maps_is_writable that always returns true on other platforms. (plus i did write equivalent code for Mac OS for art, should we ever need it.)",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e08f1da_699411e1",
+        "filename": "src/aarch64/Ginit.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2013-11-19T00:50:51Z",
+      "side": 1,
+      "message": "Agreed. For this code base the way to do this is to add return true versions of these functions to all of the other os-XXX.c files.",
+      "parentUuid": "fe71ed53_f001be95",
       "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5e64b999_f73c4afd",
+        "filename": "src/hppa/Ginit.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2013-11-19T00:50:51Z",
+      "side": 1,
+      "message": "The first argument is a debug level, and it\u0027s completely arbitrary based on the person who wrote the code. For the different arch code, some use slightly different values, which could be accidental or intentional. In the end it probably doesn\u0027t matter.\n\nI\u0027m not sure why there are so many versions of this function, it\u0027s frustrating because I have to change all of these files.",
+      "parentUuid": "5e64b999_0b69c154",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe71ed53_30f8a661",
         "filename": "src/os-linux.c",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "fe71ed53_82eee89c",
+        "filename": "src/os-linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2013-11-19T00:50:51Z",
+      "side": 1,
+      "message": "Sure is.",
+      "parentUuid": "fe71ed53_30f8a661",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe71ed53_901ddaf4",
         "filename": "src/os-linux.h",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2013-11-18T17:12:19Z",
       "side": 1,
       "message": "or there are the regular PROT_* constants.",
+      "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_c2c1503c",
+        "filename": "src/os-linux.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2013-11-19T00:50:51Z",
+      "side": 1,
+      "message": "Originally I was going to expose these globally, so I wanted them to be agnostic.\n\nHowever, is there any chance that these constants would not be available on all linux versions?",
+      "parentUuid": "fe71ed53_901ddaf4",
       "revId": "17d3c0a055a19ebc113798ca92568dfe457a2cde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
