@@ -841,13 +841,8 @@ uncached_dwarf_find_save_locs (struct dwarf_cursor *c)
 HIDDEN int
 dwarf_find_save_locs (struct dwarf_cursor *c)
 {
-#if defined(CONSERVE_STACK)
-  dwarf_reg_state_t *rs_copy;
-#else
-  dwarf_reg_state_t rs_copy_stack;
-  dwarf_reg_state_t *rs_copy = &rs_copy_stack;
-#endif
-  dwarf_reg_state_t *rs;
+  dwarf_state_record_t sr;
+  dwarf_reg_state_t *rs, rs_copy;
   struct dwarf_rs_cache *cache;
   int ret = 0;
   intrmask_t saved_mask;
@@ -865,58 +860,32 @@ dwarf_find_save_locs (struct dwarf_cursor *c)
     }
   else
     {
-#if !defined(CONSERVE_STACK)
-      dwarf_state_record_t sr_stack;
-      dwarf_state_record_t *sr = &sr_stack;
-#else
-      dwarf_state_record_t *sr = (dwarf_state_record_t*)malloc(sizeof(dwarf_state_record_t));
-
-      if (sr == NULL)
-        return -UNW_ENOMEM;
-#endif
-
       if ((ret = fetch_proc_info (c, c->ip, 1)) < 0 ||
-	  (ret = create_state_record_for (c, sr, c->ip)) < 0)
+	  (ret = create_state_record_for (c, &sr, c->ip)) < 0)
 	{
           put_rs_cache (c->as, cache, &saved_mask);
           put_unwind_info (c, &c->pi);
-#if defined(CONSERVE_STACK)
-          free(sr);
-#endif
 	  return ret;
 	}
 
       rs = rs_new (cache, c);
-      memcpy(rs, &sr->rs_current, offsetof(struct dwarf_reg_state, ip));
+      memcpy(rs, &sr.rs_current, offsetof(struct dwarf_reg_state, ip));
       cache->buckets[c->prev_rs].hint = rs - cache->buckets;
 
       c->hint = rs->hint;
       c->prev_rs = rs - cache->buckets;
 
       put_unwind_info (c, &c->pi);
-
-#if defined(CONSERVE_STACK)
-      free(sr);
-#endif
     }
 
-#if defined(CONSERVE_STACK)
-  rs_copy = (dwarf_reg_state_t*)malloc(sizeof(dwarf_reg_state_t));
-  if (rs_copy == NULL)
-    return -UNW_ENOMEM;
-#endif
-
-  memcpy (rs_copy, rs, sizeof (*rs_copy));
+  memcpy (&rs_copy, rs, sizeof (rs_copy));
   put_rs_cache (c->as, cache, &saved_mask);
 
-  tdep_reuse_frame (c, rs_copy);
-  ret = apply_reg_state (c, rs_copy);
+  tdep_reuse_frame (c, &rs_copy);
+  if ((ret = apply_reg_state (c, &rs_copy)) < 0)
+    return ret;
 
-#if defined(CONSERVE_STACK)
-  free(rs_copy);
-#endif
-
-  return ret;
+  return 0;
 }
 
 /* The proc-info must be valid for IP before this routine can be
