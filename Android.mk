@@ -5,6 +5,13 @@ libunwind_cflags := \
 	-DNDEBUG \
 	-D_GNU_SOURCE \
 
+#enable for debug build
+#libunwind_cflags := \
+	-DHAVE_CONFIG_H \
+	-DDEBUG \
+	-D_GNU_SOURCE \
+	-U_FORTIFY_SOURCE
+
 libunwind_includes := \
 	$(LOCAL_PATH)/src \
 	$(LOCAL_PATH)/include \
