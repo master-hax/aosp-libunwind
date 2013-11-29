@@ -87,6 +87,13 @@ unw_step (unw_cursor_t *cursor)
 
       if (!DWARF_IS_NULL_LOC (c->dwarf.loc[EBP]))
 	{
+      /* ANDROID support update. */
+      /* We are assuming ip is always changing in the next frame, otherwise we may get
+         endless unwinding if ip is not zero due to any reason on the last frame.
+         Since dwarf unwinding ends always with attempt to continue unwinding though
+         frame pointer, we should take care of the latter only. */
+	  unw_word_t save_ip = c->dwarf.ip;
+      /* End of ANDROID update. */
 	  ret = dwarf_get (&c->dwarf, c->dwarf.loc[EIP], &c->dwarf.ip);
 	  if (ret < 0)
 	    {
@@ -96,6 +103,15 @@ unw_step (unw_cursor_t *cursor)
 	    }
 	  else
 	    {
+	      /* ANDROID support update. */
+	      /* previous ip is equal to current ip, ip - 1 adjustment is taken into account */
+	      if (save_ip == c->dwarf.ip - 1) {
+		Debug (13, "ip isn't changing on unw_step [EIP=0x%x] = 0x%x, stop unwinding\n",
+		  DWARF_GET_LOC (c->dwarf.loc[EIP]), c->dwarf.ip);
+		Debug (2, "returning 0\n");
+		return 0;
+	      }
+	      /* End of ANDROID update. */
 	      Debug (13, "[EIP=0x%x] = 0x%x\n", DWARF_GET_LOC (c->dwarf.loc[EIP]),
 		c->dwarf.ip);
 	    }
