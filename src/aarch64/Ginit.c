@@ -141,12 +141,12 @@ access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val, int write,
   if (write)
     {
       *(unw_word_t *) addr = *val;
-      Debug (12, "%s <- %x\n", unw_regname (reg), *val);
+      Debug (12, "%s <- %lx\n", unw_regname (reg), *val);
     }
   else
     {
       *val = *(unw_word_t *) addr;
-      Debug (12, "%s -> %x\n", unw_regname (reg), *val);
+      Debug (12, "%s -> %lx\n", unw_regname (reg), *val);
     }
   return 0;
 
