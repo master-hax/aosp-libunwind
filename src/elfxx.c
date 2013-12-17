@@ -25,6 +25,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #include "libunwind_i.h"
+#include "elfxx.h"
 
 #include <stdio.h>
 #include <sys/param.h>
@@ -80,7 +81,7 @@ elf_w (string_table) (struct elf_image *ei, int section)
     }
 
   Debug (16, "strtab=0x%lx\n", (long) str_shdr->sh_offset);
-  return ei->image + str_shdr->sh_offset;
+  return (char*)((uintptr_t)ei->image + str_shdr->sh_offset);
 }
 
 static int
