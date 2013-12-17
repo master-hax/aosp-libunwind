@@ -40,23 +40,25 @@ aarch64_local_resume (unw_addr_space_t as, unw_cursor_t *cursor, void *arg)
     {
       /* Since there are no signals involved here we restore the non scratch
 	 registers only.  */
-      unsigned long regs[11];
-      regs[0] = uc->uc_mcontext.regs[19];
-      regs[1] = uc->uc_mcontext.regs[20];
-      regs[2] = uc->uc_mcontext.regs[21];
-      regs[3] = uc->uc_mcontext.regs[22];
-      regs[4] = uc->uc_mcontext.regs[23];
-      regs[5] = uc->uc_mcontext.regs[24];
-      regs[6] = uc->uc_mcontext.regs[25];
-      regs[7] = uc->uc_mcontext.regs[26];
-      regs[8] = uc->uc_mcontext.regs[27];
-      regs[9] = uc->uc_mcontext.regs[28];
-      regs[10] = uc->uc_mcontext.regs[30]; /* LR */
-      unsigned long sp = uc->uc_mcontext.sp;
+      union {
+        unsigned long r[11];
+        struct {
+            char x[sizeof(unsigned long) * 11];
+        } o;
+      } regs;
 
-      struct regs_overlay {
-        char x[sizeof(regs)];
-      };
+      regs.r[0] = uc->uc_mcontext.regs[19];
+      regs.r[1] = uc->uc_mcontext.regs[20];
+      regs.r[2] = uc->uc_mcontext.regs[21];
+      regs.r[3] = uc->uc_mcontext.regs[22];
+      regs.r[4] = uc->uc_mcontext.regs[23];
+      regs.r[5] = uc->uc_mcontext.regs[24];
+      regs.r[6] = uc->uc_mcontext.regs[25];
+      regs.r[7] = uc->uc_mcontext.regs[26];
+      regs.r[8] = uc->uc_mcontext.regs[27];
+      regs.r[9] = uc->uc_mcontext.regs[28];
+      regs.r[10] = uc->uc_mcontext.regs[30]; /* LR */
+      unsigned long sp = uc->uc_mcontext.sp;
 
       asm volatile (
         "ldp x19, x20, [%0]\n"
@@ -68,9 +70,9 @@ aarch64_local_resume (unw_addr_space_t as, unw_cursor_t *cursor, void *arg)
         "mov sp, %1\n"
         "ret \n"
         :
-        : "r" (regs),
+        : "r" (regs.r),
           "r" (sp),
-          "m" (*(struct regs_overlay *)regs)
+          "m" (regs.o)
       );
     }
   else
