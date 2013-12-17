@@ -100,6 +100,14 @@ _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
 #endif
   return 0;
 }
+#elif HAVE_DECL_PTRACE_GETREGSET && defined(__aarch64__)
+int
+_UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
+		   int write, void *arg)
+{
+  #warning Please implement _UPT_access_fpreg using PTRACE_GETREGSET
+  return -UNW_EBADREG;
+}
 #else
 #error Fix me
 #endif
