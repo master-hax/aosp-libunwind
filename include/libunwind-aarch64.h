@@ -33,7 +33,15 @@ extern "C" {
 
 #include <inttypes.h>
 #include <stddef.h>
+
+#ifndef ANDROID
 #include <ucontext.h>
+#else
+#include <signal.h>
+#include <asm/sigcontext.h>
+#include <asm/ucontext.h>
+typedef struct ucontext ucontext_t;
+#endif
 
 #define UNW_TARGET	aarch64
 #define UNW_TARGET_AARCH64	1
@@ -175,7 +183,12 @@ typedef ucontext_t unw_tdep_context_t;
 #include "libunwind-common.h"
 #include "libunwind-dynamic.h"
 
+#ifdef ANDROID
+#define unw_tdep_getcontext(uc)         (-1)
+#else
 #define unw_tdep_getcontext(uc)         (getcontext (uc), 0)
+#endif
+
 #define unw_tdep_is_fpreg		UNW_ARCH_OBJ(is_fpreg)
 
 extern int unw_tdep_is_fpreg (int);
