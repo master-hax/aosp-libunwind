@@ -135,6 +135,7 @@ LOCAL_SRC_FILES_x86 += \
 
 LOCAL_SHARED_LIBRARIES := \
 	libdl \
+	liblog \
 
 LOCAL_ADDITIONAL_DEPENDENCIES := \
 	$(LOCAL_PATH)/Android.mk \
@@ -168,6 +169,7 @@ LOCAL_SRC_FILES += \
 
 LOCAL_SHARED_LIBRARIES := \
 	libunwind \
+	liblog \
 
 LOCAL_ADDITIONAL_DEPENDENCIES := \
 	$(LOCAL_PATH)/Android.mk \
