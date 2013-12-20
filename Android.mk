@@ -4,28 +4,15 @@ libunwind_cflags := \
 	-DHAVE_CONFIG_H \
 	-DNDEBUG \
 	-D_GNU_SOURCE \
+	-Wno-unused-parameter \
 
 libunwind_includes := \
 	$(LOCAL_PATH)/src \
 	$(LOCAL_PATH)/include \
 
-ifeq ($(TARGET_ARCH),arm)
-libunwind_includes += \
-	$(LOCAL_PATH)/include/tdep-arm \
-
-endif  # arm
-
-ifeq ($(TARGET_ARCH),mips)
-libunwind_includes += \
-	$(LOCAL_PATH)/include/tdep-mips \
-
-endif  # mips
-
-ifeq ($(TARGET_ARCH),x86)
-libunwind_includes += \
-	$(LOCAL_PATH)/include/tdep-x86 \
-
-endif  # x86
+ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),aarch64 arm mips x86))
+libunwind_includes += $(LOCAL_PATH)/include/tdep-$(TARGET_ARCH)
+endif
 
 include $(CLEAR_VARS)
 
@@ -82,103 +69,68 @@ LOCAL_SRC_FILES := \
 	src/dwarf/Gpe.c \
 	src/dwarf/Gstep.c \
 	src/dwarf/global.c \
-	src/elf32.c \
+	src/elfxx.c \
 	src/os-linux.c \
+
+ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),aarch64 arm mips x86))
+LOCAL_SRC_FILES += \
+	src/$(TARGET_ARCH)/is_fpreg.c \
+	src/$(TARGET_ARCH)/regname.c \
+	src/$(TARGET_ARCH)/Gcreate_addr_space.c \
+	src/$(TARGET_ARCH)/Gget_proc_info.c \
+	src/$(TARGET_ARCH)/Gget_save_loc.c \
+	src/$(TARGET_ARCH)/Gglobal.c \
+	src/$(TARGET_ARCH)/Ginit.c \
+	src/$(TARGET_ARCH)/Ginit_local.c \
+	src/$(TARGET_ARCH)/Ginit_remote.c \
+	src/$(TARGET_ARCH)/Gregs.c \
+	src/$(TARGET_ARCH)/Gresume.c \
+	src/$(TARGET_ARCH)/Gstep.c \
+	src/$(TARGET_ARCH)/Lcreate_addr_space.c \
+	src/$(TARGET_ARCH)/Lget_proc_info.c \
+	src/$(TARGET_ARCH)/Lget_save_loc.c \
+	src/$(TARGET_ARCH)/Lglobal.c \
+	src/$(TARGET_ARCH)/Linit.c \
+	src/$(TARGET_ARCH)/Linit_local.c \
+	src/$(TARGET_ARCH)/Linit_remote.c \
+	src/$(TARGET_ARCH)/Lregs.c \
+	src/$(TARGET_ARCH)/Lresume.c \
+	src/$(TARGET_ARCH)/Lstep.c \
+
+endif
+
+ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),aarch64 arm mips))
+LOCAL_SRC_FILES += \
+	src/$(TARGET_ARCH)/Gis_signal_frame.c \
+	src/$(TARGET_ARCH)/Lis_signal_frame.c \
+
+endif
 
 ifeq ($(TARGET_ARCH),arm)
 LOCAL_SRC_FILES += \
-	src/arm/is_fpreg.c \
-	src/arm/regname.c \
 	src/arm/getcontext.S \
-	src/arm/Gcreate_addr_space.c \
-	src/arm/Gget_proc_info.c \
-	src/arm/Gget_save_loc.c \
-	src/arm/Gglobal.c \
-	src/arm/Ginit.c \
-	src/arm/Ginit_local.c \
-	src/arm/Ginit_remote.c \
-	src/arm/Gis_signal_frame.c \
-	src/arm/Gregs.c \
-	src/arm/Gresume.c \
-	src/arm/Gstep.c \
 	src/arm/Gex_tables.c \
-	src/arm/Lcreate_addr_space.c \
-	src/arm/Lget_proc_info.c \
-	src/arm/Lget_save_loc.c \
-	src/arm/Lglobal.c \
-	src/arm/Linit.c \
-	src/arm/Linit_local.c \
-	src/arm/Linit_remote.c \
-	src/arm/Lis_signal_frame.c \
-	src/arm/Lregs.c \
-	src/arm/Lresume.c \
-	src/arm/Lstep.c \
 	src/arm/Lex_tables.c \
 
 endif  # arm
 
 ifeq ($(TARGET_ARCH),mips)
 LOCAL_SRC_FILES += \
-	src/mips/is_fpreg.c \
-	src/mips/regname.c \
 	src/mips/getcontext-android.S \
-	src/mips/Gcreate_addr_space.c \
-	src/mips/Gget_proc_info.c \
-	src/mips/Gget_save_loc.c \
-	src/mips/Gglobal.c \
-	src/mips/Ginit.c \
-	src/mips/Ginit_local.c \
-	src/mips/Ginit_remote.c \
-	src/mips/Gis_signal_frame.c \
-	src/mips/Gregs.c \
-	src/mips/Gresume.c \
-	src/mips/Gstep.c \
-	src/mips/Lcreate_addr_space.c \
-	src/mips/Lget_proc_info.c \
-	src/mips/Lget_save_loc.c \
-	src/mips/Lglobal.c \
-	src/mips/Linit.c \
-	src/mips/Linit_local.c \
-	src/mips/Linit_remote.c \
-	src/mips/Lis_signal_frame.c \
-	src/mips/Lregs.c \
-	src/mips/Lresume.c \
-	src/mips/Lstep.c \
 
-endif  # mips
+endif
 
 ifeq ($(TARGET_ARCH),x86)
 LOCAL_SRC_FILES += \
-	src/x86/is_fpreg.c \
-	src/x86/regname.c \
 	src/x86/getcontext-linux.S \
-	src/x86/Gcreate_addr_space.c \
-	src/x86/Gget_proc_info.c \
-	src/x86/Gget_save_loc.c \
-	src/x86/Gglobal.c \
-	src/x86/Ginit.c \
-	src/x86/Ginit_local.c \
-	src/x86/Ginit_remote.c \
-	src/x86/Gregs.c \
-	src/x86/Gresume.c \
-	src/x86/Gstep.c \
 	src/x86/Gos-linux.c \
-	src/x86/Lcreate_addr_space.c \
-	src/x86/Lget_proc_info.c \
-	src/x86/Lget_save_loc.c \
-	src/x86/Lglobal.c \
-	src/x86/Linit.c \
-	src/x86/Linit_local.c \
-	src/x86/Linit_remote.c \
-	src/x86/Lregs.c \
-	src/x86/Lresume.c \
-	src/x86/Lstep.c \
 	src/x86/Los-linux.c \
 
 endif  # x86
 
 LOCAL_SHARED_LIBRARIES := \
 	libdl \
+	liblog \
 
 LOCAL_ADDITIONAL_DEPENDENCIES := \
 	$(LOCAL_PATH)/Android.mk \
@@ -210,6 +162,7 @@ LOCAL_SRC_FILES += \
 
 LOCAL_SHARED_LIBRARIES := \
 	libunwind \
+	liblog \
 
 LOCAL_ADDITIONAL_DEPENDENCIES := \
 	$(LOCAL_PATH)/Android.mk \
