@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dd609da_c5f6ba04",
+        "filename": "src/x86/Gstep.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-01-08T00:19:54Z",
+      "side": 1,
+      "message": "through",
+      "range": {
+        "startLine": 93,
+        "startChar": 78,
+        "endLine": 93,
+        "endChar": 84
+      },
+      "revId": "a2a4ef23f69ab87e20771c543a74554b1ee626bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
