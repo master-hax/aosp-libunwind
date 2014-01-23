@@ -32,6 +32,8 @@ unw_destroy_addr_space (unw_addr_space_t as)
 # if UNW_DEBUG
   memset (as, 0, sizeof (*as));
 # endif
+  if (as->map_list)
+    maps_destroy_list(as->map_list);
   free (as);
 #endif
 }
