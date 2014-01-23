@@ -168,6 +168,7 @@ mempool_alloc (struct mempool *pool)
     pool->free_list = obj->next;
   }
   lock_release (&pool->lock, saved_mask);
+  printf("mempool_alloc %p\n", obj);
   return obj;
 }
 
@@ -176,6 +177,7 @@ mempool_free (struct mempool *pool, void *object)
 {
   intrmask_t saved_mask;
 
+  printf("mempool_free %p\n", object);
   lock_acquire (&pool->lock, saved_mask);
   {
     free_object (pool, object);
