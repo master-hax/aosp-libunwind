@@ -34,6 +34,24 @@
       "revId": "16b95a68caaa7e021209e2cd6a877ae1e558f740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fa0681_ec59cbef",
+        "filename": "include/map_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-01-25T00:47:28Z",
+      "side": 1,
+      "message": "no, i just didn\u0027t notice that. i noticed the other file was ours, but not this one for some reason. sorry!",
+      "parentUuid": "12eebac6_0d71b166",
+      "revId": "16b95a68caaa7e021209e2cd6a877ae1e558f740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
