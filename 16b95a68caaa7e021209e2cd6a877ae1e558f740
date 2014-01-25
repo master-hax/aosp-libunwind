@@ -16,6 +16,24 @@
       "revId": "16b95a68caaa7e021209e2cd6a877ae1e558f740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12eebac6_0d71b166",
+        "filename": "include/map_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-01-25T00:42:21Z",
+      "side": 1,
+      "message": "This is a completely new file created only for android. I didn\u0027t mark the maps.c file either, would you like me to add something at the top of the file to indicate this is a file only created for android?",
+      "parentUuid": "d2f7c297_0b187d5e",
+      "revId": "16b95a68caaa7e021209e2cd6a877ae1e558f740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
