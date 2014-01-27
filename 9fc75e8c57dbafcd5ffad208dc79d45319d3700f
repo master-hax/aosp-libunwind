@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2fa0681_52223488",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-01-27T06:00:59Z",
+      "side": 1,
+      "message": "Is there a better way to get at the aarch64 arch name?",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "9fc75e8c57dbafcd5ffad208dc79d45319d3700f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
