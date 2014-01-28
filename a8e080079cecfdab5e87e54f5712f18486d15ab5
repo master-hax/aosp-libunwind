@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2996e85_dbf81ff1",
+        "filename": "include/config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-01-28T21:36:26Z",
+      "side": 1,
+      "message": "Is this really true? I don\u0027t see any reason that ptrace wouldn\u0027t work on aarch64.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "a8e080079cecfdab5e87e54f5712f18486d15ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2996e85_3be04b38",
+        "filename": "src/ptrace/_UPT_access_fpreg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-01-28T21:36:26Z",
+      "side": 1,
+      "message": "You should really only have this depend on the config variable. Since this variable is only set for aarch64, it doesn\u0027t need to be checked twice.",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 103,
+        "endChar": 32
+      },
+      "revId": "a8e080079cecfdab5e87e54f5712f18486d15ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
