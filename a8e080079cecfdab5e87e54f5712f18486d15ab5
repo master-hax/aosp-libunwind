@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d2f7c297_2d18e45e",
+        "filename": "include/config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-01-28T21:42:25Z",
+      "side": 1,
+      "message": "aiui, it\u0027s not that arm64 kernels don\u0027t support PTRACE_POKEUSR, it\u0027s that you can\u0027t access _registers_ that way, which is what libunwind (and strace before it) actually want to do.",
+      "parentUuid": "b2996e85_dbf81ff1",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "a8e080079cecfdab5e87e54f5712f18486d15ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2996e85_3be04b38",
         "filename": "src/ptrace/_UPT_access_fpreg.c",
         "patchSetId": 2
