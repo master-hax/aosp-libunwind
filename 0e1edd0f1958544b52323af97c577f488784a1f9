@@ -16,6 +16,24 @@
       "revId": "0e1edd0f1958544b52323af97c577f488784a1f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "929c6a85_e106c638",
+        "filename": "src/x86_64/Gos-linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1010578
+      },
+      "writtenOn": "2014-01-29T07:44:45Z",
+      "side": 1,
+      "message": "Done. Please see comment with reference to bionic patch.",
+      "parentUuid": "ad266df6_ad0229cf",
+      "revId": "0e1edd0f1958544b52323af97c577f488784a1f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
