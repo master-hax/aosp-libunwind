@@ -26,7 +26,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #include "_UPT_internal.h"
 
-#if HAVE_DECL_PTRACE_POKEUSER || HAVE_TTRACE
+#if (HAVE_DECL_PTRACE_POKEUSER || HAVE_TTRACE) && !defined(__aarch64__)
 int
 _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
 		   int write, void *arg)
@@ -66,7 +66,7 @@ _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
       }
   return 0;
 }
-#elif HAVE_DECL_PT_GETFPREGS
+#elif HAVE_DECL_PT_GETFPREGS && !defined(__aarch64__)
 int
 _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
 		   int write, void *arg)
@@ -99,6 +99,14 @@ _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
 #error Fix me
 #endif
   return 0;
+}
+#elif defined(__aarch64__)
+int
+_UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
+		   int write, void *arg)
+{
+  #warning Please implement _UPT_access_fpreg using PTRACE_GETREGSET
+  return -UNW_EBADREG;
 }
 #else
 #error Fix me
