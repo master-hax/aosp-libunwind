@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d2b1820e_7b637f73",
+        "filename": "include/config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1038054
+      },
+      "writtenOn": "2014-01-29T17:40:40Z",
+      "side": 1,
+      "message": "Yes. Accessing regs is the only use of PTRACE_{PEEK,POKE}USER in libunwind but I agree it\u0027s not the clearest way of presenting things. I\u0027ll change it.",
+      "parentUuid": "d2f7c297_2d18e45e",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "a8e080079cecfdab5e87e54f5712f18486d15ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2996e85_3be04b38",
         "filename": "src/ptrace/_UPT_access_fpreg.c",
         "patchSetId": 2
@@ -60,6 +84,30 @@
       "writtenOn": "2014-01-28T21:36:26Z",
       "side": 1,
       "message": "You should really only have this depend on the config variable. Since this variable is only set for aarch64, it doesn\u0027t need to be checked twice.",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 103,
+        "endChar": 32
+      },
+      "revId": "a8e080079cecfdab5e87e54f5712f18486d15ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "929c6a85_c15862c9",
+        "filename": "src/ptrace/_UPT_access_fpreg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1038054
+      },
+      "writtenOn": "2014-01-29T17:40:40Z",
+      "side": 1,
+      "message": "Yes, I did this for symmetry with src/ptrace/_UPT_access_reg.c where the implementation is aarch64-specific. I will get rid of the variable altogether.",
+      "parentUuid": "b2996e85_3be04b38",
       "range": {
         "startLine": 103,
         "startChar": 6,
