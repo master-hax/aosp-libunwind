@@ -34,7 +34,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 # include "tdep-ia64/rse.h"
 #endif
 
-#if HAVE_DECL_PTRACE_POKEUSER || HAVE_TTRACE
+#if (HAVE_DECL_PTRACE_POKEUSER || HAVE_TTRACE) && !defined(__aarch64__)
 int
 _UPT_access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val,
 		 int write, void *arg)
@@ -316,7 +316,7 @@ _UPT_access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val,
   Debug (1, "bad register %s [%u] (error: %s)\n", unw_regname(reg), reg, strerror (errno));
   return -UNW_EBADREG;
 }
-#elif HAVE_DECL_PT_GETREGS
+#elif HAVE_DECL_PT_GETREGS && !defined(__aarch64__)
 int
 _UPT_access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val,
 		 int write, void *arg)
@@ -350,6 +350,58 @@ _UPT_access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val,
 
  badreg:
   Debug (1, "bad register %s [%u] (error: %s)\n", unw_regname(reg), reg, strerror (errno));
+  return -UNW_EBADREG;
+}
+#elif defined(__aarch64__)
+#include <sys/uio.h>
+int
+_UPT_access_reg (unw_addr_space_t as, unw_regnum_t reg, unw_word_t *val,
+		 int write, void *arg)
+{
+  struct UPT_info *ui = arg;
+  pid_t pid = ui->pid;
+  struct user_pt_regs r;
+  struct iovec io;
+  io.iov_base = &r;
+  io.iov_len = sizeof(r);
+
+#if UNW_DEBUG
+  Debug(16, "using getregset: reg: %s [%u], val: %lx, write: %u\n",
+        unw_regname(reg), (unsigned) reg, (long) val, write);
+
+  if (write)
+    Debug (16, "%s [%u] <- %lx\n", unw_regname (reg), (unsigned) reg, (long) *val);
+#endif
+
+  if (ptrace(PTRACE_GETREGSET, pid, (void*)NT_PRSTATUS, (void*)&io) == -1)
+    goto badreg;
+
+  if (write) {
+    if (reg == UNW_AARCH64_SP) {
+        r.sp = *val;
+    } else if (reg == UNW_AARCH64_PC) {
+        r.pc = *val;
+    } else {
+        r.regs[reg] = *val;
+    }
+    if (ptrace(PTRACE_SETREGSET, pid, (void*)NT_PRSTATUS, (void*)&io) == -1)
+        goto badreg;
+  } else {
+      if (reg == UNW_AARCH64_SP) {
+        *val = r.sp;
+      } else if (reg == UNW_AARCH64_PC) {
+        *val = r.pc;
+      } else {
+        *val = r.regs[reg];
+      }
+      Debug(16, "%s: %s = %lx\n", __func__, unw_regname(reg), *val);
+  }
+
+  return 0;
+
+ badreg:
+  Debug (1, "bad register %s [%u] (error: %s)\n",
+         unw_regname(reg), reg, strerror (errno));
   return -UNW_EBADREG;
 }
 #else
