@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92870a29_26a2ef13",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2014-01-30T23:32:05Z",
+      "side": 1,
+      "message": "I\u0027d prefer to factor out build as a seprate .mk file and include it here, instead of calling $(eval). $(eval) is much slower than include. Also the double $$ makes it less readable.",
+      "revId": "321d190f669d9c8838b879364588164eee69c495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
