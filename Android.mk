@@ -1,6 +1,98 @@
 LOCAL_PATH := $(call my-dir)
 
-libunwind_cflags := \
+build_host := false
+ifeq ($(HOST_OS),linux)
+ifeq ($(HOST_ARCH),$(filter $(HOST_ARCH),x86 x86_64))
+build_host := true
+endif
+endif
+
+# Function to build a target
+# $(1): module
+# $(2): module tag
+# $(3): build type (host or target)
+# $(4): build target (SHARED_LIBRARY, NATIVE_TEST, etc)
+define build
+  module := $(1)
+  module_tag := $(2)
+  build_type := $(3)
+  build_target := $(4)
+
+  include $(CLEAR_VARS)
+
+  LOCAL_MODULE := $$(module)
+  LOCAL_MODULE_TAGS := $$(module_tag)
+
+  LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+
+  LOCAL_CFLAGS := \
+    $$(common_cflags) \
+    $$($$(module)_cflags) \
+    $$($$(module)_cflags_$$(build_type)) \
+
+  LOCAL_ASFLAGS := \
+    $$(common_asflags) \
+    $$($$(module)_asflags) \
+    $$($$(module)_asflags_$$(build_type)) \
+
+  LOCAL_CONLYFLAGS += \
+    $$(common_conlyflags) \
+    $$($$(module)_conlyflags) \
+    $$($$(module)_conlyflags_$$(build_type)) \
+
+  LOCAL_CPPFLAGS += \
+    $$(common_cppflags) \
+    $$($$(module)_cppflags) \
+    $$($$(module)_cppflags_$$(build_type)) \
+
+  LOCAL_C_INCLUDES := \
+    $$(common_c_includes) \
+    $$($$(module)_c_includes) \
+    $$($$(module)_c_includes_$$(build_type)) \
+
+  ifneq ($$(build_type),host)
+  	$$(foreach arch,$$(libunwind_arches), \
+      $$(eval LOCAL_C_INCLUDES_$$(arch) := $$(common_c_includes_$$(arch))))
+  else
+    $$(eval LOCAL_C_INCLUDES += $$(common_c_includes_$$(HOST_ARCH)))
+  endif
+
+  LOCAL_SRC_FILES := \
+    $$($$(module)_src_files) \
+    $$($$(module)_src_files_$$(build_type)) \
+
+  ifneq ($$(build_type),host)
+    $$(foreach arch,$$(libunwind_arches), \
+      $$(eval LOCAL_SRC_FILES_$$(arch) :=  $$($$(module)_src_files_$$(arch))))
+  else
+    $$(eval LOCAL_SRC_FILES +=  $$($$(module)_src_files_$$(HOST_ARCH)))
+  endif
+
+  LOCAL_STATIC_LIBRARIES := \
+    $$($$(module)_static_libraries) \
+    $$($$(module)_static_libraries_$$(build_type)) \
+
+  LOCAL_SHARED_LIBRARIES := \
+    $$($$(module)_shared_libraries) \
+    $$($$(module)_shared_libraries_$$(build_type)) \
+
+  LOCAL_LDLIBS := \
+    $$($$(module)_ldlibs) \
+    $$($$(module)_ldlibs_$$(build_type)) \
+
+  ifeq ($$(build_type),target)
+    include $$(BUILD_$$(build_target))
+  endif
+
+  ifeq ($$(build_type),host)
+    # Only build if host builds are supported.
+    ifeq ($$(build_host),true)
+      include $$(BUILD_HOST_$$(build_target))
+    endif
+  endif
+endef
+
+common_cflags := \
 	-DHAVE_CONFIG_H \
 	-DNDEBUG \
 	-D_GNU_SOURCE \
@@ -9,13 +101,13 @@ libunwind_cflags := \
 # For debug build it is required:
 #  1. Enable flags below
 #  2. On runtime export UNW_DEBUG_LEVEL=x where x controls verbosity (from 1 to 20)
-#libunwind_cflags := \
-	-DHAVE_CONFIG_H \
-	-DDEBUG \
-	-D_GNU_SOURCE \
-	-U_FORTIFY_SOURCE
+#common_cflags := \
+#	-DHAVE_CONFIG_H \
+#	-DDEBUG \
+#	-D_GNU_SOURCE \
+#	-U_FORTIFY_SOURCE
 
-libunwind_includes := \
+common_c_includes := \
 	$(LOCAL_PATH)/src \
 	$(LOCAL_PATH)/include \
 
@@ -25,16 +117,13 @@ endef
 
 libunwind_arches := arm arm64 mips x86 x86_64
 
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libunwind
-
-LOCAL_CFLAGS += $(libunwind_cflags)
-LOCAL_C_INCLUDES := $(libunwind_includes)
 $(foreach arch,$(libunwind_arches), \
-  $(eval LOCAL_C_INCLUDES_$(arch) := $(LOCAL_PATH)/include/tdep-$(call libunwind-arch,$(arch))))
+  $(eval common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(call libunwind-arch,$(arch))))
 
-LOCAL_SRC_FILES := \
+#-----------------------------------------------------------------------
+# libunwind shared library
+#-----------------------------------------------------------------------
+libunwind_src_files := \
 	src/mi/init.c \
 	src/mi/flush_cache.c \
 	src/mi/mempool.c \
@@ -85,18 +174,9 @@ LOCAL_SRC_FILES := \
 	src/dwarf/global.c \
 	src/os-linux.c \
 
-# 64-bit architectures
-LOCAL_SRC_FILES_arm64 += src/elf64.c
-LOCAL_SRC_FILES_x86_64 += src/elf64.c
-
-# 32-bit architectures
-LOCAL_SRC_FILES_arm   += src/elf32.c
-LOCAL_SRC_FILES_mips  += src/elf32.c
-LOCAL_SRC_FILES_x86   += src/elf32.c
-
 # Arch specific source files.
 $(foreach arch,$(libunwind_arches), \
-  $(eval LOCAL_SRC_FILES_$(arch) += \
+  $(eval libunwind_src_files_$(arch) += \
 	src/$(call libunwind-arch,$(arch))/is_fpreg.c \
 	src/$(call libunwind-arch,$(arch))/regname.c \
 	src/$(call libunwind-arch,$(arch))/Gcreate_addr_space.c \
@@ -121,29 +201,37 @@ $(foreach arch,$(libunwind_arches), \
 	src/$(call libunwind-arch,$(arch))/Lstep.c \
 	))
 
-LOCAL_SRC_FILES_arm += \
+# 64-bit architectures
+libunwind_src_files_arm64 += src/elf64.c
+libunwind_src_files_x86_64 += src/elf64.c
+
+# 32-bit architectures
+libunwind_src_files_arm   += src/elf32.c
+libunwind_src_files_mips  += src/elf32.c
+libunwind_src_files_x86   += src/elf32.c
+
+libunwind_src_files_arm += \
 	src/arm/getcontext.S \
 	src/arm/Gis_signal_frame.c \
 	src/arm/Gex_tables.c \
 	src/arm/Lis_signal_frame.c \
 	src/arm/Lex_tables.c \
 
-LOCAL_SRC_FILES_arm64 += \
+libunwind_src_files_arm64 += \
 	src/aarch64/Gis_signal_frame.c \
 	src/aarch64/Lis_signal_frame.c \
 
-LOCAL_SRC_FILES_mips += \
+libunwind_src_files_mips += \
 	src/mips/getcontext-android.S \
 	src/mips/Gis_signal_frame.c \
 	src/mips/Lis_signal_frame.c \
 
-
-LOCAL_SRC_FILES_x86 += \
+libunwind_src_files_x86 += \
 	src/x86/getcontext-linux.S \
 	src/x86/Gos-linux.c \
 	src/x86/Los-linux.c \
 
-LOCAL_SRC_FILES_x86_64 += \
+libunwind_src_files_x86_64 += \
 	src/x86_64/getcontext.S \
 	src/x86_64/Gstash_frame.c \
 	src/x86_64/Gtrace.c \
@@ -153,25 +241,16 @@ LOCAL_SRC_FILES_x86_64 += \
 	src/x86_64/Los-linux.c \
 	src/x86_64/setcontext.S \
 
-LOCAL_SHARED_LIBRARIES := \
+libunwind_shared_libraries_target := \
 	libdl \
 
-LOCAL_ADDITIONAL_DEPENDENCIES := \
-	$(LOCAL_PATH)/Android.mk \
+$(eval $(call build,libunwind,optional,target,SHARED_LIBRARY))
+$(eval $(call build,libunwind,optional,host,SHARED_LIBRARY))
 
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libunwind-ptrace
-
-LOCAL_CFLAGS += $(libunwind_cflags)
-LOCAL_C_INCLUDES := $(libunwind_includes)
-$(foreach arch,$(libunwind_arches), \
-  $(eval LOCAL_C_INCLUDES_$(arch) := $(LOCAL_PATH)/include/tdep-$(call libunwind-arch,$(arch))))
-
-# Files needed to trace running processes.
-LOCAL_SRC_FILES += \
+#-----------------------------------------------------------------------
+# libunwind-ptrace shared library
+#-----------------------------------------------------------------------
+libunwind-ptrace_src_files := \
 	src/ptrace/_UPT_elf.c \
 	src/ptrace/_UPT_accessors.c \
 	src/ptrace/_UPT_access_fpreg.c \
@@ -186,10 +265,8 @@ LOCAL_SRC_FILES += \
 	src/ptrace/_UPT_reg_offset.c \
 	src/ptrace/_UPT_resume.c \
 
-LOCAL_SHARED_LIBRARIES := \
+libunwind-ptrace_shared_libraries := \
 	libunwind \
 
-LOCAL_ADDITIONAL_DEPENDENCIES := \
-	$(LOCAL_PATH)/Android.mk \
-
-include $(BUILD_SHARED_LIBRARY)
+$(eval $(call build,libunwind-ptrace,optional,target,SHARED_LIBRARY))
+$(eval $(call build,libunwind-ptrace,optional,host,SHARED_LIBRARY))
