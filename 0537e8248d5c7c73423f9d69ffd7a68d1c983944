@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12731a25_abeb0d19",
+        "filename": "include/libunwind-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-01-30T17:55:48Z",
+      "side": 1,
+      "message": "we\u0027ve added \u003cucontext.h\u003e to bionic now. we have glibc source-compatible declarations for other architectures, and should add aarch64 if you\u0027ve settled on layout and names for glibc already.\n\n(but we can do that afterwards as a separate patch. i just want you to understand that our aim is that we should be able to build stuff like this out of the box.)",
+      "revId": "0537e8248d5c7c73423f9d69ffd7a68d1c983944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
