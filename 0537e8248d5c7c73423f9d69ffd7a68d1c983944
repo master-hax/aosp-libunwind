@@ -34,6 +34,24 @@
       "revId": "0537e8248d5c7c73423f9d69ffd7a68d1c983944",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f26f6639_0df99968",
+        "filename": "include/libunwind-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-01-31T18:17:45Z",
+      "side": 1,
+      "message": "thanks. one of the v8 guys added an arm64 ucontext_t to bionic the other day, but it would be good to have someone from ARM check it over.",
+      "parentUuid": "d2b1820e_fe541d45",
+      "revId": "0537e8248d5c7c73423f9d69ffd7a68d1c983944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
