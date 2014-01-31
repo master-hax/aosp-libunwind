@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12d6ba3f_d3b5cc63",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2014-01-31T04:01:20Z",
+      "side": 1,
+      "message": "Why not just rename the path?",
+      "revId": "7b147f4ae19f613136312ebbad892dd3e22c7a85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12d6ba3f_b3ba4052",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2014-01-31T04:01:20Z",
+      "side": 1,
+      "message": "If we still need the function, it\u0027s better to just call it once:\n$(eval libunwind_arch :\u003d $(call ibunwind-arch,$(arch))) \\\n$(eval libunwind_src_files_$(arch) +\u003d \\\n           src/$(libunwind_arch)/is_fpreg.c \\\n           ...\n))",
+      "revId": "7b147f4ae19f613136312ebbad892dd3e22c7a85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
