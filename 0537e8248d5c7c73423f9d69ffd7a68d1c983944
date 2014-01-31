@@ -16,6 +16,24 @@
       "revId": "0537e8248d5c7c73423f9d69ffd7a68d1c983944",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2b1820e_fe541d45",
+        "filename": "include/libunwind-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1038054
+      },
+      "writtenOn": "2014-01-31T18:00:24Z",
+      "side": 1,
+      "message": "I\u0027ve done a revised version, along with a patch to bionic. They\u0027re currently on their way to AOSP.",
+      "parentUuid": "12731a25_abeb0d19",
+      "revId": "0537e8248d5c7c73423f9d69ffd7a68d1c983944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
