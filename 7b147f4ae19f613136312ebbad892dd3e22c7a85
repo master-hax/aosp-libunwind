@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "12731a25_6e0843bc",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-01-31T08:26:02Z",
+      "side": 1,
+      "message": "I removed the call and add a single subst call for the arm64 targets.",
+      "parentUuid": "12d6ba3f_d3b5cc63",
+      "revId": "7b147f4ae19f613136312ebbad892dd3e22c7a85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12d6ba3f_b3ba4052",
         "filename": "Android.mk",
         "patchSetId": 3
