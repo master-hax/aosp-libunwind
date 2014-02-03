@@ -52,6 +52,24 @@
       "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d24d0211_5bcb0360",
+        "filename": "include/libunwind_i.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1038054
+      },
+      "writtenOn": "2014-02-03T19:37:52Z",
+      "side": 1,
+      "message": "\u003ethe fact that you can build libunwind with glibc seems like a pretty clear sign to me that this is our bug :-)\n\nGood point :-).\n\n\u003ei\u0027m not sure why it works with glibc.\n\nLooking at glibc\u0027s source code it seems to be because they don\u0027t use the inline keyword but __inline.\n\n\u003eit just adds an extra round-trip time -- one that\u0027s often a day or longer\n\ndifferent timezones ... J",
+      "parentUuid": "f2e2061a_468356ed",
+      "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
