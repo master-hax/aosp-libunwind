@@ -34,6 +34,24 @@
       "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2e2061a_468356ed",
+        "filename": "include/libunwind_i.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-02-03T19:10:51Z",
+      "side": 1,
+      "message": "the fact that you can build libunwind with glibc seems like a pretty clear sign to me that this is our bug :-)\n\nyou raise good questions though. i\u0027m not sure why it works with glibc.\n\ni was assuming cferris would write the comment. with AOSP patches it doesn\u0027t make much sense to have the original uploader fix nits; it just adds an extra round-trip time -- one that\u0027s often a day or longer -- to something we could do ourselves in a couple of minutes.",
+      "parentUuid": "3202de8d_494b6547",
+      "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
