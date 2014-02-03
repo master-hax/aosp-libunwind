@@ -16,6 +16,24 @@
       "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3202de8d_494b6547",
+        "filename": "include/libunwind_i.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1038054
+      },
+      "writtenOn": "2014-02-03T18:41:57Z",
+      "side": 1,
+      "message": "That\u0027s what I first thought but looking at the definition of __BIONIC_FORTIFY_INLINE I concluded that the issue was that the redefinition of inline was polluting fcntl.h and that \"__attribute__ ((gnu_inline))\" needed the inline keyword to work properly (the symptoms were simple: impossible to use fcntl.h because of __builtin_va_arg_pack_len macros which *have to* be in an inlined function. Your conclusion might be different but I genuinely think the problem is to be fixed in libunwind.\n\nYet I was puzzled with the definition of __BIONIC_FORTIFY_INLINE: doesn\u0027t \"__attribute__ ((gnu_inline))\" imply \"__attribute__ ((always_inline))\"?\n\nAlso, I cannot access the URL to the bug. Could you give me an externally accessible one please?\n\nFinally, what kind of comment would you like to see here (if you still think there should be one)?",
+      "parentUuid": "f2e2061a_fbd77b8e",
+      "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
