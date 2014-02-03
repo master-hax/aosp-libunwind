@@ -88,6 +88,24 @@
       "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2f8a2d4_4398e6eb",
+        "filename": "include/libunwind_i.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1038054
+      },
+      "writtenOn": "2014-02-03T20:15:12Z",
+      "side": 1,
+      "message": "\u003ebut switching to __inline (or __inline__?) seems like an easy fix\n\nuntil a package tries to use it not to interfere with inline or __inline__ :-)\n\nI\u0027m starting to think the proper fix would be to replace all occurrences of inline by something like unw_inline in libunwind and do the magic only on this. I don\u0027t think it\u0027s sane to replace a C99 keyword with some other preprocessor definitions but that could mean some merge pain when you will want to sync with upstream libunwind unless you can get the change there.\n\n\u003e(i wasn\u0027t blaming you or other AOSP contributors for delays; just pointing out that they\u0027re inevitable. even if someone\u0027s in the same time zone and has no other work to do, stuff like comments and whitespace and the like take more time to explain than they take to just fix!)\n\nNo worries. As long as you\u0027re preserving authors for commits (like you seem to be doing) I\u0027ve got absolutely no problem with that.",
+      "parentUuid": "b20eceb3_44010263",
+      "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
