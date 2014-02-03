@@ -70,6 +70,24 @@
       "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b20eceb3_44010263",
+        "filename": "include/libunwind_i.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-02-03T19:52:36Z",
+      "side": 1,
+      "message": "yeah, i just saw __inline but i\u0027m not sure where that comes from. seems like only \"inline\" and \"__inline__\" are mentioned in the GCC documentation, but switching to __inline (or __inline__?) seems like an easy fix. i\u0027ll try that this afternoon if you you don\u0027t beat me to it...\n\n(i wasn\u0027t blaming you or other AOSP contributors for delays; just pointing out that they\u0027re inevitable. even if someone\u0027s in the same time zone and has no other work to do, stuff like comments and whitespace and the like take more time to explain than they take to just fix!)",
+      "parentUuid": "d24d0211_5bcb0360",
+      "revId": "05a7196f90d5e94da267c24ddcbc05238ee4b7cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
