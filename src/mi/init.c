@@ -46,6 +46,7 @@ mi_init (void)
 #if UNW_DEBUG
   const char *str = getenv ("UNW_DEBUG_LEVEL");
 
+#ifndef ANDROID
   if (str)
     unwi_debug_level = atoi (str);
 
@@ -54,6 +55,9 @@ mi_init (void)
       setbuf (stdout, NULL);
       setbuf (stderr, NULL);
     }
+#else
+  unwi_debug_level = 16;
+#endif
 #endif
 
   assert (sizeof (struct cursor) <= sizeof (unw_cursor_t));

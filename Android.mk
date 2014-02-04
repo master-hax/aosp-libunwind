@@ -173,6 +173,7 @@ libunwind_src_files_x86_64 += \
 
 libunwind_shared_libraries_target := \
 	libdl \
+	liblog \
 
 module := libunwind
 module_tag := optional
@@ -202,6 +203,7 @@ libunwind-ptrace_src_files := \
 
 libunwind-ptrace_shared_libraries := \
 	libunwind \
+	liblog \
 
 module := libunwind-ptrace
 module_tag := optional
