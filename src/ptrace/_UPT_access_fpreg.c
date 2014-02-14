@@ -71,6 +71,7 @@ int
 _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
 		   int write, void *arg)
 {
+#if !defined(__mips__) && !defined(__aarch64__)
   struct UPT_info *ui = arg;
   pid_t pid = ui->pid;
   fpregset_t fpreg;
@@ -99,6 +100,10 @@ _UPT_access_fpreg (unw_addr_space_t as, unw_regnum_t reg, unw_fpreg_t *val,
 #error Fix me
 #endif
   return 0;
+#else
+  #warning _UPT_access_fpreg is not implemented
+  return -UNW_EBADREG;
+#endif
 }
 #else
 #error Fix me
