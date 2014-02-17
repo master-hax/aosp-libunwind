@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f8b8d70_5090ccf4",
+        "filename": "include/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-02-17T19:35:11Z",
+      "side": 1,
+      "message": "so the name\u0027s really a lie? we have the declarations, but they\u0027re not what we want to use.\n\ncan/should we switch everyone over to GETREGSET? seems odd to have all three possibilities in use --- read the user struct, using GETREGS, and using GETREGSET. does libunwind actually support all the possibilities for all the kernels? (where they exist; obviously for aarch64 we _only_ have GETREGSET.)",
+      "revId": "618bbe51580f7f76417d14fc559adf990203fbc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf26394f_339748ec",
+        "filename": "src/ptrace/_UPT_access_fpreg.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-02-17T19:35:11Z",
+      "side": 1,
+      "message": "why do you need this? doesn\u0027t the HAVE_DECL_PT_GETFPREGS take care of this?",
+      "revId": "618bbe51580f7f76417d14fc559adf990203fbc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf26394f_d384d4b4",
+        "filename": "src/ptrace/_UPT_access_reg.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-02-17T19:35:11Z",
+      "side": 1,
+      "message": "are we missing a gregset_t definition for mips in bionic? looks like our definition matches glibc (or claims to anyway) and only covers the \u0027regs\u0027 but you need epc too. is that odd? does libunwind really not build for mips against glibc? what C library are they expecting for mips then?",
+      "revId": "618bbe51580f7f76417d14fc559adf990203fbc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
