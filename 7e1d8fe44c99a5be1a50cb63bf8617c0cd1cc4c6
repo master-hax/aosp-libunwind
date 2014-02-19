@@ -16,6 +16,24 @@
       "revId": "7e1d8fe44c99a5be1a50cb63bf8617c0cd1cc4c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef15bdf4_142e54b9",
+        "filename": "src/ptrace/_UPT_access_mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-02-19T23:59:16Z",
+      "side": 1,
+      "message": "That\u0027s a fair point, I\u0027ve changed it to 32 (I left the one above at sizeof long though.",
+      "parentUuid": "2f1c351e_5628d4aa",
+      "revId": "7e1d8fe44c99a5be1a50cb63bf8617c0cd1cc4c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
