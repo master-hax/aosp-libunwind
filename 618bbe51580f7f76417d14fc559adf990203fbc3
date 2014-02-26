@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "1cf89137_d081c5e5",
+        "filename": "include/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-02-26T00:13:25Z",
+      "side": 1,
+      "message": "PTRACE_POKEUSR (which is mapped to PTRACE_POKEUSER) is defined in bionic/libc/kernel/uapi/linux/ptrace.h. It makes sense that it\u0027s always defined regardless of architecture though.",
+      "parentUuid": "1cf89137_b0e3d9f7",
+      "revId": "618bbe51580f7f76417d14fc559adf990203fbc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf26394f_339748ec",
         "filename": "src/ptrace/_UPT_access_fpreg.c",
         "patchSetId": 1
