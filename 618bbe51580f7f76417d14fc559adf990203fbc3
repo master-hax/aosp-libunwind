@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "1cf89137_b03879b3",
+        "filename": "include/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-02-26T00:01:49Z",
+      "side": 1,
+      "message": "It\u0027s the kernel definition in uapi/asm-mips/asm/ptrace.h. I have no idea how it could be wrongly defined, it could be that they changed the definition between the different kernel versions. If that\u0027s the case, then we\u0027ll need to change this again when we move to a 3.10 kernel for mips.",
+      "parentUuid": "1cf89137_f0a3a1c0",
+      "revId": "618bbe51580f7f76417d14fc559adf990203fbc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf26394f_339748ec",
         "filename": "src/ptrace/_UPT_access_fpreg.c",
         "patchSetId": 1
