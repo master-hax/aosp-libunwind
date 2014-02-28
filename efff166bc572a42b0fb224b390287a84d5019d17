@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c52b523_a97939da",
+        "filename": "src/aarch64/Ginit.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-02-28T18:15:22Z",
+      "side": 1,
+      "message": "This change and the one below are incorporated in to the patch I\u0027ve submitted upstream.",
+      "range": {
+        "startLine": 144,
+        "startChar": 6,
+        "endLine": 144,
+        "endChar": 56
+      },
+      "revId": "efff166bc572a42b0fb224b390287a84d5019d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5da930_3661261e",
+        "filename": "src/aarch64/Gresume.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-02-28T18:15:22Z",
+      "side": 1,
+      "message": "Are you doing this to avoid aliasing problems? It doesn\u0027t seem necessary unless you can convince the upstream folks to take this change. I\u0027d prefer not to diverge unless there is a valid problem.",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "efff166bc572a42b0fb224b390287a84d5019d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5da930_36380600",
+        "filename": "src/aarch64/unwind_i.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-02-28T18:15:22Z",
+      "side": 1,
+      "message": "The libunwind code use \"\" to denote a local header, so this doesn\u0027t really match with the rest of the project.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "efff166bc572a42b0fb224b390287a84d5019d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
