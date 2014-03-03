@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc0199f4_109972ee",
+        "filename": "src/aarch64/Ginit.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1040609
+      },
+      "writtenOn": "2014-03-03T14:24:20Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "3c52b523_a97939da",
+      "range": {
+        "startLine": 144,
+        "startChar": 6,
+        "endLine": 144,
+        "endChar": 56
+      },
+      "revId": "efff166bc572a42b0fb224b390287a84d5019d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5da930_3661261e",
         "filename": "src/aarch64/Gresume.c",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3c971504_3eb8e9a6",
+        "filename": "src/aarch64/Gresume.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1040609
+      },
+      "writtenOn": "2014-03-03T14:24:20Z",
+      "side": 1,
+      "message": "Yes though I haven\u0027t identified any problem. I\u0027ll try to see if I can have it merged upstream.",
+      "parentUuid": "5c5da930_3661261e",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "efff166bc572a42b0fb224b390287a84d5019d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c5da930_36380600",
         "filename": "src/aarch64/unwind_i.h",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2014-02-28T18:15:22Z",
       "side": 1,
       "message": "The libunwind code use \"\" to denote a local header, so this doesn\u0027t really match with the rest of the project.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "efff166bc572a42b0fb224b390287a84d5019d17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c971504_bec39924",
+        "filename": "src/aarch64/unwind_i.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1040609
+      },
+      "writtenOn": "2014-03-03T14:24:20Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. A lot of code use \u003c\u003e which should be used only for system headers. There\u0027s no point in making that change alone. I just did it because I happened to notice it.",
+      "parentUuid": "5c5da930_36380600",
       "range": {
         "startLine": 31,
         "startChar": 0,
