@@ -56,6 +56,7 @@ maps_create_list(pid_t pid)
       mutex_init (&cur_map->ei_lock);
       cur_map->ei.size = 0;
       cur_map->ei.image = NULL;
+      cur_map->ei_shared = 0;
 
       map_list = cur_map;
     }
@@ -64,80 +65,4 @@ maps_create_list(pid_t pid)
 
   return map_list;
 }
-
-void
-maps_destroy_list(struct map_info *map_info)
-{
-  struct map_info *map;
-  while (map_info)
-    {
-      map = map_info;
-      map_info = map->next;
-      if (map->ei.image != MAP_FAILED && map->ei.image != NULL)
-        munmap(map->ei.image, map->ei.size);
-      if (map->path)
-        free(map->path);
-      free(map);
-    }
-}
-
-static struct map_info *
-get_map(struct map_info *map_list, unw_word_t addr)
-{
-  while (map_list)
-    {
-      if (addr >= map_list->start && addr < map_list->end)
-        return map_list;
-      map_list = map_list->next;
-    }
-  return NULL;
-}
-
-int maps_is_readable(struct map_info *map_list, unw_word_t addr)
-{
-  struct map_info *map = get_map(map_list, addr);
-  if (map != NULL)
-    return map->flags & PROT_READ;
-  return 0;
-}
-
-int maps_is_writable(struct map_info *map_list, unw_word_t addr)
-{
-  struct map_info *map = get_map(map_list, addr);
-  if (map != NULL)
-    return map->flags & PROT_WRITE;
-  return 0;
-}
 /* End of ANDROID update. */
-
-PROTECTED struct map_info*
-tdep_get_elf_image(unw_addr_space_t as, pid_t pid, unw_word_t ip)
-{
-  /* ANDROID support update. */
-  struct map_info *map;
-  intrmask_t saved_mask;
-
-  if (as->map_list == NULL)
-    as->map_list = maps_create_list(pid);
-
-  map = as->map_list;
-  while (map)
-    {
-      if (ip >= map->start && ip < map->end)
-        break;
-      map = map->next;
-    }
-  if (!map)
-    return NULL;
-
-  /* Lock while loading the cached elf image. */
-  lock_acquire (&map->ei_lock, saved_mask);
-  if (map->ei.image == NULL)
-    {
-      if (elf_map_image(&map->ei, map->path) < 0)
-        map->ei.image = NULL;
-    }
-  lock_release (&map->ei_lock, saved_mask);
-  /* End of ANDROID update. */
-  return map->ei.image ? map : NULL;
-}
