@@ -355,4 +355,5 @@ elf_w (get_proc_name) (unw_addr_space_t as, pid_t pid, unw_word_t ip,
 
   return ret;
 }
+
 /* ANDROID support update. */

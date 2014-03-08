@@ -70,6 +70,7 @@ libunwind_src_files := \
 	src/mi/dyn-info-list.c \
 	src/mi/dyn-register.c \
 	src/mi/maps.c \
+	src/mi/Lmaps.c \
 	src/mi/Ldyn-extract.c \
 	src/mi/Lfind_dynamic_proc_info.c \
 	src/mi/Lget_proc_info_by_ip.c \
@@ -109,7 +110,9 @@ libunwind_src_files := \
 	src/dwarf/Gpe.c \
 	src/dwarf/Gstep.c \
 	src/dwarf/global.c \
+	src/os-common.c \
 	src/os-linux.c \
+	src/Los-common.c \
 
 # Arch specific source files.
 $(foreach arch,$(libunwind_arches), \

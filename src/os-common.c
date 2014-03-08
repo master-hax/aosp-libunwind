@@ -1,5 +1,5 @@
 /* libunwind - a platform-independent unwind library
-   Copyright (C) 2013 The Android Open Source Project
+   Copyright (C) 2014 The Android Open Source Project
 
 This file is part of libunwind.
 
@@ -22,34 +22,18 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
-#ifndef map_info_h
-#define map_info_h
 
-struct map_info
-  {
-    uintptr_t start;
-    uintptr_t end;
-    uintptr_t offset;
-    int flags;
-    char *path;
+#include "libunwind_i.h"
+#include "map_info.h"
 
-    lock_var (ei_lock);
-    struct elf_image ei;
-    uint8_t ei_shared;
+PROTECTED struct map_info*
+tdep_get_elf_image(unw_addr_space_t as, pid_t pid, unw_word_t ip)
+{
+  struct map_info *map = map_find_from_addr(as->map_list, ip);
+  if (!map)
+    return NULL;
 
-    struct map_info *next;
-  };
-
-extern struct map_info *local_map_list;
-
-int maps_is_readable(struct map_info *map_list, unw_word_t addr);
-
-int maps_is_writable(struct map_info *map_list, unw_word_t addr);
-
-struct map_info *map_find_from_addr(struct map_info *map_list, unw_word_t addr);
-
-struct map_info *maps_create_list(pid_t pid);
-
-void maps_destroy_list(struct map_info *map_info);
-
-#endif /* map_info_h */
+  if (elf_map_cached_image(map, ip) < 0)
+    return NULL;
+  return map;
+}

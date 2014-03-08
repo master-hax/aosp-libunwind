@@ -22,19 +22,8 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
+#include <libunwind.h>
 #include "libunwind_i.h"
-
-/* Global to hold the map for all local unwinds. */
-HIDDEN struct map_info *local_map_list = NULL;
-
-PROTECTED void
-unw_map_local_set (unw_map_cursor_t *map_cursor)
-{
-  if (map_cursor != NULL)
-    local_map_list = map_cursor->map_list;
-  else
-    local_map_list = NULL;
-}
 
 PROTECTED void
 unw_map_set (unw_addr_space_t as, unw_map_cursor_t *map_cursor)
@@ -65,6 +54,13 @@ unw_map_cursor_reset (unw_map_cursor_t *map_cursor)
   map_cursor->cur_map = map_cursor->map_list;
 }
 
+PROTECTED void
+unw_map_cursor_clear (unw_map_cursor_t *cursor_map)
+{
+  cursor_map->map_list = NULL;
+  cursor_map->cur_map = NULL;
+}
+
 PROTECTED int
 unw_map_cursor_get (unw_map_cursor_t *map_cursor, unw_map_t *unw_map)
 {
@@ -81,4 +77,33 @@ unw_map_cursor_get (unw_map_cursor_t *map_cursor, unw_map_t *unw_map)
   map_cursor->cur_map = map_info->next;
 
   return 1;
+}
+
+void
+maps_destroy_list(struct map_info *map_info)
+{
+  struct map_info *map;
+  while (map_info)
+    {
+      map = map_info;
+      map_info = map->next;
+      if (map->ei_shared == 0 && map->ei.image != MAP_FAILED
+          && map->ei.image != NULL)
+        munmap(map->ei.image, map->ei.size);
+      if (map->path)
+        free(map->path);
+      free(map);
+    }
+}
+
+struct map_info *
+map_find_from_addr(struct map_info *map_list, unw_word_t addr)
+{
+  while (map_list)
+    {
+      if (addr >= map_list->start && addr < map_list->end)
+        return map_list;
+      map_list = map_list->next;
+    }
+  return NULL;
 }
