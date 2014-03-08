@@ -41,12 +41,16 @@ struct map_info
 
 extern struct map_info *local_map_list;
 
-int maps_is_readable(struct map_info *map_list, unw_word_t addr);
+void maps_local_init (void);
 
-int maps_is_writable(struct map_info *map_list, unw_word_t addr);
+int maps_local_is_readable (unw_word_t);
 
-struct map_info *maps_create_list(pid_t pid);
+int maps_local_is_writable (unw_word_t);
 
-void maps_destroy_list(struct map_info *map_info);
+struct map_info *map_find_from_addr (struct map_info *, unw_word_t);
+
+struct map_info *maps_create_list (pid_t);
+
+void maps_destroy_list (struct map_info *);
 
 #endif /* map_info_h */
