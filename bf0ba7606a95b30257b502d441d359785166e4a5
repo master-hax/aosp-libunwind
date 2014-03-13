@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9cb9e1da_669849a8",
+        "filename": "src/elfxx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-03-13T00:29:07Z",
+      "side": 1,
+      "message": "Yeah, this isn\u0027t quite right, but I doubt anything would ever show a failure. I think the only way that you could get the wrong value is if the map fails, but someone else is trying to do a map that is also failed or is not quite done. But I\u0027ll fix this up.",
+      "parentUuid": "9c2ba1c2_28f2874d",
+      "revId": "bf0ba7606a95b30257b502d441d359785166e4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cb9e1da_9308418a",
         "filename": "src/mi/Lmaps.c",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-13T00:04:39Z",
       "side": 1,
       "message": "is this right?",
+      "revId": "bf0ba7606a95b30257b502d441d359785166e4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_d5d9c969",
+        "filename": "src/mi/Lmaps.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-03-13T00:29:07Z",
+      "side": 1,
+      "message": "No, this is not right. I\u0027m still not convinced this is the best way to do this. But it does fix all of the race conditions I hit.",
+      "parentUuid": "9cb9e1da_9308418a",
       "revId": "bf0ba7606a95b30257b502d441d359785166e4a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
