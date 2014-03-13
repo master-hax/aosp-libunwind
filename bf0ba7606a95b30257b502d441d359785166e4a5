@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c2ba1c2_28f2874d",
+        "filename": "src/elfxx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-03-13T00:04:39Z",
+      "side": 1,
+      "message": "don\u0027t you want to do this inside the lock?",
+      "revId": "bf0ba7606a95b30257b502d441d359785166e4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_9308418a",
+        "filename": "src/mi/Lmaps.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-03-13T00:04:39Z",
+      "side": 1,
+      "message": "is this right?",
+      "revId": "bf0ba7606a95b30257b502d441d359785166e4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
