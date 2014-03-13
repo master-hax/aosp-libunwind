@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cb9e1da_9ad4ce32",
+        "filename": "src/elfxx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-03-13T16:37:30Z",
+      "side": 1,
+      "message": "ws",
+      "revId": "46b72f8b082032f6a4a484a30a257335c351f32c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_faa94aa5",
+        "filename": "src/elfxx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-03-13T16:37:30Z",
+      "side": 1,
+      "message": "weird that they should have the min_dist check but not the sym-\u003est_size one.\n\n(i was wondering whether the min_dist test was backwards, but i guess the caller is supposed to set min_dist to some large value? and min_dist is really \"smallest_found_distance\".)",
+      "revId": "46b72f8b082032f6a4a484a30a257335c351f32c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
