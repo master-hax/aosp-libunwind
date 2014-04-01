@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9a74f88_f9c4bb51",
+        "filename": "src/os-common.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-01T23:09:59Z",
+      "side": 1,
+      "message": "ws",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b92f97b4_cb803d6f",
+        "filename": "src/os-hpux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-01T23:09:59Z",
+      "side": 1,
+      "message": "or\n\n  if (map) goto release_lock;\n\nand lose a level of indentation?",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99349308_aa1333e5",
+        "filename": "src/os-hpux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-01T23:09:59Z",
+      "side": 1,
+      "message": "if (!map) goto release_lock?",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99349308_6a22cb33",
+        "filename": "src/os-hpux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-01T23:09:59Z",
+      "side": 1,
+      "message": "fix me?",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
