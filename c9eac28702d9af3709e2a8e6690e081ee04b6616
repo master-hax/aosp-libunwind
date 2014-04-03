@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d9cb6b3b_ffe107b4",
+        "filename": "src/os-common.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-04-03T02:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9a74f88_f9c4bb51",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b92f97b4_cb803d6f",
         "filename": "src/os-hpux.c",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-01T23:09:59Z",
       "side": 1,
       "message": "or\n\n  if (map) goto release_lock;\n\nand lose a level of indentation?",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9cb6b3b_9fdec3f3",
+        "filename": "src/os-hpux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-04-03T02:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b92f97b4_cb803d6f",
       "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f9ce6f4a_7b89aba1",
+        "filename": "src/os-hpux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-04-03T02:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99349308_aa1333e5",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99349308_6a22cb33",
         "filename": "src/os-hpux.c",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2014-04-01T23:09:59Z",
       "side": 1,
       "message": "fix me?",
+      "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9ba379a_f9fb638f",
+        "filename": "src/os-hpux.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-04-03T02:11:27Z",
+      "side": 1,
+      "message": "This is from the original code, so I left it.",
+      "parentUuid": "99349308_6a22cb33",
       "revId": "c9eac28702d9af3709e2a8e6690e081ee04b6616",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
