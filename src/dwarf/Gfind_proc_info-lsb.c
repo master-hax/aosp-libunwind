@@ -268,6 +268,7 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
   /* If the object name we receive is blank, there's still a chance of locating
      the file by looking at the maps cache. */
 
+  printf("Called something\n");
   if (strcmp (dlname, "") == 0)
     {
 #ifdef UNW_LOCAL_ONLY
