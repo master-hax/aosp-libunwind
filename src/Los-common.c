@@ -154,7 +154,6 @@ local_get_elf_image (struct elf_image *ei, unw_word_t ip,
 {
   struct map_info *map;
   intrmask_t saved_mask;
-  int return_value = -UNW_ENOINFO;
 
   lock_rdwr_rd_acquire (&local_rdwr_lock, saved_mask);
   map = map_find_from_addr (local_map_list, ip);
@@ -168,7 +167,9 @@ local_get_elf_image (struct elf_image *ei, unw_word_t ip,
       map = map_find_from_addr (local_map_list, ip);
     }
 
-  if (map && elf_map_cached_image (map, ip) == 0)
+  if (map && elf_map_cached_image (map, ip) < 0)
+    map = NULL;
+  else
     {
       *ei = map->ei;
       *segbase = map->start;
@@ -180,9 +181,33 @@ local_get_elf_image (struct elf_image *ei, unw_word_t ip,
           else
             *path = NULL;
         }
-      return_value = 0;
     }
   lock_rdwr_release (&local_rdwr_lock, saved_mask);
 
-  return return_value;
+  return 0;
+}
+
+PROTECTED char *
+map_local_get_image_name (unw_word_t ip)
+{
+  struct map_info *map;
+  intrmask_t saved_mask;
+  char *image_name = NULL;
+
+  lock_rdwr_rd_acquire (&local_rdwr_lock, saved_mask);
+  map = map_find_from_addr (local_map_list, ip);
+  if (!map)
+    {
+      lock_rdwr_release (&local_rdwr_lock, saved_mask);
+      if (rebuild_if_necessary (ip, 0) < 0)
+        return NULL;
+
+      lock_rdwr_rd_acquire (&local_rdwr_lock, saved_mask);
+      map = map_find_from_addr (local_map_list, ip);
+    }
+  if (map)
+    image_name = strdup (map->path);
+  lock_rdwr_release (&local_rdwr_lock, saved_mask);
+
+  return image_name;
 }
