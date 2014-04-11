@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99dbb3ac_0f212984",
+        "filename": "src/mips/Ginit.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-11T21:49:31Z",
+      "side": 1,
+      "message": "if you need casts in places like this, doesn\u0027t that mean that unw_word_t is wrong?",
+      "revId": "d1c383c5bb03420decf5cf789cf14ab144b0720d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99dbb3ac_4f2b2162",
+        "filename": "src/ptrace/_UPT_access_fpreg.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-11T21:49:31Z",
+      "side": 1,
+      "message": "(note that this is bionic\u0027s fault. you won\u0027t get warnings here with glibc.)",
+      "revId": "d1c383c5bb03420decf5cf789cf14ab144b0720d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
