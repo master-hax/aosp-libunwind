@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "39a1e70c_7da22319",
+        "filename": "src/mips/Ginit.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-04-14T18:05:57Z",
+      "side": 1,
+      "message": "Kind of, libunwind doesn\u0027t really handle the mips case very well. There are some implicit assumptions about the size of unw_word_t and the sizeof pointers. For mips, these assumptions break and they didn\u0027t do a good job of changing the places where unw_word_t means an address, and where it is really a word value. Since only mips has this issue, I don\u0027t think anyone wants to fix it.\n\nThey really should replace all places where unw_word_t is used as an address with something else.",
+      "parentUuid": "99dbb3ac_0f212984",
+      "revId": "d1c383c5bb03420decf5cf789cf14ab144b0720d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99dbb3ac_4f2b2162",
         "filename": "src/ptrace/_UPT_access_fpreg.c",
         "patchSetId": 2
