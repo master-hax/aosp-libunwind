@@ -51,6 +51,24 @@
       "revId": "7c04242d6fcd486d16c7848fed599cbda658f6d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5268b4d_730f004f",
+        "filename": "src/x86_64/getcontext.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-26T03:28:57Z",
+      "side": 1,
+      "message": "i\u0027ve reassigned the existing bug to you.",
+      "parentUuid": "4516afdd_586e9dd0",
+      "revId": "7c04242d6fcd486d16c7848fed599cbda658f6d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
