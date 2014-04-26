@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0530377d_d6d60460",
+        "filename": "src/x86/getcontext-linux.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-26T03:10:57Z",
+      "side": 1,
+      "message": "erm... why don\u0027t we fix our ucontext_t? i think most of our ucontext_t structures are wrong in exactly this way. that\u0027s why i\u0027ve been suggesting we just bite the bullet and implement getcontext in bionic (even though it was removed from POSIX 2013). it\u0027s still used in a few places, and it\u0027s a pretty good test of our ucontext_t structures which have historically been pretty uniformly wrong.",
+      "revId": "7c04242d6fcd486d16c7848fed599cbda658f6d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4516afdd_388e4969",
+        "filename": "src/x86_64/getcontext.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-04-26T03:10:57Z",
+      "side": 1,
+      "message": "i think they just mean \"not needed by libunwind\", if this is what made you think it wasn\u0027t worth fixing ucontext_t?",
+      "revId": "7c04242d6fcd486d16c7848fed599cbda658f6d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
