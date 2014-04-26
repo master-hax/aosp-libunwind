@@ -33,6 +33,24 @@
       "revId": "7c04242d6fcd486d16c7848fed599cbda658f6d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4516afdd_586e9dd0",
+        "filename": "src/x86_64/getcontext.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-04-26T03:19:55Z",
+      "side": 1,
+      "message": "Mostly laziness. Is there a bug for fixing ucontext_t? If not, I\u0027ll file it.\n\nI\u0027ve just been reluctant to do this because to do it right requires a bunch of changes to libunwind too. Especially the way libunwind has defined it\u0027s own replacement ucontext_t for arm.\n\nBut I will do it.",
+      "parentUuid": "4516afdd_388e4969",
+      "revId": "7c04242d6fcd486d16c7848fed599cbda658f6d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
