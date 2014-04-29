@@ -33,10 +33,20 @@ _Unwind_Resume_or_Rethrow (struct _Unwind_Exception *exception_object)
 
   if (exception_object->private_1)
     {
-      if (_Unwind_InitContext (&context, &uc) < 0)
-	return _URC_FATAL_PHASE2_ERROR;
+      int ret;
 
-      return _Unwind_Phase2 (exception_object, &context);
+      /* ANDROID support update. */
+      unw_map_local_create ();
+
+      if (_Unwind_InitContext (&context, &uc) < 0)
+        ret = _URC_FATAL_PHASE2_ERROR;
+      else
+        ret = _Unwind_Phase2 (exception_object, &context);
+
+      unw_map_local_destroy ();
+
+      return ret;
+      /* End ANDROID support. */
     }
   else
     return _Unwind_RaiseException (exception_object);

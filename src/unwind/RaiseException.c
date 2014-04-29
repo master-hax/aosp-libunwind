@@ -35,30 +35,42 @@ _Unwind_RaiseException (struct _Unwind_Exception *exception_object)
   unw_proc_info_t pi;
   unw_context_t uc;
   unw_word_t ip;
-  int ret;
+  int ret, step_ret;
 
   Debug (1, "(exception_object=%p)\n", exception_object);
 
+  unw_map_local_create ();
+
   if (_Unwind_InitContext (&context, &uc) < 0)
-    return _URC_FATAL_PHASE1_ERROR;
+    {
+      ret = _URC_FATAL_PHASE1_ERROR;
+      goto done;
+    }
 
   /* Phase 1 (search phase) */
 
   while (1)
     {
-      if ((ret = unw_step (&context.cursor)) <= 0)
+      if ((step_ret = unw_step (&context.cursor)) <= 0)
 	{
-	  if (ret == 0)
+	  if (step_ret == 0)
 	    {
 	      Debug (1, "no handler found\n");
-	      return _URC_END_OF_STACK;
+	      ret = _URC_END_OF_STACK;
+	      goto done;
 	    }
 	  else
-	    return _URC_FATAL_PHASE1_ERROR;
+	    {
+	      ret = _URC_FATAL_PHASE1_ERROR;
+	      goto done;
+	    }
 	}
 
       if (unw_get_proc_info (&context.cursor, &pi) < 0)
-	return _URC_FATAL_PHASE1_ERROR;
+        {
+	  ret = _URC_FATAL_PHASE1_ERROR;
+	  goto done;
+        }
 
       personality = (_Unwind_Personality_Fn) (uintptr_t) pi.handler;
       if (personality)
@@ -73,7 +85,8 @@ _Unwind_RaiseException (struct _Unwind_Exception *exception_object)
 	      else
 		{
 		  Debug (1, "personality returned %d\n", reason);
-		  return _URC_FATAL_PHASE1_ERROR;
+		  ret = _URC_FATAL_PHASE1_ERROR;
+		  goto done;
 		}
 	    }
 	}
@@ -85,17 +98,25 @@ _Unwind_RaiseException (struct _Unwind_Exception *exception_object)
      (IP,SP,BSP) to uniquely identify the stack frame that's handling
      the exception.  */
   if (unw_get_reg (&context.cursor, UNW_REG_IP, &ip) < 0)
-    return _URC_FATAL_PHASE1_ERROR;
-  exception_object->private_1 = 0;	/* clear "stop" pointer */
-  exception_object->private_2 = ip;	/* save frame marker */
+    ret = _URC_FATAL_PHASE1_ERROR;
+  else
+    {
+      exception_object->private_1 = 0;	/* clear "stop" pointer */
+      exception_object->private_2 = ip;	/* save frame marker */
 
-  Debug (1, "found handler for IP=%lx; entering cleanup phase\n", (long) ip);
+      Debug (1, "found handler for IP=%lx; entering cleanup phase\n", (long) ip);
 
-  /* Reset the cursor to the first frame: */
-  if (unw_init_local (&context.cursor, &uc) < 0)
-    return _URC_FATAL_PHASE1_ERROR;
+      /* Reset the cursor to the first frame: */
+      if (unw_init_local (&context.cursor, &uc) < 0)
+        ret = _URC_FATAL_PHASE1_ERROR;
+      else
+        ret = _Unwind_Phase2 (exception_object, &context);
+    }
 
-  return _Unwind_Phase2 (exception_object, &context);
+done:
+  unw_map_local_destroy ();
+
+  return ret;
 }
 
 _Unwind_Reason_Code

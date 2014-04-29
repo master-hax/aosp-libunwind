@@ -31,6 +31,7 @@ _Unwind_ForcedUnwind (struct _Unwind_Exception *exception_object,
 {
   struct _Unwind_Context context;
   unw_context_t uc;
+  int ret;
 
   /* We check "stop" here to tell the compiler's inliner that
      exception_object->private_1 isn't NULL when calling
@@ -38,13 +39,21 @@ _Unwind_ForcedUnwind (struct _Unwind_Exception *exception_object,
   if (!stop)
     return _URC_FATAL_PHASE2_ERROR;
 
+  unw_map_local_create ();
+
   if (_Unwind_InitContext (&context, &uc) < 0)
-    return _URC_FATAL_PHASE2_ERROR;
+    ret = _URC_FATAL_PHASE2_ERROR;
+  else
+    {
+      exception_object->private_1 = (unsigned long) stop;
+      exception_object->private_2 = (unsigned long) stop_parameter;
 
-  exception_object->private_1 = (unsigned long) stop;
-  exception_object->private_2 = (unsigned long) stop_parameter;
+      ret = _Unwind_Phase2 (exception_object, &context);
+    }
 
-  return _Unwind_Phase2 (exception_object, &context);
+  unw_map_local_destroy ();
+
+  return ret;
 }
 
 _Unwind_Reason_Code __libunwind_Unwind_ForcedUnwind (struct _Unwind_Exception*,
