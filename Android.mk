@@ -64,7 +64,7 @@ common_c_includes := \
 	$(LOCAL_PATH)/src \
 	$(LOCAL_PATH)/include \
 
-libunwind_arches := arm arm64 mips x86 x86_64
+libunwind_arches := arm arm64 mips mips64 x86 x86_64
 
 $(foreach arch,$(libunwind_arches), \
   $(eval common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(arch)))
@@ -156,6 +156,7 @@ $(foreach arch,$(libunwind_arches), \
 # 64-bit architectures
 libunwind_src_files_arm64 += src/elf64.c
 libunwind_src_files_x86_64 += src/elf64.c
+libunwind_src_files_mips64 += src/elf64.c
 
 # 32-bit architectures
 libunwind_src_files_arm   += src/elf32.c
@@ -177,6 +178,10 @@ libunwind_src_files_mips += \
 	src/mips/getcontext-android.S \
 	src/mips/Gis_signal_frame.c \
 	src/mips/Lis_signal_frame.c \
+
+libunwind_src_files_mips64 += \
+	src/mips64/Gis_signal_frame.c \
+	src/mips64/Lis_signal_frame.c \
 
 libunwind_src_files_x86 += \
 	src/x86/getcontext-linux.S \
