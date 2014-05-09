@@ -195,7 +195,11 @@ libunwind_src_files_x86_64 += \
 libunwind_shared_libraries_target := \
 	libdl \
 
+libunwind_ldflags_host := \
+	-nostdlib
+
 libunwind_ldlibs_host := \
+	-lc \
 	-lpthread \
 
 ifeq ($(debug),true)
