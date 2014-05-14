@@ -28,10 +28,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 /*  int _Ux86_64_getcontext (ucontext_t *ucp)
 
-  Saves the machine context in UCP necessary for libunwind.  
+  Saves the machine context in UCP necessary for libunwind.
   Unlike the libc implementation, we don't save the signal mask
   and hence avoid the cost of a system call per unwind.
-  
+
 */
 
 	.global _Ux86_64_getcontext
@@ -47,7 +47,7 @@ _Ux86_64_getcontext:
 	movq %rbp, UC_MCONTEXT_GREGS_RBP(%rdi)
 	movq %rbx, UC_MCONTEXT_GREGS_RBX(%rdi)
 
-	/* Save argument registers (not strictly needed, but setcontext 
+	/* Save argument registers (not strictly needed, but setcontext
 	   restores them, so don't restore garbage).  */
 	movq %r8,  UC_MCONTEXT_GREGS_R8(%rdi)
 	movq %r9,  UC_MCONTEXT_GREGS_R9(%rdi)
@@ -57,9 +57,7 @@ _Ux86_64_getcontext:
 	movq %rax, UC_MCONTEXT_GREGS_RAX(%rdi)
 	movq %rcx, UC_MCONTEXT_GREGS_RCX(%rdi)
 
-#if defined __ANDROID__
-	/* The ANDROID ucontext_t structure does not include fpregs_mem. */
-#elif defined __linux__
+#if defined __linux__
 	/* Save fp state (not needed, except for setcontext not
 	   restoring garbage).  */
 	leaq UC_MCONTEXT_FPREGS_MEM(%rdi),%r8
