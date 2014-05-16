@@ -1,0 +1,7 @@
+Code-Review+2: Elliott Hughes <enh@google.com>
+Verified+1: Calin Juravle <calin@google.com>
+Submitted-by: Calin Juravle <calin@google.com>
+Submitted-at: Fri, 16 May 2014 09:49:23 +0000
+Reviewed-on: https://android-review.googlesource.com/94481
+Project: platform/external/libunwind
+Branch: refs/heads/master
