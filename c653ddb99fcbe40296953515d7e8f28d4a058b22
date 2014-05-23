@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff7f3495_1c4bbde8",
+        "filename": "src/dwarf/Gstep_dwarf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-05-23T05:15:53Z",
+      "side": 1,
+      "message": "Add a quick comment about why this is needed.\n\nAlso add on in the other file too.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "c653ddb99fcbe40296953515d7e8f28d4a058b22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
