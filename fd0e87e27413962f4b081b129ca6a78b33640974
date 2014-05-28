@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f10f896_66cdf09a",
+        "filename": "src/x86/offsets.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-05-28T16:20:37Z",
+      "side": 1,
+      "message": "we should probably have a comment explaining this. afaik we\u0027re still planning to upstream our changes.\n\nwe might want to change line 5\u0027s comment to, since they\u0027re really the _glibc_ offsets, not the \"Linux\" ones, if you take \"Linux\" to mean \"kernel\".",
+      "revId": "fd0e87e27413962f4b081b129ca6a78b33640974",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
