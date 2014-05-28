@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f10f896_66105020",
+        "filename": "src/x86/offsets.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-05-28T16:42:43Z",
+      "side": 1,
+      "message": "well, you\u0027ve now added the bionic numbers, so maybe you should s/glibc/C library/ :-)",
+      "revId": "d890b85583436835f643ef4b631d0a89ed1a6ccf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df16f08e_88e757bb",
+        "filename": "src/x86/offsets.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-05-28T16:42:43Z",
+      "side": 1,
+      "message": "libunwind\n\ni don\u0027t know whether cferris prefers __ANDROID__ or __BIONIC__ here.",
+      "revId": "d890b85583436835f643ef4b631d0a89ed1a6ccf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
