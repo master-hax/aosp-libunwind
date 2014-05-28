@@ -16,6 +16,24 @@
       "revId": "fd0e87e27413962f4b081b129ca6a78b33640974",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fcb4466_859f2450",
+        "filename": "src/x86/offsets.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2014-05-28T16:39:47Z",
+      "side": 1,
+      "message": "done. I also added a small note on the first line. I kept the \"Linux\" part since all the constants and comments are defined using it.",
+      "parentUuid": "9f10f896_66cdf09a",
+      "revId": "fd0e87e27413962f4b081b129ca6a78b33640974",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
