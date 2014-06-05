@@ -235,12 +235,14 @@ build_type := target
 build_target := SHARED_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
 build_type := host
+build_multilib := both
 include $(LOCAL_PATH)/Android.build.mk
 
 build_type := target
 build_target := STATIC_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
 build_type := host
+build_multilib := both
 include $(LOCAL_PATH)/Android.build.mk
 
 #-----------------------------------------------------------------------
@@ -283,6 +285,7 @@ build_type := target
 build_target := SHARED_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
 build_type := host
+build_multilib := both
 include $(LOCAL_PATH)/Android.build.mk
 
 #-----------------------------------------------------------------------
