@@ -22,6 +22,24 @@
       "revId": "bdea800a5cbb0510b4427ab3a80badb47de0e95c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfe21c19_01ed3870",
+        "filename": "src/mips64/elfxx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010669
+      },
+      "writtenOn": "2014-06-05T00:16:25Z",
+      "side": 1,
+      "message": "The mips32 version did the same lame thing.  Also at upstream (mips32 only).\n\nLooks unneeded to me too.  I\u0027ll see about getting rid of both.\n\nelfxx is for dynamically picking between elf32 and elf64, for those platforms where both have been used.  But I don\u0027t think the original developer of elfxx intended anyone to do this funky way of sticking an arch-dependent libunwind_i.h into the include path.  The file tdep/libunwind_i.h is the intended less-funky way.",
+      "parentUuid": "3f162cdd_12fc7c50",
+      "revId": "bdea800a5cbb0510b4427ab3a80badb47de0e95c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
