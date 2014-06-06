@@ -64,10 +64,16 @@ common_c_includes := \
 	$(LOCAL_PATH)/src \
 	$(LOCAL_PATH)/include \
 
-libunwind_arches := arm arm64 mips x86 x86_64
+libunwind_arches := arm arm64 mips mips64 x86 x86_64
+
+# mips and mips64 use same sources but different binaries.
+# mips uses o32 abi only, mips64 uses n64 abi only.
+# The shared sources distinguish these cases by compiler-
+#   provided _MIPS_SIM == _ABIO32 or _ABI64 defines
+#   which are controlled by mips or mips64 lunch target.
 
 $(foreach arch,$(libunwind_arches), \
-  $(eval common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(arch)))
+  $(eval common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(subst mips64,mips,$(arch))))
 
 #-----------------------------------------------------------------------
 # libunwind shared library
@@ -127,35 +133,37 @@ libunwind_src_files := \
 	src/Los-common.c \
 
 # Arch specific source files.
+archdir = src/$(subst mips64,mips,$(arch))
 $(foreach arch,$(libunwind_arches), \
   $(eval libunwind_src_files_$(arch) += \
-	src/$(arch)/is_fpreg.c \
-	src/$(arch)/regname.c \
-	src/$(arch)/Gcreate_addr_space.c \
-	src/$(arch)/Gget_proc_info.c \
-	src/$(arch)/Gget_save_loc.c \
-	src/$(arch)/Gglobal.c \
-	src/$(arch)/Ginit.c \
-	src/$(arch)/Ginit_local.c \
-	src/$(arch)/Ginit_remote.c \
-	src/$(arch)/Gregs.c \
-	src/$(arch)/Gresume.c \
-	src/$(arch)/Gstep.c \
-	src/$(arch)/Lcreate_addr_space.c \
-	src/$(arch)/Lget_proc_info.c \
-	src/$(arch)/Lget_save_loc.c \
-	src/$(arch)/Lglobal.c \
-	src/$(arch)/Linit.c \
-	src/$(arch)/Linit_local.c \
-	src/$(arch)/Linit_remote.c \
-	src/$(arch)/Lregs.c \
-	src/$(arch)/Lresume.c \
-	src/$(arch)/Lstep.c \
+	$(archdir)/is_fpreg.c \
+	$(archdir)/regname.c \
+	$(archdir)/Gcreate_addr_space.c \
+	$(archdir)/Gget_proc_info.c \
+	$(archdir)/Gget_save_loc.c \
+	$(archdir)/Gglobal.c \
+	$(archdir)/Ginit.c \
+	$(archdir)/Ginit_local.c \
+	$(archdir)/Ginit_remote.c \
+	$(archdir)/Gregs.c \
+	$(archdir)/Gresume.c \
+	$(archdir)/Gstep.c \
+	$(archdir)/Lcreate_addr_space.c \
+	$(archdir)/Lget_proc_info.c \
+	$(archdir)/Lget_save_loc.c \
+	$(archdir)/Lglobal.c \
+	$(archdir)/Linit.c \
+	$(archdir)/Linit_local.c \
+	$(archdir)/Linit_remote.c \
+	$(archdir)/Lregs.c \
+	$(archdir)/Lresume.c \
+	$(archdir)/Lstep.c \
 	))
 
 # 64-bit architectures
 libunwind_src_files_arm64 += src/elf64.c
 libunwind_src_files_x86_64 += src/elf64.c
+libunwind_src_files_mips64 += src/elf64.c
 
 # 32-bit architectures
 libunwind_src_files_arm   += src/elf32.c
@@ -177,6 +185,11 @@ libunwind_src_files_mips += \
 	src/mips/getcontext-android.S \
 	src/mips/Gis_signal_frame.c \
 	src/mips/Lis_signal_frame.c \
+
+libunwind_src_files_mips64 += \
+        src/mips/getcontext-android.S \
+        src/mips/Gis_signal_frame.c \
+        src/mips/Lis_signal_frame.c \
 
 libunwind_src_files_x86 += \
 	src/x86/getcontext-linux.S \
