@@ -300,7 +300,9 @@ build_type := target
 build_target := SHARED_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
 build_type := host
+libunwind-ptrace_multilib := both
 include $(LOCAL_PATH)/Android.build.mk
+libunwind-ptrace_multilib :=
 
 #-----------------------------------------------------------------------
 # libunwind testing
