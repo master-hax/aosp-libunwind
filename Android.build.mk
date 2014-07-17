@@ -19,6 +19,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := $(module)
 LOCAL_MODULE_TAGS := $(module_tag)
 ifeq ($(build_type),host)
+# Disable host clang for now
+LOCAL_CLANG := false
 # Always make host multilib
 LOCAL_MULTILIB := both
 else
