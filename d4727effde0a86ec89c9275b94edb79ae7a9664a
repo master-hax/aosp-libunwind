@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f93914b5_6a234e0a",
+        "filename": "Android.build.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-07-24T19:23:04Z",
+      "side": 1,
+      "message": "It would be better to have this with the one option per line format we use.",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "d4727effde0a86ec89c9275b94edb79ae7a9664a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
