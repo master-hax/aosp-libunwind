@@ -83,6 +83,7 @@ unw_tdep_fpreg_t;
 typedef struct
   {
     /* no ia64-specific auxiliary proc-info */
+    char __reserved;
   }
 unw_tdep_proc_info_t;
 
