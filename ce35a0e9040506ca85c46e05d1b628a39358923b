@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3042e3dc_94ab920b",
+        "filename": "Android.build.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-09-18T17:19:35Z",
+      "side": 1,
+      "message": "You forgot the \\ at the end of these lines.",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "ce35a0e9040506ca85c46e05d1b628a39358923b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
