@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "901c6ffc_5dae8f1d",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010118
+      },
+      "writtenOn": "2014-09-18T16:49:20Z",
+      "side": 1,
+      "message": "I believe the pattern here is:\ncommon_clang_cflags :\u003d -Wno...\nthen to change Android.build.mk\nThe original author was probably trying to be lazy in this regard (avoid modifying Android.build.mk) and so did the conditional thing.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "7427db3ef55368a10ebb9b9a700c90a2b5ed67ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
