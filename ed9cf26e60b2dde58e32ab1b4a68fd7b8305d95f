@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "701a9cb5_69014173",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2014-10-04T15:28:34Z",
+      "side": 1,
+      "message": "This bug is completely unrelated.",
+      "revId": "ed9cf26e60b2dde58e32ab1b4a68fd7b8305d95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
