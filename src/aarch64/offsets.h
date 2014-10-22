@@ -8,7 +8,7 @@
 #define LINUX_UC_LINK_OFF	0x8
 #define LINUX_UC_STACK_OFF	0x10
 #define LINUX_UC_SIGMASK_OFF	0x28
-#define LINUX_UC_MCONTEXT_OFF	0xb0
+#define LINUX_UC_MCONTEXT_OFF	0xa8
 
 /* Offsets for AArch64 Linux "struct sigcontext":  */
 
