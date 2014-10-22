@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "150232f8_bde8520f",
+        "filename": "src/aarch64/offsets.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2014-10-22T19:42:46Z",
+      "side": 1,
+      "message": "How did you get this value? I compiled the gen-offsets.c on aarch64, and the value it spits out is 0xb0.\n\nIn addition, this value is only used in one place in the code:\n\nsrc/aarch64/Gstep.c in the function unw_handle_signal_frame.",
+      "range": {
+        "startLine": 11,
+        "startChar": 30,
+        "endLine": 11,
+        "endChar": 34
+      },
+      "revId": "c47c5bf089f5235507369258ef64888e35d2b3b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "354c968a_f809399a",
         "filename": "src/aarch64/offsets.h",
         "patchSetId": 1
