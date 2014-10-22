@@ -16,6 +16,24 @@
       "revId": "c47c5bf089f5235507369258ef64888e35d2b3b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5359ed2_75f6823f",
+        "filename": "src/aarch64/offsets.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1040609
+      },
+      "writtenOn": "2014-10-22T16:30:26Z",
+      "side": 1,
+      "message": "I haven\u0027t. I just checked the ucontext part.\n\nThis code is really a mess. Ideally all these should be defined in terms of offsetof or similar.",
+      "parentUuid": "354c968a_f809399a",
+      "revId": "c47c5bf089f5235507369258ef64888e35d2b3b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
