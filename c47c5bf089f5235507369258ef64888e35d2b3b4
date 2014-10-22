@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "354c968a_f809399a",
+        "filename": "src/aarch64/offsets.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-10-22T16:25:45Z",
+      "side": 1,
+      "message": "weirdly these names don\u0027t seem to quite correspond to the ones from ./src/aarch64/gen-offsets.c; i was going to ask whether you ran that against glibc and bionic and checked that we agree. but presumably that\u0027s bitrotted?",
+      "revId": "c47c5bf089f5235507369258ef64888e35d2b3b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
