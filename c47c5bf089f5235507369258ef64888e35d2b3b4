@@ -34,6 +34,24 @@
       "revId": "c47c5bf089f5235507369258ef64888e35d2b3b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "150232f8_87754972",
+        "filename": "src/aarch64/offsets.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-10-22T17:27:21Z",
+      "side": 1,
+      "message": "yeah, it\u0027s bizarre that they do this statically. are these used in assembler or something?",
+      "parentUuid": "f5359ed2_75f6823f",
+      "revId": "c47c5bf089f5235507369258ef64888e35d2b3b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
