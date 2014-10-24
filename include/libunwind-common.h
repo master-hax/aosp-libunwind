@@ -220,6 +220,7 @@ typedef struct unw_map
   {
     unw_word_t start;
     unw_word_t end;
+    unw_word_t offset;
     char *path;
     int flags;
   }

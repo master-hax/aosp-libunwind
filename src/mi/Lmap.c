@@ -105,6 +105,7 @@ unw_map_local_cursor_get_next (unw_map_cursor_t *map_cursor, unw_map_t *unw_map)
     {
       unw_map->start = map_info->start;
       unw_map->end = map_info->end;
+      unw_map->offset = map_info->offset;
       unw_map->flags = map_info->flags;
       if (map_info->path)
         unw_map->path = strdup (map_info->path);
