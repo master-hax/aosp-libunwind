@@ -61,14 +61,14 @@ unw_backtrace (void **buffer, int size)
   unw_context_t uc;
   int n = size;
 
-  tdep_getcontext_trace (&uc);
+  int dummy __attribute__((__unused__)) = tdep_getcontext_trace (&uc);
 
   if (unlikely (unw_init_local (&cursor, &uc) < 0))
     return 0;
 
   if (unlikely (tdep_trace (&cursor, buffer, &n) < 0))
     {
-      unw_getcontext (&uc);
+      int dummy2 __attribute__((__unused__)) = unw_getcontext (&uc);
       return slow_backtrace (buffer, size, &uc);
     }
 
