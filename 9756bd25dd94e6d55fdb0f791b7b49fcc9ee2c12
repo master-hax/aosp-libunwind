@@ -1,0 +1,7 @@
+Code-Review+2: Christopher Ferris <cferris@google.com>
+Verified+1: Andreas Gampe <agampe@google.com>
+Submitted-by: Andreas Gampe <agampe@google.com>
+Submitted-at: Fri, 05 Dec 2014 19:13:44 +0000
+Reviewed-on: https://android-review.googlesource.com/117793
+Project: platform/external/libunwind
+Branch: refs/heads/master
