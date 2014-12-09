@@ -1,0 +1,7 @@
+Verified+1: Bionic Buildbot <bionicbb@android.com>
+Code-Review+2: Christopher Ferris <cferris@google.com>
+Submitted-by: Christopher Ferris <cferris@google.com>
+Submitted-at: Tue, 09 Dec 2014 22:05:13 +0000
+Reviewed-on: https://android-review.googlesource.com/118201
+Project: platform/external/libunwind
+Branch: refs/heads/master
