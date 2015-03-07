@@ -34,6 +34,24 @@
       "revId": "4a59009c1552c3737814a0db2eebcd582365ad26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57c9209b_b33c98ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-03-07T20:46:38Z",
+      "side": 1,
+      "message": "interestingly if you mmm external/libunwind it does not fail...",
+      "parentUuid": "b7dfbc22_210648a0",
+      "revId": "4a59009c1552c3737814a0db2eebcd582365ad26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
