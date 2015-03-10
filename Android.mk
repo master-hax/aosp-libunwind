@@ -16,20 +16,20 @@
 
 LOCAL_PATH := $(call my-dir)
 
-build_host := false
+libunwind_build_host := false
 ifeq ($(HOST_OS),linux)
-build_host := true
+libunwind_build_host := true
 endif
 
 # Set to true to enable a debug build of the libraries.
 # To control what is logged, set the environment variable UNW_DEBUG_LEVEL=x,
 # where x controls the verbosity (from 1 to 20).
-debug := false
+libunwind_debug := false
 
-common_cppflags := \
+libunwind_common_cppflags := \
 	-Wno-old-style-cast \
 
-common_cflags := \
+libunwind_common_cflags := \
 	-Wno-unused-parameter \
 	-Werror \
 
@@ -37,23 +37,23 @@ common_cflags := \
 # under certain circumstances. Turn off this warning only for target so that
 # coverage is still present for the host code. When the entire build system
 # is switched to 4.9, then this can be removed.
-common_cflags_target := \
+libunwind_common_cflags_target := \
 	-Wno-maybe-uninitialized \
 
 # src/mi/backtrace.c is misdetected as a bogus header guard by clang 3.5
 # src/x86_64/Gstash_frame.c has unnecessary calls to labs.
-common_clang_cflags += \
+libunwind_common_clang_cflags += \
     -Wno-header-guard \
     -Wno-absolute-value \
 
 ifneq ($(debug),true)
-common_cflags += \
+libunwind_common_cflags += \
 	-DHAVE_CONFIG_H \
 	-DNDEBUG \
 	-D_GNU_SOURCE \
 
 else
-common_cflags += \
+libunwind_common_cflags += \
 	-DHAVE_CONFIG_H \
 	-DDEBUG \
 	-D_GNU_SOURCE \
@@ -61,19 +61,19 @@ common_cflags += \
 
 endif
 
-common_c_includes := \
+libunwind_common_c_includes := \
 	$(LOCAL_PATH)/src \
 	$(LOCAL_PATH)/include \
 
 # Since mips and mips64 use the same source, only generate includes/srcs
 # for the below set of arches.
-generate_arches := arm arm64 mips x86 x86_64
+libunwind_generate_arches := arm arm64 mips x86 x86_64
 # The complete list of arches used by Android.build.mk to set arch
 # variables.
-libunwind_arches := $(generate_arches) mips64
+libunwind_arches := $(libunwind_generate_arches) mips64
 
-$(foreach arch,$(generate_arches), \
-  $(eval common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(arch)))
+$(foreach arch,$(libunwind_generate_arches), \
+  $(eval libunwind_common_c_includes_$(arch) := $(LOCAL_PATH)/include/tdep-$(arch)))
 
 #-----------------------------------------------------------------------
 # libunwind shared library
@@ -133,7 +133,7 @@ libunwind_src_files := \
 	src/Los-common.c \
 
 # Arch specific source files.
-$(foreach arch,$(generate_arches), \
+$(foreach arch,$(libunwind_generate_arches), \
   $(eval libunwind_src_files_$(arch) += \
 	src/$(arch)/is_fpreg.c \
 	src/$(arch)/regname.c \
@@ -194,7 +194,7 @@ libunwind_src_files_x86_64 += \
 # to change the behavior.
 #   mips uses o32 abi (_MIPS_SIM == _ABIO32).
 #   mips64 uses n64 abi (_MIPS_SIM == _ABI64).
-common_c_includes_mips64 := $(LOCAL_PATH)/include/tdep-mips
+libunwind_common_c_includes_mips64 := $(LOCAL_PATH)/include/tdep-mips
 libunwind_src_files_mips64 := $(libunwind_src_files_mips)
 
 # 64-bit architectures
@@ -226,17 +226,17 @@ libunwind_shared_libraries += \
 
 endif
 
-module := libunwind
-module_tag := optional
-build_type := target
-build_target := SHARED_LIBRARY
+libunwind_module := libunwind
+libunwind_module_tag := optional
+libunwind_build_type := target
+libunwind_build_target := SHARED_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
-build_type := host
+libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
-build_type := target
-build_target := STATIC_LIBRARY
+libunwind_build_type := target
+libunwind_build_target := STATIC_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
-build_type := host
+libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
 
 #-----------------------------------------------------------------------
@@ -270,18 +270,18 @@ libunwind-ptrace_ldlibs_host := \
 libunwind-ptrace_export_c_include_dirs := \
 	$(LOCAL_PATH)/include
 
-ifeq ($(debug),true)
+ifeq ($(libunwind_debug),true)
 libunwind-ptrace_shared_libraries += \
 	liblog \
 
 endif
 
-module := libunwind-ptrace
-module_tag := optional
-build_type := target
-build_target := SHARED_LIBRARY
+libunwind_module := libunwind-ptrace
+libunwind_module_tag := optional
+libunwind_build_type := target
+libunwind_build_target := SHARED_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
-build_type := host
+libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
 
 #-----------------------------------------------------------------------
@@ -311,13 +311,13 @@ libunwindbacktrace_cflags += \
 	-Wno-old-style-declaration \
 	-fvisibility=hidden \
 
-module := libunwindbacktrace
-module_tag := optional
-build_type := target
-build_target := STATIC_LIBRARY
+libunwind_module := libunwindbacktrace
+libunwind_module_tag := optional
+libunwind_build_type := target
+libunwind_build_target := STATIC_LIBRARY
 libunwindbacktrace_whole_static_libraries := libunwind
 include $(LOCAL_PATH)/Android.build.mk
-build_type := host
+libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
 
 #-----------------------------------------------------------------------
@@ -338,12 +338,12 @@ libunwind-unit-tests_shared_libraries := \
 	libunwind \
 
 libunwind-unit-tests_multilib := both
-module := libunwind-unit-tests
-module_tag := optional
-build_type := target
-build_target := NATIVE_TEST
+libunwind_module := libunwind-unit-tests
+libunwind_module_tag := optional
+libunwind_build_type := target
+libunwind_build_target := NATIVE_TEST
 include $(LOCAL_PATH)/Android.build.mk
-build_type := host
+libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
 
 # Run the unit tests built for x86 or x86_64.
