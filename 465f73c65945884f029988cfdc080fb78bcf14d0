@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c7c9156_428912f3",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-03-10T23:49:25Z",
+      "side": 1,
+      "message": "I think we do not need this anymore.",
+      "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
