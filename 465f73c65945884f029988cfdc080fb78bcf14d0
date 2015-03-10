@@ -16,6 +16,24 @@
       "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7fcd4d_21540e21",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-03-10T23:52:24Z",
+      "side": 1,
+      "message": "Technically we don\u0027t, however, if we do add old-style-cast globally, we\u0027ll still need it. So I thought I\u0027d leave it in.",
+      "parentUuid": "3c7c9156_428912f3",
+      "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
