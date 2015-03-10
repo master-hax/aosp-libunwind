@@ -34,6 +34,24 @@
       "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7fcd4d_a1c65e46",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-03-10T23:59:23Z",
+      "side": 1,
+      "message": "I think if we add it globally we\u0027d better fix c++ files instead of disabling the warning...",
+      "parentUuid": "1c7fcd4d_21540e21",
+      "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
