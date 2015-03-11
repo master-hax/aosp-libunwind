@@ -70,6 +70,24 @@
       "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7fcd4d_8427a8b0",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2015-03-11T00:29:55Z",
+      "side": 1,
+      "message": "we\u0027re never realistically going to be able to add that globally, so i\u0027d probably have removed it too (except for your home-grown tests [which are all in libbacktrace?]), but up to you.",
+      "parentUuid": "1c7fcd4d_a11e5e15",
+      "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
