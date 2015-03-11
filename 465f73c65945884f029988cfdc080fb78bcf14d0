@@ -52,6 +52,24 @@
       "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7fcd4d_a11e5e15",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-03-11T00:04:11Z",
+      "side": 1,
+      "message": "But in this case, the casts are in C header files that have to be C, so we can\u0027t fix them easily. Since this is more of an external library than our own code, I think it\u0027s fine to have an exception.",
+      "parentUuid": "1c7fcd4d_a1c65e46",
+      "revId": "465f73c65945884f029988cfdc080fb78bcf14d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
