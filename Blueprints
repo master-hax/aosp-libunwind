@@ -25,7 +25,11 @@ build_host = ["false"]
 // where x controls the verbosity (from 1 to 20).
 debug = ["false"]
 
-common_cflags = [
+libunwind_common_cppflags = [
+    "-Wno-old-style-cast",
+]
+
+libunwind_common_cflags = [
     "-Wno-unused-parameter",
     "-Werror",
 ]
@@ -34,33 +38,33 @@ common_cflags = [
 // under certain circumstances. Turn off this warning only for target so that
 // coverage is still present for the host code. When the entire build system
 // is switched to 4.9, then this can be removed.
-common_cflags_target = ["-Wno-maybe-uninitialized"]
+libunwind_common_cflags_target = ["-Wno-maybe-uninitialized"]
 
 // src/mi/backtrace.c is misdetected as a bogus header guard by clang 3.5
 // src/x86_64/Gstash_frame.c has unnecessary calls to labs.
-common_clang_cflags = [
+libunwind_common_clang_cflags = [
     "-Wno-header-guard",
     "-Wno-absolute-value",
 ]
 
-common_cflags += [
+libunwind_common_cflags += [
     "-DHAVE_CONFIG_H",
     "-D_GNU_SOURCE",
     "-DNDEBUG",
 ]
 
-common_debug_cflags = [
+libunwind_common_debug_cflags = [
     "-UNDEBUG",
     "-DDEBUG",
     "-U_FORTIFY_SOURCE",
 ]
 
-common_c_local_includes = [
+libunwind_common_c_local_includes = [
     "src",
     "include",
 ]
 
-common_arch_includes = {
+libunwind_common_arch_includes = {
     arm: {
         local_include_dirs: ["include/tdep-arm"],
     },
@@ -143,9 +147,9 @@ cc_library {
         "src/Los-common.c",
     ],
 
-    cflags: common_cflags,
-    clang_cflags: common_clang_cflags,
-    local_include_dirs: common_c_local_includes,
+    cflags: libunwind_common_cflags,
+    clang_cflags: libunwind_common_clang_cflags,
+    local_include_dirs: libunwind_common_c_local_includes,
 
     arch: {
         arm: {
@@ -338,7 +342,7 @@ cc_library {
                 "src/x86_64/setcontext.S",
             ],
         },
-    } + common_arch_includes,
+    } + libunwind_common_arch_includes,
 
     multilib: {
         lib32: {
@@ -352,7 +356,7 @@ cc_library {
     target: {
         android: {
             shared_libs: ["libdl"],
-            cflags: common_cflags_target,
+            cflags: libunwind_common_cflags_target,
         },
         host: {
             ldflags: ["-nostdlib"],
@@ -368,7 +372,7 @@ cc_library {
 
     /*debug: {
     shared_libs: ["liblog"],
-    cflags: common_debug_cflags,
+    cflags: libunwind_common_debug_cflags,
     },*/
 }
 
@@ -396,7 +400,7 @@ cc_library_shared {
 
     shared_libs: ["libunwind"],
 
-    arch: common_arch_includes,
+    arch: libunwind_common_arch_includes,
 
     target: {
         host: {
@@ -407,19 +411,19 @@ cc_library_shared {
             ],
         },
         android: {
-            cflags: common_cflags_target,
+            cflags: libunwind_common_cflags_target,
         },
     },
 
-    cflags: common_cflags,
-    clang_cflags: common_clang_cflags,
-    local_include_dirs: common_c_local_includes,
+    cflags: libunwind_common_cflags,
+    clang_cflags: libunwind_common_clang_cflags,
+    local_include_dirs: libunwind_common_c_local_includes,
 
     export_include_dirs: ["include"],
 
     /*debug: {
     shared_libs: ["liblog"],
-    cflags: common_debug_cflags,
+    cflags: libunwind_common_debug_cflags,
     },*/
 }
 
@@ -450,19 +454,19 @@ cc_library_static {
         "src/unwind/SetIP.c",
     ],
 
-    cflags: common_cflags + [
+    cflags: libunwind_common_cflags + [
         "-Wno-old-style-declaration",
         "-fvisibility=hidden",
     ],
 
-    clang_cflags: common_clang_cflags,
-    local_include_dirs: common_c_local_includes,
+    clang_cflags: libunwind_common_clang_cflags,
+    local_include_dirs: libunwind_common_c_local_includes,
 
-    arch: common_arch_includes,
+    arch: libunwind_common_arch_includes,
 
     target: {
         android: {
-            cflags: common_cflags_target,
+            cflags: libunwind_common_cflags_target,
         },
     },
 
