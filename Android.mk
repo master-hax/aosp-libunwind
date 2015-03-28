@@ -50,7 +50,7 @@ libunwind_common_clang_cflags += \
 libunwind_common_clang_cflags += \
     -Wno-inline-asm
 
-ifneq ($(debug),true)
+ifneq ($(libunwind_debug),true)
 libunwind_common_cflags += \
     -DHAVE_CONFIG_H \
     -DNDEBUG \
@@ -224,10 +224,9 @@ libunwind_ldlibs_host := \
 libunwind_export_c_include_dirs := \
     $(LOCAL_PATH)/include
 
-ifeq ($(debug),true)
+ifeq ($(libunwind_debug),true)
 libunwind_shared_libraries += \
-    liblog \
-
+    liblog
 endif
 
 libunwind_module := libunwind
@@ -276,8 +275,7 @@ libunwind-ptrace_export_c_include_dirs := \
 
 ifeq ($(libunwind_debug),true)
 libunwind-ptrace_shared_libraries += \
-    liblog \
-
+    liblog
 endif
 
 libunwind_module := libunwind-ptrace
@@ -320,6 +318,12 @@ libunwind_module_tag := optional
 libunwind_build_type := target
 libunwind_build_target := STATIC_LIBRARY
 libunwindbacktrace_whole_static_libraries := libunwind
+
+ifeq ($(libunwind_debug),true)
+libunwindbacktrace_whole_static_libraries += \
+    liblog
+endif
+
 include $(LOCAL_PATH)/Android.build.mk
 libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
