@@ -16,6 +16,24 @@
       "revId": "d334d4b7ebbc803f61de98bc568a41df3b0e2535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0299e86_29f416d1",
+        "filename": "include/libunwind-common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-04-13T22:45:11Z",
+      "side": 1,
+      "message": "Since I\u0027m slating this for rewrite in the near future, I\u0027ve stopped adding these tags.",
+      "parentUuid": "9033a6f4_76ce7d36",
+      "revId": "d334d4b7ebbc803f61de98bc568a41df3b0e2535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
