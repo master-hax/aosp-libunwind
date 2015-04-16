@@ -70,6 +70,30 @@
       "revId": "f7c3686bef3282f6fa696620b091f0b095898191",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30d59acf_2681cc49",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1041833
+      },
+      "writtenOn": "2015-04-16T07:37:59Z",
+      "side": 1,
+      "message": "Can\u0027t reproduce on flounder, at least not with just building art. Maybe it fell out of your refactor? Or it was x86-64, or mips64. Too many builds lately. If I run into it again, I\u0027ll let you know...",
+      "parentUuid": "d080bec6_8728c905",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 54
+      },
+      "revId": "f7c3686bef3282f6fa696620b091f0b095898191",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
