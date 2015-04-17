@@ -31,14 +31,32 @@ HIDDEN int tdep_init_done;
 
 /* See comments for svr4_dbx_register_map[] in gcc/config/i386/i386.c.  */
 
-HIDDEN const uint8_t dwarf_to_unw_regnum_map[19] =
+HIDDEN const uint8_t dwarf_to_unw_regnum_map[31] =
   {
     UNW_X86_EAX, UNW_X86_ECX, UNW_X86_EDX, UNW_X86_EBX,
     UNW_X86_ESP, UNW_X86_EBP, UNW_X86_ESI, UNW_X86_EDI,
     UNW_X86_EIP, UNW_X86_EFLAGS, UNW_X86_TRAPNO,
     UNW_X86_ST0, UNW_X86_ST1, UNW_X86_ST2, UNW_X86_ST3,
-    UNW_X86_ST4, UNW_X86_ST5, UNW_X86_ST6, UNW_X86_ST7
-  };
+    UNW_X86_ST4, UNW_X86_ST5, UNW_X86_ST6, UNW_X86_ST7,
+
+    // TODO: Don't know...
+    UNW_X86_FCW,        /* scratch, 19 */
+    UNW_X86_FSW,        /* scratch, 20 */
+
+    /* SSE registers */
+    UNW_X86_XMM0,    /* 21 */
+    UNW_X86_XMM1,    /* 22 */
+    UNW_X86_XMM2,    /* 23 */
+    UNW_X86_XMM3,    /* 24 */
+    UNW_X86_XMM4,    /* 25 */
+    UNW_X86_XMM5,    /* 26 */
+    UNW_X86_XMM6,    /* 27 */
+    UNW_X86_XMM7,    /* 28 */
+
+    // TODO: Don't know...
+    UNW_X86_FCW,        /* scratch, 29 */
+    UNW_X86_FSW,        /* scratch, 30 */
+};
 
 HIDDEN void
 tdep_init (void)
