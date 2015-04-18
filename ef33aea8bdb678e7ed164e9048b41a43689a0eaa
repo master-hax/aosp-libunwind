@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "305cba63_b9dd5f0d",
+        "filename": "src/x86/Gglobal.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1041833
+      },
+      "writtenOn": "2015-04-18T00:47:53Z",
+      "side": 1,
+      "message": "Agreed. See the TODO. This is basically just copied from the register definition of x86 and simply a filler.",
+      "parentUuid": "305cba63_59436371",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "ef33aea8bdb678e7ed164e9048b41a43689a0eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0b782b3_2d5d397c",
         "filename": "src/x86/Gglobal.c",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-18T00:37:17Z",
       "side": 1,
       "message": "Did you actually need to define these? There isn\u0027t any dwarf register at this value as far as I can tell, so creating one for x86 seems like someone generated this in error.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 16
+      },
+      "revId": "ef33aea8bdb678e7ed164e9048b41a43689a0eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f055c239_3795d816",
+        "filename": "src/x86/Gglobal.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041833
+      },
+      "writtenOn": "2015-04-18T00:47:53Z",
+      "side": 1,
+      "message": "I have to admit I don\u0027t fully understand this one. There are two defines, see the other file. I do not understand why this array is two larger.\n\nThere is indexing into this with the old \"17\" + 1 define, but I don\u0027t understand why it\u0027s OK to overlap with ST6.\n\nThat\u0027s why the TODO is here. I do not know what the proper thing to do is here.",
+      "parentUuid": "f0b782b3_2d5d397c",
       "range": {
         "startLine": 57,
         "startChar": 4,
