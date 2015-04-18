@@ -93,6 +93,30 @@
       "revId": "ef33aea8bdb678e7ed164e9048b41a43689a0eaa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f055c239_d7fa9c3b",
+        "filename": "src/x86/Gglobal.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-04-18T00:59:22Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t know why they have the +2. x86 is the only one that had that weirdness.\n\nThis was in the original implementation, so there is no explanation of the difference. I really think this is actually a typo.",
+      "parentUuid": "f055c239_3795d816",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 16
+      },
+      "revId": "ef33aea8bdb678e7ed164e9048b41a43689a0eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
