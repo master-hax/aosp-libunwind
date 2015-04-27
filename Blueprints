@@ -23,7 +23,7 @@ build_host = ["false"]
 // Set to true to enable a debug build of the libraries.
 // To control what is logged, set the environment variable UNW_DEBUG_LEVEL=x,
 // where x controls the verbosity (from 1 to 20).
-debug = ["false"]
+libunwind_debug = ["false"]
 
 libunwind_common_cppflags = [
     "-Wno-old-style-cast",
@@ -45,6 +45,8 @@ libunwind_common_cflags_target = ["-Wno-maybe-uninitialized"]
 libunwind_common_clang_cflags = [
     "-Wno-header-guard",
     "-Wno-absolute-value",
+    // The latest clang (r230699) does not allow SP/PC to be declared in inline asm lists.
+    "-Wno-inline-asm",
 ]
 
 libunwind_common_cflags += [
@@ -145,7 +147,21 @@ cc_library {
         "src/os-common.c",
         "src/os-linux.c",
         "src/Los-common.c",
-    ],
+
+        // ptrace files for remote unwinding.
+        "src/ptrace/_UPT_accessors.c",
+        "src/ptrace/_UPT_access_fpreg.c",
+        "src/ptrace/_UPT_access_mem.c",
+        "src/ptrace/_UPT_access_reg.c",
+        "src/ptrace/_UPT_create.c",
+        "src/ptrace/_UPT_destroy.c",
+        "src/ptrace/_UPT_find_proc_info.c",
+        "src/ptrace/_UPT_get_dyn_info_list_addr.c",
+        "src/ptrace/_UPT_put_unwind_info.c",
+        "src/ptrace/_UPT_get_proc_name.c",
+        "src/ptrace/_UPT_reg_offset.c",
+        "src/ptrace/_UPT_resume.c",
+     ],
 
     cflags: libunwind_common_cflags,
     clang_cflags: libunwind_common_clang_cflags,
@@ -370,56 +386,10 @@ cc_library {
     export_include_dirs: ["include"],
     stl: "none",
 
-    /*debug: {
-    shared_libs: ["liblog"],
-    cflags: libunwind_common_debug_cflags,
-    },*/
-}
-
-//-----------------------------------------------------------------------
-// libunwind-ptrace shared library
-//-----------------------------------------------------------------------
-cc_library_shared {
-    name: "libunwind-ptrace",
-    host_supported: true,
-    srcs: [
-        "src/ptrace/_UPT_elf.c",
-        "src/ptrace/_UPT_accessors.c",
-        "src/ptrace/_UPT_access_fpreg.c",
-        "src/ptrace/_UPT_access_mem.c",
-        "src/ptrace/_UPT_access_reg.c",
-        "src/ptrace/_UPT_create.c",
-        "src/ptrace/_UPT_destroy.c",
-        "src/ptrace/_UPT_find_proc_info.c",
-        "src/ptrace/_UPT_get_dyn_info_list_addr.c",
-        "src/ptrace/_UPT_put_unwind_info.c",
-        "src/ptrace/_UPT_get_proc_name.c",
-        "src/ptrace/_UPT_reg_offset.c",
-        "src/ptrace/_UPT_resume.c",
-    ],
-
-    shared_libs: ["libunwind"],
-
-    arch: libunwind_common_arch_includes,
-
-    target: {
-        host: {
-            ldflags: ["-nostdlib"],
-            host_ldlibs: [
-                "-lc",
-                "-lpthread",
-            ],
-        },
-        android: {
-            cflags: libunwind_common_cflags_target,
-        },
-    },
-
-    cflags: libunwind_common_cflags,
-    clang_cflags: libunwind_common_clang_cflags,
-    local_include_dirs: libunwind_common_c_local_includes,
-
-    export_include_dirs: ["include"],
+    static: {
+        // Make sure the static library functions do not interfere with shared version.
+        cflags: ["-DUNW_ADDITIONAL_PREFIX"],
+    }
 
     /*debug: {
     shared_libs: ["liblog"],
@@ -457,6 +427,7 @@ cc_library_static {
     cflags: libunwind_common_cflags + [
         "-Wno-old-style-declaration",
         "-fvisibility=hidden",
+        "-DUNW_ADDITIONAL_PREFIX",
     ],
 
     clang_cflags: libunwind_common_clang_cflags,
