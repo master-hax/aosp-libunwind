@@ -46,7 +46,11 @@ libunwind_common_clang_cflags += \
     -Wno-header-guard \
     -Wno-absolute-value \
 
-ifneq ($(debug),true)
+# The latest clang (r230699) does not allow SP/PC to be declared in inline asm lists.
+libunwind_common_clang_cflags += \
+    -Wno-inline-asm
+
+ifneq ($(libunwind_debug),true)
 libunwind_common_cflags += \
     -DHAVE_CONFIG_H \
     -DNDEBUG \
@@ -131,6 +135,21 @@ libunwind_src_files := \
     src/os-common.c \
     src/os-linux.c \
     src/Los-common.c \
+
+# ptrace files for remote unwinding.
+libunwind_src_files += \
+    src/ptrace/_UPT_accessors.c \
+    src/ptrace/_UPT_access_fpreg.c \
+    src/ptrace/_UPT_access_mem.c \
+    src/ptrace/_UPT_access_reg.c \
+    src/ptrace/_UPT_create.c \
+    src/ptrace/_UPT_destroy.c \
+    src/ptrace/_UPT_find_proc_info.c \
+    src/ptrace/_UPT_get_dyn_info_list_addr.c \
+    src/ptrace/_UPT_put_unwind_info.c \
+    src/ptrace/_UPT_get_proc_name.c \
+    src/ptrace/_UPT_reg_offset.c \
+    src/ptrace/_UPT_resume.c \
 
 # Arch specific source files.
 $(foreach arch,$(libunwind_generate_arches), \
@@ -220,7 +239,7 @@ libunwind_ldlibs_host := \
 libunwind_export_c_include_dirs := \
     $(LOCAL_PATH)/include
 
-ifeq ($(debug),true)
+ifeq ($(libunwind_debug),true)
 libunwind_shared_libraries += \
     liblog \
 
@@ -234,52 +253,9 @@ include $(LOCAL_PATH)/Android.build.mk
 libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
 libunwind_build_type := target
+# Make sure the static library functions do not interfere with shared version.
+libunwind_cflags += -DUNW_ADDITIONAL_PREFIX
 libunwind_build_target := STATIC_LIBRARY
-include $(LOCAL_PATH)/Android.build.mk
-libunwind_build_type := host
-include $(LOCAL_PATH)/Android.build.mk
-
-#-----------------------------------------------------------------------
-# libunwind-ptrace shared library
-#-----------------------------------------------------------------------
-libunwind-ptrace_src_files := \
-    src/ptrace/_UPT_elf.c \
-    src/ptrace/_UPT_accessors.c \
-    src/ptrace/_UPT_access_fpreg.c \
-    src/ptrace/_UPT_access_mem.c \
-    src/ptrace/_UPT_access_reg.c \
-    src/ptrace/_UPT_create.c \
-    src/ptrace/_UPT_destroy.c \
-    src/ptrace/_UPT_find_proc_info.c \
-    src/ptrace/_UPT_get_dyn_info_list_addr.c \
-    src/ptrace/_UPT_put_unwind_info.c \
-    src/ptrace/_UPT_get_proc_name.c \
-    src/ptrace/_UPT_reg_offset.c \
-    src/ptrace/_UPT_resume.c \
-
-libunwind-ptrace_shared_libraries := \
-    libunwind \
-
-libunwind-ptrace_ldflags_host := \
-    -nostdlib
-
-libunwind-ptrace_ldlibs_host := \
-    -lc \
-    -lpthread \
-
-libunwind-ptrace_export_c_include_dirs := \
-    $(LOCAL_PATH)/include
-
-ifeq ($(libunwind_debug),true)
-libunwind-ptrace_shared_libraries += \
-    liblog \
-
-endif
-
-libunwind_module := libunwind-ptrace
-libunwind_module_tag := optional
-libunwind_build_type := target
-libunwind_build_target := SHARED_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
 libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
@@ -310,6 +286,7 @@ libunwindbacktrace_src_files += \
 libunwindbacktrace_cflags += \
     -Wno-old-style-declaration \
     -fvisibility=hidden \
+    -DUNW_ADDITIONAL_PREFIX \
 
 libunwind_module := libunwindbacktrace
 libunwind_module_tag := optional
