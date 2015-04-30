@@ -14,12 +14,6 @@
 // limitations under the License.
 //
 
-build_host = ["false"]
-// ANDROIDMK TRANSLATION ERROR: unsupported conditional
-// ifeq ($(HOST_OS),linux)
-//build_host = ["true"]
-// ANDROIDMK TRANSLATION ERROR: endif from unsupported contitional
-// endif
 // Set to true to enable a debug build of the libraries.
 // To control what is logged, set the environment variable UNW_DEBUG_LEVEL=x,
 // where x controls the verbosity (from 1 to 20).
@@ -381,6 +375,9 @@ cc_library {
                 "-lpthread",
             ],
         },
+        darwin: {
+            disabled: true,
+        },
     },
 
     export_include_dirs: ["include"],
@@ -438,6 +435,9 @@ cc_library_static {
     target: {
         android: {
             cflags: libunwind_common_cflags_target,
+        },
+        darwin: {
+            disabled: true,
         },
     },
 
