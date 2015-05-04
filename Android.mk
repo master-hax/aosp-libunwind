@@ -239,6 +239,9 @@ libunwind_ldlibs_host := \
 libunwind_export_c_include_dirs := \
     $(LOCAL_PATH)/include
 
+libunwind_shared_libraries += \
+	libcutils \
+
 ifeq ($(libunwind_debug),true)
 libunwind_shared_libraries += \
     liblog \

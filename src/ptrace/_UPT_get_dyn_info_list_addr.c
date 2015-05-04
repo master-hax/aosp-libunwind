@@ -48,9 +48,11 @@ get_list_addr (unw_addr_space_t as, unw_word_t *dil_addr, void *arg,
 
       invalidate_edi(&ui->edi);
 
+#if 0
       if (elf_map_image (&ui->edi.ei, path) < 0)
 	/* ignore unmappable stuff like "/SYSV00001b58 (deleted)" */
 	continue;
+#endif
 
       Debug (16, "checking object %s\n", path);
 
