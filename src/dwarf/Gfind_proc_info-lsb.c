@@ -91,7 +91,8 @@ linear_search (unw_addr_space_t as, unw_word_t ip,
 /* XXX: Could use mmap; but elf_map_image keeps tons mapped in.  */
 
 static int
-load_debug_frame (const char *file, char **buf, size_t *bufsize, int is_local)
+load_debug_frame (const char *file, char **buf, size_t *bufsize,
+                  int is_local, Elf_W(Addr)* segbase_bias)
 {
   FILE *f;
   Elf_W (Ehdr) ehdr;
@@ -101,64 +102,122 @@ load_debug_frame (const char *file, char **buf, size_t *bufsize, int is_local)
   unsigned int i;
   size_t linksize = 0;
   char *linkbuf = NULL;
-  
+
   *buf = NULL;
   *bufsize = 0;
-  
+
   f = fopen (file, "r");
-  
+
   if (!f)
     return 1;
-  
+
   if (fread (&ehdr, sizeof (Elf_W (Ehdr)), 1, f) != 1)
-    goto file_error;
-  
+    goto error;
+
   shstrndx = ehdr.e_shstrndx;
-  
+
   Debug (4, "opened file '%s'. Section header at offset %d\n",
          file, (int) ehdr.e_shoff);
 
   fseek (f, ehdr.e_shoff, SEEK_SET);
   sec_hdrs = calloc (ehdr.e_shnum, sizeof (Elf_W (Shdr)));
+  if (sec_hdrs == NULL)
+    goto error;
   if (fread (sec_hdrs, sizeof (Elf_W (Shdr)), ehdr.e_shnum, f) != ehdr.e_shnum)
-    goto file_error;
+    goto error;
 
   Debug (4, "loading string table of size %ld\n",
 	   (long) sec_hdrs[shstrndx].sh_size);
   stringtab = malloc (sec_hdrs[shstrndx].sh_size);
+  if (stringtab == NULL)
+    goto error;
   fseek (f, sec_hdrs[shstrndx].sh_offset, SEEK_SET);
   if (fread (stringtab, 1, sec_hdrs[shstrndx].sh_size, f) != sec_hdrs[shstrndx].sh_size)
-    goto file_error;
-  
+    goto error;
+
   for (i = 1; i < ehdr.e_shnum && *buf == NULL; i++)
+  {
+    char *secname = &stringtab[sec_hdrs[i].sh_name];
+
+    if (strcmp (secname, ".debug_frame") == 0)
     {
-      char *secname = &stringtab[sec_hdrs[i].sh_name];
+      *bufsize = sec_hdrs[i].sh_size;
+      *buf = malloc (*bufsize);
+      if (*buf == NULL)
+        goto error;
+      fseek (f, sec_hdrs[i].sh_offset, SEEK_SET);
+      if (fread (*buf, 1, *bufsize, f) != *bufsize)
+        goto error;
 
-      if (strcmp (secname, ".debug_frame") == 0)
-        {
-	  *bufsize = sec_hdrs[i].sh_size;
-	  *buf = malloc (*bufsize);
-
-	  fseek (f, sec_hdrs[i].sh_offset, SEEK_SET);
-	  if (fread (*buf, 1, *bufsize, f) != *bufsize)
-	    goto file_error;
-
-	  Debug (4, "read %zd bytes of .debug_frame from offset %ld\n",
-		 *bufsize, (long) sec_hdrs[i].sh_offset);
-	}
-      else if (strcmp (secname, ".gnu_debuglink") == 0)
-	{
-	  linksize = sec_hdrs[i].sh_size;
-	  linkbuf = malloc (linksize);
-
-	  fseek (f, sec_hdrs[i].sh_offset, SEEK_SET);
-	  if (fread (linkbuf, 1, linksize, f) != linksize)
-	    goto file_error;
-
-	  Debug (4, "read %zd bytes of .gnu_debuglink from offset %ld\n",
-		 linksize, (long) sec_hdrs[i].sh_offset);
-	}
+      Debug (4, "read %zd bytes of .debug_frame from offset %ld\n",
+             *bufsize, (long) sec_hdrs[i].sh_offset);
     }
+    else if (strcmp (secname, ".gnu_debuglink") == 0)
+    {
+      linksize = sec_hdrs[i].sh_size;
+      linkbuf = malloc (linksize);
+      if (linkbuf == NULL)
+        goto error;
+      fseek (f, sec_hdrs[i].sh_offset, SEEK_SET);
+      if (fread (linkbuf, 1, linksize, f) != linksize)
+        goto error;
+
+      Debug (4, "read %zd bytes of .gnu_debuglink from offset %ld\n",
+             linksize, (long) sec_hdrs[i].sh_offset);
+    }
+    /* ANDROID support update. */
+    else if (strcmp (secname, ".gnu_debugdata") == 0) {
+      size_t xz_size = sec_hdrs[i].sh_size;
+      uint8_t* xz_data = malloc (xz_size);
+      struct elf_image mdi;
+      if (xz_data == NULL)
+        goto error;
+      fseek (f, sec_hdrs[i].sh_offset, SEEK_SET);
+      if (fread (xz_data, 1, xz_size, f) != xz_size) {
+        free(xz_data);
+        goto error;
+      }
+      Debug (4, "read %zd bytes of .gnu_debugdata from offset %ld\n",
+             xz_size, (long) sec_hdrs[i].sh_offset);
+      if (elf_w (xz_decompress) (xz_data, xz_size,
+                                 (uint8_t**)&mdi.u.mapped.image, &mdi.u.mapped.size)) {
+        uint8_t* found_section;
+        Elf_W(Addr) old_text_vaddr, new_text_vaddr;
+        mdi.valid = elf_w (valid_object_mapped) (&mdi);
+        mdi.mapped = true;
+        Debug (4, "decompressed .gnu_debugdata\n");
+        if (elf_w (find_section_mapped) (&mdi, ".debug_frame", &found_section, bufsize, NULL)) {
+          Debug (4, "found .debug_frame in .gnu_debugdata\n");
+          *buf = malloc (*bufsize);
+          if (*buf == NULL) {
+            free(xz_data);
+            free(mdi.u.mapped.image);
+            goto error;
+          }
+          memcpy(*buf, found_section, *bufsize);
+          // The ELF file might have been relocated since .gnu_debugdata was created.
+          if (elf_w (find_section_mapped) (&mdi, ".text", NULL, NULL, &old_text_vaddr)) {
+            int j;
+            for (j = 1; j < ehdr.e_shnum; j++) {
+              if (strcmp(&stringtab[sec_hdrs[j].sh_name], ".text") == 0) {
+                new_text_vaddr = sec_hdrs[j].sh_addr;
+                *segbase_bias = new_text_vaddr - old_text_vaddr;
+                Debug (4, "ELF file was relocated by 0x%llx bytes since it was created.\n",
+                       (unsigned long long)*segbase_bias);
+              }
+            }
+          }
+        } else {
+          Debug (1, "can not find .debug_frame inside .gnu_debugdata\n");
+        }
+        free(mdi.u.mapped.image);
+      } else {
+        Debug (1, "failed to decompress .gnu_debugdata\n");
+      }
+      free(xz_data);
+    }
+  /* End of ANDROID update. */
+  }
 
   free (stringtab);
   free (sec_hdrs);
@@ -195,14 +254,14 @@ load_debug_frame (const char *file, char **buf, size_t *bufsize, int is_local)
       strcpy (newname, basedir);
       strcat (newname, "/");
       strcat (newname, linkbuf);
-      ret = load_debug_frame (newname, buf, bufsize, -1);
+      ret = load_debug_frame (newname, buf, bufsize, -1, segbase_bias);
 
       if (ret == 1)
 	{
 	  strcpy (newname, basedir);
 	  strcat (newname, "/.debug/");
 	  strcat (newname, linkbuf);
-	  ret = load_debug_frame (newname, buf, bufsize, -1);
+	  ret = load_debug_frame (newname, buf, bufsize, -1, segbase_bias);
 	}
 
       if (ret == 1 && is_local == 1)
@@ -211,7 +270,7 @@ load_debug_frame (const char *file, char **buf, size_t *bufsize, int is_local)
 	  strcat (newname, basedir);
 	  strcat (newname, "/");
 	  strcat (newname, linkbuf);
-	  ret = load_debug_frame (newname, buf, bufsize, -1);
+	  ret = load_debug_frame (newname, buf, bufsize, -1, segbase_bias);
 	}
 
       free (basedir);
@@ -222,7 +281,7 @@ load_debug_frame (const char *file, char **buf, size_t *bufsize, int is_local)
   return 0;
 
 /* An error reading image file. Release resources and return error code */
-file_error:
+error:
   free(stringtab);
   free(sec_hdrs);
   free(linkbuf);
@@ -253,6 +312,7 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
   size_t bufsize;
   /* ANDROID support update. */
   char *name = NULL;
+  Elf_W(Addr) segbase_bias = 0;
   /* End of ANDROID update. */
 
   /* First, see if we loaded this frame already.  */
@@ -288,8 +348,8 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
   else
     name = (char*) dlname;
 
-  err = load_debug_frame (name, &buf, &bufsize, as == unw_local_addr_space);
-  
+  err = load_debug_frame (name, &buf, &bufsize, as == unw_local_addr_space, &segbase_bias);
+
   if (!err)
     {
       fdesc = malloc (sizeof (struct unw_debug_frame_list));
@@ -298,9 +358,10 @@ locate_debug_info (unw_addr_space_t as, unw_word_t addr, const char *dlname,
       fdesc->end = end;
       fdesc->debug_frame = buf;
       fdesc->debug_frame_size = bufsize;
+      fdesc->segbase_bias = segbase_bias;
       fdesc->index = NULL;
       fdesc->next = as->debug_frames;
-      
+
       as->debug_frames = fdesc;
     }
 
@@ -330,10 +391,10 @@ debug_frame_tab_append (struct debug_frame_tab *tab,
       tab->size *= 2;
       tab->tab = realloc (tab->tab, sizeof (struct table_entry) * tab->size);
     }
-  
+
   tab->tab[length].fde_offset = fde_offset;
   tab->tab[length].start_ip_offset = start_ip;
-  
+
   tab->length = length + 1;
 }
 
@@ -351,7 +412,7 @@ static int
 debug_frame_tab_compare (const void *a, const void *b)
 {
   const struct table_entry *fa = a, *fb = b;
-  
+
   if (fa->start_ip_offset > fb->start_ip_offset)
     return 1;
   else if (fa->start_ip_offset < fb->start_ip_offset)
@@ -495,7 +556,7 @@ dwarf_find_debug_frame (int found, unw_dyn_info_t *di_debug, unw_word_t ip,
       di->u.ti.name_ptr = (unw_word_t) (uintptr_t) obj_name;
       di->u.ti.table_data = (unw_word_t *) fdesc;
       di->u.ti.table_len = sizeof (*fdesc) / sizeof (unw_word_t);
-      di->u.ti.segbase = segbase;
+      di->u.ti.segbase = segbase + fdesc->segbase_bias;
 
       found = 1;
       Debug (15, "found debug_frame table `%s': segbase=0x%lx, len=%lu, "
@@ -567,7 +628,7 @@ dwarf_callback (struct dl_phdr_info *info, size_t size, void *ptr)
       else if (phdr->p_type == PT_DYNAMIC)
 	p_dynamic = phdr;
     }
-  
+
   if (!p_text)
     return 0;
 
