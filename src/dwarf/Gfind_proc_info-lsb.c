@@ -158,6 +158,36 @@ load_debug_frame (const char *file, char **buf, size_t *bufsize, int is_local)
 	  Debug (4, "read %zd bytes of .gnu_debuglink from offset %zd\n",
 		 linksize, sec_hdrs[i].sh_offset);
 	}
+  /* ANDROID support update. */
+  else if (strcmp (secname, ".gnu_debugdata") == 0) {
+    size_t xz_size = sec_hdrs[i].sh_size;
+    uint8_t* xz_data = malloc (xz_size);
+    struct elf_image mdi;
+    fseek (f, sec_hdrs[i].sh_offset, SEEK_SET);
+    if (fread (xz_data, 1, xz_size, f) != xz_size) {
+      free(xz_data);
+      goto file_error;
+    }
+    Debug (4, "read %zd bytes of .gnu_debugdata from offset %zd\n",
+           xz_size, sec_hdrs[i].sh_offset);
+    if (elf_w (xz_decompress) (xz_data, xz_size,
+                               (uint8_t**)&mdi.u.mapped.image, &mdi.u.mapped.size)) {
+      mdi.valid = elf_w (valid_object_mapped) (&mdi);
+      mdi.mapped = true;
+      Debug (4, "decompressed .gnu_debugdata\n");
+      if (elf_w (find_section_mapped) (&mdi, ".debug_frame", (uint8_t**)buf, bufsize)) {
+        Debug (4, "found .debug_frame in .gnu_debugdata\n");
+        *buf = memcpy(malloc (*bufsize), *buf, *bufsize);
+      } else {
+        Debug (1, "can not find .debug_frame inside .gnu_debugdata\n");
+      }
+      free(mdi.u.mapped.image);
+    } else {
+      Debug (1, "failed to decompress .gnu_debugdata\n");
+    }
+    free(xz_data);
+  }
+  /* End of ANDROID update. */
     }
 
   free (stringtab);
