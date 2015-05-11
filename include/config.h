@@ -5,9 +5,7 @@
 /* #undef CONFIG_BLOCK_SIGNALS */
 
 /* Enable Debug Frame */
-#if defined(__arm__)
-#define CONFIG_DEBUG_FRAME /**/
-#endif
+#define CONFIG_DEBUG_FRAME 1
 
 /* Support for Microsoft ABI extensions */
 /* #undef CONFIG_MSABI_SUPPORT */
@@ -132,7 +130,7 @@
 #define HAVE_LINK_H 1
 
 /* Define if you have liblzma */
-/* #undef HAVE_LZMA */
+#define HAVE_LZMA 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1

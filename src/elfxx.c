@@ -29,8 +29,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #include <stdio.h>
 #include <sys/param.h>
 
-#ifdef HAVE_LZMA
-#include <lzma.h>
+#if HAVE_LZMA
+#include <7zCrc.h>
+#include <Xz.h>
+#include <XzCrc64.h>
 #endif /* HAVE_LZMA */
 
 static Elf_W (Shdr)*
@@ -182,49 +184,77 @@ elf_w (get_load_offset) (struct elf_image *ei, unsigned long segbase,
   return offset;
 }
 
-#if HAVE_LZMA
-static size_t
-xz_uncompressed_size (uint8_t *compressed, size_t length)
+/* ANDROID support update. */
+static void* xz_alloc(void* p, size_t size)
 {
-  uint64_t memlimit = UINT64_MAX;
-  size_t ret = 0, pos = 0;
-  lzma_stream_flags options;
-  lzma_index *index;
-
-  if (length < LZMA_STREAM_HEADER_SIZE)
-    return 0;
-
-  uint8_t *footer = compressed + length - LZMA_STREAM_HEADER_SIZE;
-  if (lzma_stream_footer_decode (&options, footer) != LZMA_OK)
-    return 0;
-
-  if (length < LZMA_STREAM_HEADER_SIZE + options.backward_size)
-    return 0;
-
-  uint8_t *indexdata = footer - options.backward_size;
-  if (lzma_index_buffer_decode (&index, &memlimit, NULL, indexdata,
-				&pos, options.backward_size) != LZMA_OK)
-    return 0;
-
-  if (lzma_index_size (index) == options.backward_size)
-    {
-      ret = lzma_index_uncompressed_size (index);
-    }
-
-  lzma_index_end (index, NULL);
-  return ret;
+  return malloc(size);
 }
 
-static int
-elf_w (extract_minidebuginfo) (struct elf_image *ei, struct elf_image *mdi)
+static void xz_free(void* p, void* address)
+{
+  free(address);
+}
+
+HIDDEN int
+elf_w (xz_decompress) (uint8_t* src, size_t src_size,
+                       uint8_t** dst, size_t* dst_size)
+{
+#if HAVE_LZMA
+  size_t src_offset = 0;
+  size_t dst_offset = 0;
+  size_t src_remaining;
+  size_t dst_remaining;
+  ISzAlloc alloc;
+  CXzUnpacker state;
+  ECoderStatus status;
+  alloc.Alloc = xz_alloc;
+  alloc.Free = xz_free;
+  XzUnpacker_Construct(&state, &alloc);
+  CrcGenerateTable();
+  Crc64GenerateTable();
+  *dst_size = 2 * src_size;
+  *dst = NULL;
+  do {
+    *dst_size *= 2;
+    *dst = realloc(*dst, *dst_size);
+    src_remaining = src_size - src_offset;
+    dst_remaining = *dst_size - dst_offset;
+    int res = XzUnpacker_Code(&state,
+                              *dst + dst_offset, &dst_remaining,
+                              src + src_offset, &src_remaining,
+                              CODER_FINISH_ANY, &status);
+    if (res != SZ_OK) {
+      Debug (1, "LZMA decompression failed with error %d\n", res);
+      free(*dst);
+      XzUnpacker_Free(&state);
+      return 0;
+    }
+    src_offset += src_remaining;
+    dst_offset += dst_remaining;
+  } while (status == CODER_STATUS_NOT_FINISHED);
+  XzUnpacker_Free(&state);
+  if (!XzUnpacker_IsStreamWasFinished(&state)) {
+    Debug (1, "LZMA decompression failed due to incomplete stream.\n");
+    free(*dst);
+    return 0;
+  }
+  *dst_size = dst_offset;
+  *dst = realloc(*dst, *dst_size);
+  return 1;
+#else
+  Debug (1, "Decompression failed - compiled without LZMA support.\n",
+  return 0;
+#endif // HAVE_LZMA
+}
+
+HIDDEN int
+elf_w (find_section) (struct elf_image *ei, const char* name,
+                      uint8_t** section, size_t* size)
 {
   Elf_W (Ehdr) *ehdr = ei->image;
   Elf_W (Shdr) *shdr;
   char *strtab;
   int i;
-  uint8_t *compressed = NULL;
-  uint64_t memlimit = UINT64_MAX; /* no memory limit */
-  size_t compressed_len, uncompressed_len;
 
   if (!elf_w (valid_object) (ei))
     return 0;
@@ -238,66 +268,38 @@ elf_w (extract_minidebuginfo) (struct elf_image *ei, struct elf_image *mdi)
     return 0;
 
   for (i = 0; i < ehdr->e_shnum; ++i)
+  {
+    if (strcmp (strtab + shdr->sh_name, name) == 0)
     {
-      if (strcmp (strtab + shdr->sh_name, ".gnu_debugdata") == 0)
-	{
-	  if (shdr->sh_offset + shdr->sh_size > ei->size)
-	    {
-	      Debug (1, ".gnu_debugdata outside image? (0x%lu > 0x%lu)\n",
-		     (unsigned long) shdr->sh_offset + shdr->sh_size,
-		     (unsigned long) ei->size);
-	      return 0;
-	    }
-
-	  Debug (16, "found .gnu_debugdata at 0x%lx\n",
-		 (unsigned long) shdr->sh_offset);
-	  compressed = ((uint8_t *) ei->image) + shdr->sh_offset;
-	  compressed_len = shdr->sh_size;
-	  break;
-	}
-
-      shdr = (Elf_W (Shdr) *) (((char *) shdr) + ehdr->e_shentsize);
+      if (shdr->sh_offset + shdr->sh_size > ei->size)
+      {
+        Debug (1, "section %s outside image? (0x%lu > 0x%lu)\n", name,
+         (unsigned long) shdr->sh_offset + shdr->sh_size,
+         (unsigned long) ei->size);
+        return 0;
+      }
+      *section = ((uint8_t *) ei->image) + shdr->sh_offset;
+      *size = shdr->sh_size;
+      return 1;
     }
-
-  /* not found */
-  if (!compressed)
-    return 0;
-
-  uncompressed_len = xz_uncompressed_size (compressed, compressed_len);
-  if (uncompressed_len == 0)
-    {
-      Debug (1, "invalid .gnu_debugdata contents\n");
-      return 0;
-    }
-
-  mdi->size = uncompressed_len;
-  mdi->image = mmap (NULL, uncompressed_len, PROT_READ|PROT_WRITE,
-		     MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-
-  if (mdi->image == MAP_FAILED)
-    return 0;
-
-  size_t in_pos = 0, out_pos = 0;
-  lzma_ret lret;
-  lret = lzma_stream_buffer_decode (&memlimit, 0, NULL,
-				    compressed, &in_pos, compressed_len,
-				    mdi->image, &out_pos, mdi->size);
-  if (lret != LZMA_OK)
-    {
-      Debug (1, "LZMA decompression failed: %d\n", lret);
-      munmap (mdi->image, mdi->size);
-      return 0;
-    }
-
-  return 1;
+    shdr = (Elf_W (Shdr) *) (((char *) shdr) + ehdr->e_shentsize);
+  }
+  return 0;
 }
-#else
+
 static int
 elf_w (extract_minidebuginfo) (struct elf_image *ei, struct elf_image *mdi)
 {
+  uint8_t *compressed = NULL;
+  size_t compressed_len;
+  if (elf_w (find_section) (ei, ".gnu_debugdata", &compressed, &compressed_len))
+  {
+    return elf_w (xz_decompress) (compressed, compressed_len,
+                                  (uint8_t**)&mdi->image, &mdi->size);
+  }
   return 0;
 }
-#endif /* !HAVE_LZMA */
+/* ANDROID support update. */
 
 /* Find the ELF image that contains IP and return the "closest"
    procedure name, if there is one.  With some caching, this could be
@@ -325,7 +327,7 @@ elf_w (get_proc_name_in_image) (unw_addr_space_t as, struct elf_image *ei,
     {
       int ret_mdi;
 
-      load_offset = elf_w (get_load_offset) (&mdi, segbase, mapoff);
+      // load_offset = elf_w (get_load_offset) (&mdi, segbase, mapoff);
       ret_mdi = elf_w (lookup_symbol) (as, ip, &mdi, load_offset, buf,
 				       buf_len, &min_dist);
 
@@ -335,7 +337,7 @@ elf_w (get_proc_name_in_image) (unw_addr_space_t as, struct elf_image *ei,
 	  ret = ret_mdi;
 	}
 
-      munmap (mdi.image, mdi.size);
+      free(mdi.image);
     }
 
   if (min_dist >= ei->size)
