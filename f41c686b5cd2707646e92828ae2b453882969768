@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "ad15b184_3a19457a",
+        "filename": "src/dwarf/Gfind_unwind_table.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-05-13T17:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad15b184_085407d9",
+      "revId": "f41c686b5cd2707646e92828ae2b453882969768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad15b184_c8394fa0",
         "filename": "src/dwarf/Gfind_unwind_table.c",
         "patchSetId": 4
@@ -64,6 +82,24 @@
       "writtenOn": "2015-05-13T01:08:04Z",
       "side": 1,
       "message": "this doesn\u0027t look very optional...",
+      "revId": "f41c686b5cd2707646e92828ae2b453882969768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad15b184_fa268db2",
+        "filename": "src/dwarf/Gfind_unwind_table.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-05-13T17:34:54Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "ad15b184_c8394fa0",
       "revId": "f41c686b5cd2707646e92828ae2b453882969768",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "ed2329ea_308dee88",
+        "filename": "src/dwarf/Gfind_unwind_table.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-05-13T17:34:54Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "ed2329ea_870aa6d1",
+      "revId": "f41c686b5cd2707646e92828ae2b453882969768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed2329ea_c7149ef6",
         "filename": "src/dwarf/Gfind_unwind_table.c",
         "patchSetId": 4
@@ -104,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "cd1ae5b3_95faceb3",
+        "filename": "src/dwarf/Gfind_unwind_table.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-05-13T17:34:54Z",
+      "side": 1,
+      "message": "David is working on resurrecting the #else code below which uses this max_load_addr, so I didn\u0027t want to delete it. I also wanted it to be clear that this is not used anywhere but in that other piece of code.",
+      "parentUuid": "ed2329ea_c7149ef6",
+      "revId": "f41c686b5cd2707646e92828ae2b453882969768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad15b184_e817ebf7",
         "filename": "src/elfxx.h",
         "patchSetId": 4
@@ -115,6 +187,24 @@
       "writtenOn": "2015-05-13T01:08:04Z",
       "side": 1,
       "message": "between us, how many times have we written this now?",
+      "revId": "f41c686b5cd2707646e92828ae2b453882969768",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad15b184_fa632dc1",
+        "filename": "src/elfxx.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-05-13T17:34:54Z",
+      "side": 1,
+      "message": "Everyone has a slightly different validate function.\n\nI think that we really could benefit from a real elf utils library we are willing to maintain. Whether it be an open source project we take over, or something we write from scratch.",
+      "parentUuid": "ad15b184_e817ebf7",
       "revId": "f41c686b5cd2707646e92828ae2b453882969768",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
