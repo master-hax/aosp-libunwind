@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d9a7579_6c59378f",
+        "filename": "src/elfxx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2015-05-15T02:20:27Z",
+      "side": 1,
+      "message": "move this up under the strncpy? (i\u0027d already written a comment pointing out the apparent bug.)",
+      "revId": "b83d90b4349351c2b25a0c638a98155b793bf711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
