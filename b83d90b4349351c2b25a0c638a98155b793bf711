@@ -16,6 +16,24 @@
       "revId": "b83d90b4349351c2b25a0c638a98155b793bf711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da4fdb8_8861dd11",
+        "filename": "src/elfxx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-05-15T19:20:29Z",
+      "side": 1,
+      "message": "I don\u0027t think this can ever yield a bug, but I agree I should put it closer to the strncpy.\n\nThis is to handle the case where there is no nul terminator in the string.",
+      "parentUuid": "4d9a7579_6c59378f",
+      "revId": "b83d90b4349351c2b25a0c638a98155b793bf711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
