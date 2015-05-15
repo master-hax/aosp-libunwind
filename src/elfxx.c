@@ -208,7 +208,8 @@ static bool elf_w (lookup_symbol_memory) (
             if (ip >= val && (Elf_W(Addr)) (ip - val) < sym.st_size) {
               GET_SYM_FIELD(ei, sym_offset, &sym, st_name);
               uintptr_t size = ei->u.memory.map->end - ei->u.memory.map->start;
-              if (strtab_offset + sym.st_name > size) {
+              if (strtab_offset + sym.st_name > size ||
+                  strtab_offset + sym.st_name < strtab_offset) {
                 // Malformed elf symbol table.
                 break;
               }
@@ -343,7 +344,9 @@ static bool elf_w (lookup_symbol_mapped) (
             }
             Debug (16, "0x%016lx info=0x%02x\n", (long) val, sym->st_info);
             if (ip >= val && (Elf_W(Addr)) (ip - val) < sym->st_size) {
-              if (strtab + sym->st_name > (char*) ei->u.mapped.image + ei->u.mapped.size) {
+              char* str_name = strtab + sym->st_name;
+              if (str_name > (char*) ei->u.mapped.image + ei->u.mapped.size ||
+                  str_name < strtab) {
                 // Malformed elf symbol table.
                 break;
               }
