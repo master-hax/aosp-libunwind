@@ -34,6 +34,24 @@
       "revId": "b83d90b4349351c2b25a0c638a98155b793bf711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da4fdb8_31713808",
+        "filename": "src/elfxx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2015-05-15T22:54:32Z",
+      "side": 1,
+      "message": "that\u0027s what i meant: having a strncpy without an explicit termination like this is a bug, and because there were 10 lines between the two, this looked wrong at first glance.",
+      "parentUuid": "0da4fdb8_8861dd11",
+      "revId": "b83d90b4349351c2b25a0c638a98155b793bf711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
