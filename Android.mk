@@ -65,6 +65,9 @@ libunwind_common_cflags += \
 
 endif
 
+# For dereferencing of type-punned pointer in mi/backtrace.c
+libunwind_common_cflags += -fno-strict-aliasing
+
 libunwind_common_c_includes := \
     $(LOCAL_PATH)/src \
     $(LOCAL_PATH)/include \
@@ -287,6 +290,10 @@ libunwindbacktrace_cflags += \
     -Wno-old-style-declaration \
     -fvisibility=hidden \
     -DUNW_ADDITIONAL_PREFIX \
+
+# Needed because Backtrace.c and ForcedUnwind.c dereference
+# type-punned pointers
+libunwindbacktrace_cflags += -fno-strict-aliasing
 
 libunwind_module := libunwindbacktrace
 libunwind_module_tag := optional
