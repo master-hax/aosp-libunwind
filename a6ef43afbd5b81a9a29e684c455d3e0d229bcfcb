@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d9ae2c65_da121560",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2015-06-02T23:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d54fde2_84e6b658",
+      "range": {
+        "startLine": 140,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 27
+      },
+      "revId": "a6ef43afbd5b81a9a29e684c455d3e0d229bcfcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed56c9ec_be2d8514",
         "filename": "src/dwarf/Gfind_proc_info-lsb.c",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-27T23:30:16Z",
       "side": 1,
       "message": "You should check this doesn\u0027t return NULL.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 40
+      },
+      "revId": "a6ef43afbd5b81a9a29e684c455d3e0d229bcfcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9ae2c65_fa0fd134",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2015-06-02T23:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed56c9ec_be2d8514",
       "range": {
         "startLine": 164,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b9a97860_34625e0c",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2015-06-02T23:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d54fde2_a4fadaf0",
+      "range": {
+        "startLine": 180,
+        "startChar": 22,
+        "endLine": 180,
+        "endChar": 39
+      },
+      "revId": "a6ef43afbd5b81a9a29e684c455d3e0d229bcfcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d54fde2_04c72697",
         "filename": "src/dwarf/Gfind_proc_info-lsb.c",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b9a97860_d4666a1e",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2015-06-02T23:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d54fde2_04c72697",
+      "range": {
+        "startLine": 162,
+        "startChar": 1,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "a6ef43afbd5b81a9a29e684c455d3e0d229bcfcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3d85a0_8bfc0238",
         "filename": "src/elfxx.c",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2015-05-27T23:30:16Z",
       "side": 1,
       "message": "Probably better as something like:\n\nbool ret_val \u003d elf_w (lookup_symbol) (...);\nfree();\nreturn ret_val;",
+      "range": {
+        "startLine": 575,
+        "startChar": 4,
+        "endLine": 578,
+        "endChar": 5
+      },
+      "revId": "a6ef43afbd5b81a9a29e684c455d3e0d229bcfcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99a8345d_131f361d",
+        "filename": "src/elfxx.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2015-06-02T23:07:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3d85a0_8bfc0238",
       "range": {
         "startLine": 575,
         "startChar": 4,
