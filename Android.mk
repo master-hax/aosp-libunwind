@@ -254,7 +254,7 @@ libunwind_build_type := host
 include $(LOCAL_PATH)/Android.build.mk
 libunwind_build_type := target
 # Make sure the static library functions do not interfere with shared version.
-libunwind_cflags += -DUNW_ADDITIONAL_PREFIX
+# libunwind_cflags += -DUNW_ADDITIONAL_PREFIX
 libunwind_build_target := STATIC_LIBRARY
 include $(LOCAL_PATH)/Android.build.mk
 libunwind_build_type := host
