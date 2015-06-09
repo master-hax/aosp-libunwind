@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9d9cc70_04589f5a",
+        "filename": "src/os-linux.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-06-09T00:34:39Z",
+      "side": 1,
+      "message": "move this to line 126? you can only check map_create_type in this case... it is not used in between is it?",
+      "revId": "236d864ef51a47f2f8986917ccdc2c7fe95a7edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
