@@ -16,6 +16,24 @@
       "revId": "236d864ef51a47f2f8986917ccdc2c7fe95a7edc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_44f33d6c",
+        "filename": "src/os-linux.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-06-09T18:06:17Z",
+      "side": 1,
+      "message": "Yes it can be. The trick is that I\u0027m creating the address space the first time I need it for a remote unwind since it could be a slightly expensive operation. So I only delete the data associated with the address space after all maps created.\n\nLet me add a comment since it\u0027s not obvious what I\u0027m doing.",
+      "parentUuid": "d9d9cc70_04589f5a",
+      "revId": "236d864ef51a47f2f8986917ccdc2c7fe95a7edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
