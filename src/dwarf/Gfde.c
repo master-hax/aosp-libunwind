@@ -219,7 +219,7 @@ parse_cie (unw_addr_space_t as, unw_accessors_t *a, unw_word_t addr,
    Pass BASE as zero for eh_frame behaviour, or a pointer to
    debug_frame base for debug_frame behaviour.  */
 
-HIDDEN int
+PROTECTED int
 dwarf_extract_proc_info_from_fde (unw_addr_space_t as, unw_accessors_t *a,
 				  unw_word_t *addrp, unw_proc_info_t *pi,
 				  int need_unwind_info, unw_word_t base,
