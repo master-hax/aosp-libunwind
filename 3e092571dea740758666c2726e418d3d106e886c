@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c3a958_38de8552",
+        "filename": "src/Los-common.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2015-08-19T13:17:52Z",
+      "side": 0,
+      "message": "The executable section in ART is stored after the read-only section, which means that this values is non-zero.",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "3e092571dea740758666c2726e418d3d106e886c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
