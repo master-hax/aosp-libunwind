@@ -1,0 +1,7 @@
+Code-Review+2: David Srbecky <dsrbecky@google.com>
+Verified+1: David Srbecky <dsrbecky@google.com>
+Submitted-by: David Srbecky <dsrbecky@google.com>
+Submitted-at: Wed, 19 Aug 2015 12:52:29 +0000
+Reviewed-on: https://android-review.googlesource.com/167480
+Project: platform/external/libunwind
+Branch: refs/heads/master
