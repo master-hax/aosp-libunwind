@@ -1,0 +1,8 @@
+Verified+1: Chih-hung Hsieh <chh@google.com>
+Code-Review+2: Yabin Cui <yabinc@google.com>
+Verified+1: Bionic Buildbot <bionicbb@android.com>
+Submitted-by: Chih-hung Hsieh <chh@google.com>
+Submitted-at: Thu, 22 Oct 2015 23:53:41 +0000
+Reviewed-on: https://android-review.googlesource.com/178163
+Project: platform/external/libunwind
+Branch: refs/heads/master
