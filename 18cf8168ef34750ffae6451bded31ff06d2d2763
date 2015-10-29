@@ -52,6 +52,24 @@
       "revId": "18cf8168ef34750ffae6451bded31ff06d2d2763",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "760e462a_1ac5195f",
+        "filename": "src/Los-common.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-10-29T23:29:33Z",
+      "side": 1,
+      "message": "Hopefully, rewritten soon.",
+      "parentUuid": "d63612de_b88621f7",
+      "revId": "18cf8168ef34750ffae6451bded31ff06d2d2763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
