@@ -16,6 +16,24 @@
       "revId": "18cf8168ef34750ffae6451bded31ff06d2d2763",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_3145aa98",
+        "filename": "src/Los-common.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2015-10-29T22:36:01Z",
+      "side": 1,
+      "message": "This is a slight optimization because I was worried that if you have a bunch of threads all trying to rebuild the map at the same time, it\u0027s possible that they will wind up rebuilding the map multiple times. Thus, if some other thread rebuilt the map, and it now would properly satisfy the read/write request, throw away the map we just built.",
+      "parentUuid": "760e462a_3748f807",
+      "revId": "18cf8168ef34750ffae6451bded31ff06d2d2763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
