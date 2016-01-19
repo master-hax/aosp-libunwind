@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a77deeee_71474a35",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2016-01-19T18:52:45Z",
+      "side": 1,
+      "message": "It obviously can be moved out.  I tried it a bit.  I do not feel like it is better though.\nI needs at least ehdr, stringtab, sec_hdrs, i, buf, bufsize, segbase_bias.  Basically access to the semi-loaded elf and outputs.",
+      "parentUuid": "27673e34_afa33bcb",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 55
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07623a24_b959c543",
         "filename": "src/dwarf/Gfind_proc_info-lsb.c",
         "patchSetId": 9
