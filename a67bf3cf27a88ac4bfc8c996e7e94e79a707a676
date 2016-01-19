@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e798c691_2b8fe950",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2016-01-19T19:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07623a24_b959c543",
+      "range": {
+        "startLine": 205,
+        "startChar": 36,
+        "endLine": 205,
+        "endChar": 55
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "274e5eac_23ce1a84",
         "filename": "src/dwarf/Gfind_proc_info-lsb.c",
         "patchSetId": 9
@@ -106,6 +130,30 @@
       "writtenOn": "2016-01-19T17:53:25Z",
       "side": 1,
       "message": "Should you exit the loop if you find the text section? Or do you think there might be multiple text segments?",
+      "range": {
+        "startLine": 210,
+        "startChar": 14,
+        "endLine": 210,
+        "endChar": 15
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a77deeee_b128e255",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2016-01-19T19:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "274e5eac_23ce1a84",
       "range": {
         "startLine": 210,
         "startChar": 14,
