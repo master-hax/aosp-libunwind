@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e759a674_45e19b16",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2016-01-19T17:53:25Z",
+      "side": 1,
+      "message": "You\u0027ll need to add the sec_position + sizeof() \u003c\u003d sec_size check. This isn\u0027t the best way to do this check, I should have done something else, but I keep telling myself that I\u0027m going to do a rewrite soon so this isn\u0027t too bad.\n\nThis check is to prevent someone from creating a malformed name that has the section name past the end of the shared library.",
+      "range": {
+        "startLine": 172,
+        "startChar": 13,
+        "endLine": 172,
+        "endChar": 19
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27673e34_afa33bcb",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2016-01-19T17:53:25Z",
+      "side": 1,
+      "message": "This isn\u0027t aligned to the above code. Would this be better as a function? I didn\u0027t check if there are uses of a lot of variables from the loop.",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 55
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07623a24_b959c543",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2016-01-19T17:53:25Z",
+      "side": 1,
+      "message": "Please add code to verify that this doesn\u0027t wind up going past the end of the stringtab. If there are other places where you have to trust data read from the elf, it would be good to verify it.",
+      "range": {
+        "startLine": 205,
+        "startChar": 36,
+        "endLine": 205,
+        "endChar": 55
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "274e5eac_23ce1a84",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2016-01-19T17:53:25Z",
+      "side": 1,
+      "message": "Should you exit the loop if you find the text section? Or do you think there might be multiple text segments?",
+      "range": {
+        "startLine": 210,
+        "startChar": 14,
+        "endLine": 210,
+        "endChar": 15
+      },
+      "revId": "a67bf3cf27a88ac4bfc8c996e7e94e79a707a676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
