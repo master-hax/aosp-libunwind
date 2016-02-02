@@ -101,7 +101,9 @@ map_alloc_info (void)
         }
       lock_release (&map_init_lock, saved_mask);
     }
-  return mempool_alloc (&map_pool);
+  struct map_info *map = mempool_alloc (&map_pool);
+  memset(map, 0, sizeof(*map));
+  return map;
 }
 
 HIDDEN void
@@ -122,6 +124,8 @@ map_destroy_list (struct map_info *map_info)
         munmap (map->ei.u.mapped.image, map->ei.u.mapped.size);
       if (map->path)
         free (map->path);
+      if (map->ei.mini_debug_info_data)
+        free (map->ei.mini_debug_info_data);
       map_free_info (map);
     }
 }
