@@ -553,16 +553,42 @@ elf_w (find_section_mapped) (struct elf_image *ei, const char* name,
   return false;
 }
 
-static bool
-elf_w (extract_minidebuginfo_mapped) (struct elf_image *ei, struct elf_image *mdi)
+struct mini_debug_info {
+  struct elf_image image;
+  struct elf_image* parent;
+  struct mini_debug_info* next;
+};
+static struct mini_debug_info* mini_debug_info_cache = NULL;
+
+static struct mini_debug_info* elf_w (get_minidebuginfo_mapped) (struct elf_image* ei)
 {
-  uint8_t *compressed = NULL;
-  size_t compressed_len;
-  if (elf_w (find_section_mapped) (ei, ".gnu_debugdata", &compressed, &compressed_len, NULL)) {
-    return elf_w (xz_decompress) (compressed, compressed_len,
-                                  (uint8_t**)&mdi->u.mapped.image, &mdi->u.mapped.size);
+  for (struct mini_debug_info* mdi = mini_debug_info_cache; mdi != NULL; mdi = mdi->next) {
+    if (mdi->parent == ei) {
+      return mdi;
+    }
   }
-  return false;
+  uint8_t* compressed = NULL;
+  size_t compressed_size;
+  if (elf_w (find_section_mapped) (ei, ".gnu_debugdata", &compressed, &compressed_size, NULL)) {
+    uint8_t* decompressed = NULL;
+    size_t decompressed_size;
+    if (elf_w (xz_decompress) (compressed, compressed_size, &decompressed, &decompressed_size)) {
+      struct mini_debug_info* mdi = malloc(sizeof(struct mini_debug_info));
+      if (mdi == NULL) {
+        free(decompressed);
+        return NULL;
+      }
+      mdi->image.mapped = true;
+      mdi->image.u.mapped.image = decompressed;
+      mdi->image.u.mapped.size = decompressed_size;
+      mdi->image.valid = elf_w (valid_object_mapped) (&mdi->image);
+      mdi->parent = ei;
+      mdi->next = mini_debug_info_cache;
+      mini_debug_info_cache = mdi;
+      return mdi;
+    }
+  }
+  return NULL;
 }
 /* ANDROID support update. */
 
@@ -584,19 +610,16 @@ HIDDEN bool elf_w (get_proc_name_in_image) (
 
   // If the ELF image doesn't contain a match, look up the symbol in
   // the MiniDebugInfo.
-  struct elf_image mdi;
-  if (ei->mapped && elf_w (extract_minidebuginfo_mapped) (ei, &mdi)) {
-    mdi.valid = elf_w (valid_object_mapped) (&mdi);
-    mdi.mapped = true;
+  struct mini_debug_info* mdi = elf_w (get_minidebuginfo_mapped) (ei);
+  if (mdi != NULL) {
     // The ELF file might have been relocated after the debug
     // information has been compresses and embedded.
     ElfW(Addr) ei_text_address, mdi_text_address;
     if (elf_w (find_section_mapped) (ei, ".text", NULL, NULL, &ei_text_address) &&
-        elf_w (find_section_mapped) (&mdi, ".text", NULL, NULL, &mdi_text_address)) {
+        elf_w (find_section_mapped) (&mdi->image, ".text", NULL, NULL, &mdi_text_address)) {
       load_offset += ei_text_address - mdi_text_address;
     }
-    bool ret_val = elf_w (lookup_symbol) (as, ip, &mdi, load_offset, buf, buf_len, offp, &ehdr);
-    free(mdi.u.mapped.image);
+    bool ret_val = elf_w (lookup_symbol) (as, ip, &mdi->image, load_offset, buf, buf_len, offp, &ehdr);
     return ret_val;
   }
   return false;
