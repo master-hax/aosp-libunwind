@@ -71,6 +71,9 @@ move_cached_elf_data (struct map_info *old_list, struct map_info *new_list)
                 new_list->ei.u.memory.map = new_list;
               /* If it was mapped before, make sure to mark it unmapped now. */
               old_list->ei.mapped = false;
+              /* Clear the old mini debug info so we do not try to free it twice */
+              old_list->ei.mini_debug_info_data = NULL;
+              old_list->ei.mini_debug_info_size = 0;
               /* Don't bother breaking out of the loop, the next while check
                  is guaranteed to fail, causing us to break out of the loop
                  after advancing to the next map element. */
