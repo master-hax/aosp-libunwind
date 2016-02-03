@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3115c084_fe37a1b3",
+        "filename": "src/mi/map.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2016-02-03T22:17:22Z",
+      "side": 1,
+      "message": "You can avoid this memset by changing src/os-linux.c, and initializing the new parameters. That\u0027s the only place this structure is ever allocated.\n\nYou can ignore the calls is os-qnx.c and os-freebsd.c since we are not using those.",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "3ae7493b45ccd497088b61b42d37a18ec6ebc4a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
