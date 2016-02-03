@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1b5e8da_fad889a0",
+        "filename": "src/Los-common.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2016-02-03T11:17:51Z",
+      "side": 1,
+      "message": "Done",
+      "range": {
+        "startLine": 75,
+        "startChar": 14,
+        "endLine": 76,
+        "endChar": 52
+      },
+      "revId": "a3fbb531ba35c1afffc235c29cd5ec53300cf9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
