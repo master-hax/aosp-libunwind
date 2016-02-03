@@ -22,6 +22,30 @@
       "revId": "3ae7493b45ccd497088b61b42d37a18ec6ebc4a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51db1439_7dd39758",
+        "filename": "src/mi/map.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1065473
+      },
+      "writtenOn": "2016-02-03T22:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3115c084_fe37a1b3",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "3ae7493b45ccd497088b61b42d37a18ec6ebc4a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
