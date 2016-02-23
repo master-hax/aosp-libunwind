@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2def959_7ac70580",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2016-02-23T00:08:44Z",
+      "side": 1,
+      "message": "Add a \\ to the end here. It makes it easier to reorder and to handle merges.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "b971dab24049799daac5e30f5fc44e583b89b529",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
