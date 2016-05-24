@@ -385,6 +385,10 @@ cc_library {
 
     shared_libs: ["liblzma"],
 
+    sanitize: {
+        never: true,
+    },
+
     /*debug: {
     shared_libs: ["liblog"],
     cflags: libunwind_common_debug_cflags,
@@ -438,6 +442,10 @@ cc_library_static {
     },
 
     whole_static_libs: ["libunwind"],
+
+    sanitize: {
+        never: true,
+    },
 }
 
 /*
