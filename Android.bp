@@ -440,32 +440,25 @@ cc_library_static {
     whole_static_libs: ["libunwind"],
 }
 
-/*
 //-----------------------------------------------------------------------
 // libunwind testing
 //-----------------------------------------------------------------------
-libunwind-unit-tests_cflags = [
-"-fno-builtin",
-"-O0",
-"-g",
-]
+cc_test {
+    name: "libunwind-unit-tests",
+    srcs: ["android/tests/local_test.cpp"],
+    host_supported: true,
 
-libunwind-unit-tests_c_local_includes = ["include"]
+    cflags: [
+        "-fno-builtin",
+        "-O0",
+        "-g",
+    ],
 
-libunwind-unit-tests_src_files = ["android/tests/local_test.cpp"]
+    local_include_dirs: ["include"],
+    shared_libs: ["libunwind"],
+}
 
-libunwind-unit-tests_shared_libraries = ["libunwind"]
-
-libunwind-unit-tests_multilib = ["both"]
-module = ["libunwind-unit-tests"]
-module_tag = ["optional"]
-build_type = ["target"]
-build_target = ["NATIVE_TEST"]
-// ANDROIDMK TRANSLATION ERROR: unsupported include
-// include $(LOCAL_PATH)/Android.build.mk
-build_type = ["host"]
-// ANDROIDMK TRANSLATION ERROR: unsupported include
-// include $(LOCAL_PATH)/Android.build.mk
+/*
 // Run the unit tests built for x86 or x86_64.
 // ANDROIDMK TRANSLATION ERROR: unsupported conditional
 // ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),x86 x86_64))
