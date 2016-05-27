@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cd76f7e_0de815ed",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2016-05-27T22:12:09Z",
+      "side": 1,
+      "message": "but only linux",
+      "revId": "0b383baf6337f703d510829bff6cf41353f8f30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cd76f7e_adbd89e6",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2016-05-27T22:12:09Z",
+      "side": 1,
+      "message": "and all of the common cflags/cppflags from the top. probably should just be turned into a cc_defaults module",
+      "revId": "0b383baf6337f703d510829bff6cf41353f8f30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cd76f7e_2deb59ed",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2016-05-27T22:12:09Z",
+      "side": 1,
+      "message": "technically, Android.build.mk also defined LOCAL_SANITIZE :\u003d never, but I\u0027m not sure that\u0027s actually required for the test",
+      "revId": "0b383baf6337f703d510829bff6cf41353f8f30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
