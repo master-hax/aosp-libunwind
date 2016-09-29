@@ -49,10 +49,12 @@ extern size_t elf_w (memory_read) (
   unw_word_t data_word;
   size_t align_bytes = addr & (sizeof(unw_word_t) - 1);
   if (align_bytes != 0) {
-    if ((*a->access_mem) (ei->u.memory.as, addr & ~(sizeof(unw_word_t) - 1), &data_word,
-                          0, ei->u.memory.as_arg) != 0) {
-      return 0;
-    }
+	if(*a->access_mem != NULL) {
+		if ((*a->access_mem) (ei->u.memory.as, addr & ~(sizeof(unw_word_t) - 1), &data_word,
+							  0, ei->u.memory.as_arg) != 0) {
+		  return 0;
+		}
+	}
     size_t copy_bytes = MIN(sizeof(unw_word_t) - align_bytes, bytes);
     memcpy (buffer, (uint8_t*) (&data_word) + align_bytes, copy_bytes);
     if (string_read) {
@@ -72,9 +74,11 @@ extern size_t elf_w (memory_read) (
   size_t num_words = bytes / sizeof(unw_word_t);
   size_t i;
   for (i = 0; i < num_words; i++) {
-    if ((*a->access_mem) (ei->u.memory.as, addr, &data_word, 0, ei->u.memory.as_arg) != 0) {
-      return bytes_read;
-    }
+	if(*a->access_mem != NULL) {
+		if ((*a->access_mem) (ei->u.memory.as, addr, &data_word, 0, ei->u.memory.as_arg) != 0) {
+			return bytes_read;
+		}
+	}
 
     memcpy (buffer, &data_word, sizeof(unw_word_t));
     if (string_read) {
@@ -92,9 +96,11 @@ extern size_t elf_w (memory_read) (
 
   size_t left_over = bytes & (sizeof(unw_word_t) - 1);
   if (left_over) {
-    if ((*a->access_mem) (ei->u.memory.as, addr, &data_word, 0, ei->u.memory.as_arg) != 0) {
-      return bytes_read;
-    }
+	if(*a->access_mem != NULL) {
+		if ((*a->access_mem) (ei->u.memory.as, addr, &data_word, 0, ei->u.memory.as_arg) != 0) {
+		  return bytes_read;
+		}
+	}
 
     memcpy (buffer, &data_word, left_over);
     if (string_read) {
