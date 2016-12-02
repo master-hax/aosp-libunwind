@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd60731e_482c2108",
+        "filename": "src/os-linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2016-12-02T18:31:28Z",
+      "side": 1,
+      "message": "(might be worth testing a hacked version where L105 just assigns nullptr to check that things actually still work if malloc fails?)",
+      "revId": "1c39ac4d0e17ec32c84caa117a3832a8cae124ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd60731e_6813ddd4",
+        "filename": "src/os-linux.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2016-12-02T18:31:28Z",
+      "side": 1,
+      "message": "free(nullptr) is a no-op.",
+      "revId": "1c39ac4d0e17ec32c84caa117a3832a8cae124ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
