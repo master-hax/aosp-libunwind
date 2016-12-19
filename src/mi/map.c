@@ -135,7 +135,11 @@ map_find_from_addr (struct map_info *map_list, unw_word_t addr)
 {
   while (map_list)
     {
-      if (addr >= map_list->start && addr < map_list->end)
+      // Only attempt to find function names in executable maps.
+      // This avoids problems trying to open the file associated
+      // with the map that can cause a deadlock if the file is
+      // associated with a device and the driver is single-threaded.
+      if ((map_list->flags & PROT_EXEC) && addr >= map_list->start && addr < map_list->end)
         return map_list;
       map_list = map_list->next;
     }
