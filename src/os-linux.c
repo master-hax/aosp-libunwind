@@ -48,6 +48,25 @@ map_create_list (int map_create_type, pid_t pid)
 
   while (maps_next (&mi, &start, &end, &offset, &flags))
     {
+      /* Indicate mapped memory of devices is special and should not
+      be read or written. Use a special flag instead of zeroing the
+      flags to indicate that the maps do not need to be rebuilt if
+      any values ever wind up in these special maps.
+      /dev/ashmem/... maps are special and don't have any restrictions,
+      so don't mark them as device memory.  */
+      if (strncmp ("/dev/", mi.path, 5) == 0
+          && strncmp ("ashmem/", mi.path + 5, 7) != 0)
+        flags |= MAP_FLAGS_DEVICE_MEM;
+
+      // Only add the maps with PROT_EXEC、PROT_EXEC and
+      // non-MAP_FLAGS_DEVICE_MEM flags to the maps list.
+      // This avoids problems trying to open the file associated
+      // with the map that can cause a deadlock if the file is
+      // associated with a device and the driver is single-threaded.
+      if (!(flags & (PROT_EXEC | PROT_READ)) == (PROT_EXEC | PROT_READ)
+          || (flags & MAP_FLAGS_DEVICE_MEM))
+        continue;
+
       cur_map = map_alloc_info ();
       if (cur_map == MAP_FAILED)
         break;
@@ -65,21 +84,9 @@ map_create_list (int map_create_type, pid_t pid)
       cur_map->ei.mini_debug_info_data = NULL;
       cur_map->ei.mini_debug_info_size = 0;
 
-      /* Indicate mapped memory of devices is special and should not
-         be read or written. Use a special flag instead of zeroing the
-         flags to indicate that the maps do not need to be rebuilt if
-         any values ever wind up in these special maps.
-         /dev/ashmem/... maps are special and don't have any restrictions,
-         so don't mark them as device memory.  */
-      if (strncmp ("/dev/", cur_map->path, 5) == 0
-          && strncmp ("ashmem/", cur_map->path + 5, 7) != 0)
-        cur_map->flags |= MAP_FLAGS_DEVICE_MEM;
-
       /* If this is a readable executable map, and not a stack map or an
          empty map, find the load_base.  */
-      if (cur_map->path[0] != '\0' && strncmp ("[stack:", cur_map->path, 7) != 0
-          && (flags & (PROT_EXEC | PROT_READ)) == (PROT_EXEC | PROT_READ)
-          && !(cur_map->flags & MAP_FLAGS_DEVICE_MEM))
+      if (cur_map->path[0] != '\0' && strncmp ("[stack:", cur_map->path, 7) != 0)
         {
           struct elf_image ei;
           // Do not map elf for local unwinds, it's faster to read
