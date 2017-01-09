@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77acba9b_1e2c26ab",
+        "filename": "src/os-linux.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2017-01-09T21:51:49Z",
+      "side": 1,
+      "message": "The problem with this approach is that a local unwind that happens to be in this map will result in an attempt to rebuild the maps over and over.",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "4ad1551b7a3fd3b31062cea60c83052850dad5f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
