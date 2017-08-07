@@ -16,6 +16,24 @@
       "revId": "0ba1110fb01ccd6fe32d255b8147d21cb2b40e15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f74528d_55856a73",
+        "filename": "src/dwarf/Gfind_proc_info-lsb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2017-08-07T15:39:49Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/452921",
+      "parentUuid": "5d9937af_46c29e0e",
+      "revId": "0ba1110fb01ccd6fe32d255b8147d21cb2b40e15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
