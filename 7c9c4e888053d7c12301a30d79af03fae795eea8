@@ -16,6 +16,24 @@
       "revId": "7c9c4e888053d7c12301a30d79af03fae795eea8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12fc0683_a228352c",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2017-09-28T23:30:41Z",
+      "side": 1,
+      "message": "Yeah... but we don\u0027t parse this flag, so we\u0027ll be adding -lm -lpthread -ldl -lrt. You\u0027d need to set `no_default_compiler_flags: true` to remove those (but that affects many other flags as well).\n\nI\u0027m doing more verification on this one...",
+      "parentUuid": "a50599fc_9f74c906",
+      "revId": "7c9c4e888053d7c12301a30d79af03fae795eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
