@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a50599fc_9f74c906",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2017-09-28T23:26:49Z",
+      "side": 1,
+      "message": "looks like this is actively trying to avoid dragging things in?",
+      "revId": "7c9c4e888053d7c12301a30d79af03fae795eea8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
