@@ -403,19 +403,14 @@ cc_library {
     },
 
     target: {
-        android: {
-            shared_libs: ["libdl"],
-        },
         linux: {
             ldflags: ["-nostdlib"],
             host_ldlibs: [
                 "-lc",
-                "-lpthread",
             ],
         },
         linux_bionic: {
             enabled: true,
-            shared_libs: ["libdl"],
         },
     },
 
