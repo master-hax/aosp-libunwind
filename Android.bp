@@ -414,8 +414,6 @@ cc_library {
 
     export_include_dirs: ["include"],
 
-    shared_libs: ["liblzma"],
-
     debug: {
         //shared_libs: ["liblog"],
     },
