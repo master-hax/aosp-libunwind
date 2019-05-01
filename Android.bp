@@ -408,21 +408,24 @@ cc_defaults {
     },
 
     export_include_dirs: ["include"],
-
-    debug: {
-        //shared_libs: ["liblog"],
-    },
 }
 
 cc_library_shared {
-    name: "libunwind",
-    defaults: ["libunwind_core_defaults"],
+   name: "libunwind",
+   defaults: ["libunwind_core_defaults"],
+   // This library is still used by some legacy .mk targets.
+   // Disallow new .bp dependencies.
+   visibility: ["//visibility:private"],
 }
 
 cc_library_static {
     name: "libunwind_static",
     defaults: ["libunwind_core_defaults"],
     vendor_available: true,
+    visibility: [
+        "//external/compiler-rt",
+        "//external/honggfuzz",
+    ],
 }
 
 //-----------------------------------------------------------------------
@@ -464,41 +467,8 @@ cc_library_static {
             enabled: true,
         },
     },
-}
 
-//-----------------------------------------------------------------------
-// libunwind testing
-//-----------------------------------------------------------------------
-cc_test {
-    name: "libunwind-unit-tests",
-    srcs: ["android/tests/local_test.cpp"],
-    defaults: ["libunwind_defaults"],
-
-    cflags: [
-        "-fno-builtin",
-        "-O0",
-        "-g",
+    visibility: [
+        "//external/compiler-rt",
     ],
-
-    local_include_dirs: ["include"],
-    shared_libs: ["libunwind"],
 }
-
-/*
-// Run the unit tests built for x86 or x86_64.
-// ANDROIDMK TRANSLATION ERROR: unsupported conditional
-// ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),x86 x86_64))
-// ANDROIDMK TRANSLATION ERROR: unsupported conditional
-// ifneq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),x86))
-LINKER = ["linker64"]
-TEST_SUFFIX = ["64"]
-// ANDROIDMK TRANSLATION ERROR: else from unsupported contitional
-// else
-LINKER = ["linker"]
-TEST_SUFFIX = ["32"]
-// ANDROIDMK TRANSLATION ERROR: endif from unsupported contitional
-// endif
-
-// ANDROIDMK TRANSLATION ERROR: endif from unsupported contitional
-// endif
-*/
