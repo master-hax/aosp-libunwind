@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0133d292_ecf2586d",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2019-05-02T17:17:47Z",
+      "side": 1,
+      "message": "I think that the usage of libunwind can be removed. In internal master, it doesn\u0027t use libunwind, so I uploaded a cl to move to libunwindstack.\n\nhttps://android-review.googlesource.com/c/platform/external/libunwind/+/954899\n\nHowever, I suspect none of those libraries are necessary.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 69
+      },
+      "revId": "bac3f4b2a28d064e7d2e947e10a275508a8778ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
