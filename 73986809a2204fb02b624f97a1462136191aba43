@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ac688c8_b0f24c89",
+        "filename": "Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2019-05-06T16:00:52Z",
+      "side": 1,
+      "message": "clever or stupid?",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 40
+      },
+      "revId": "73986809a2204fb02b624f97a1462136191aba43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
