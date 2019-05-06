@@ -22,6 +22,30 @@
       "revId": "73986809a2204fb02b624f97a1462136191aba43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0bd9b86_d4af4968",
+        "filename": "Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1002751
+      },
+      "writtenOn": "2019-05-06T20:29:49Z",
+      "side": 1,
+      "message": "Doing this will make it harder for whoever converts them those targets to .bp.\n\nWhat targets still use it?  Can they either be converted now, or listed in visibility here?",
+      "parentUuid": "8ac688c8_b0f24c89",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 40
+      },
+      "revId": "73986809a2204fb02b624f97a1462136191aba43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
