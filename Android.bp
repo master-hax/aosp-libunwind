@@ -398,10 +398,6 @@ cc_defaults {
     },
 
     target: {
-        linux_glibc: {
-            // Remove dependencies on libgcc
-            ldflags: ["-nostdlib"],
-        },
         linux_bionic: {
             enabled: true,
         },
