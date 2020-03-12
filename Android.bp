@@ -55,18 +55,6 @@ cc_defaults {
                 "include/tdep-aarch64",
             ],
         },
-        mips: {
-            local_include_dirs: [
-                "include",
-                "include/tdep-mips",
-            ],
-        },
-        mips64: {
-            local_include_dirs: [
-                "include",
-                "include/tdep-mips",
-            ],
-        },
         x86: {
             local_include_dirs: [
                 "include",
@@ -255,70 +243,6 @@ cc_defaults {
 
                 "src/aarch64/Gis_signal_frame.c",
                 "src/aarch64/Lis_signal_frame.c",
-            ],
-        },
-        mips: {
-            srcs: [
-                "src/mips/is_fpreg.c",
-                "src/mips/regname.c",
-                "src/mips/Gcreate_addr_space.c",
-                "src/mips/Gget_proc_info.c",
-                "src/mips/Gget_save_loc.c",
-                "src/mips/Gglobal.c",
-                "src/mips/Ginit.c",
-                "src/mips/Ginit_local.c",
-                "src/mips/Ginit_remote.c",
-                "src/mips/Gregs.c",
-                "src/mips/Gresume.c",
-                "src/mips/Gstep.c",
-                "src/mips/Lcreate_addr_space.c",
-                "src/mips/Lget_proc_info.c",
-                "src/mips/Lget_save_loc.c",
-                "src/mips/Lglobal.c",
-                "src/mips/Linit.c",
-                "src/mips/Linit_local.c",
-                "src/mips/Linit_remote.c",
-                "src/mips/Lregs.c",
-                "src/mips/Lresume.c",
-                "src/mips/Lstep.c",
-
-                "src/mips/getcontext-android.S",
-                "src/mips/Gis_signal_frame.c",
-                "src/mips/Lis_signal_frame.c",
-            ],
-        },
-        // mips and mips64 use the same sources but define _MIP_SIM differently
-        // to change the behavior.
-        //   mips uses o32 abi (_MIPS_SIM == _ABIO32).
-        //   mips64 uses n64 abi (_MIPS_SIM == _ABI64).
-        mips64: {
-            srcs: [
-                "src/mips/is_fpreg.c",
-                "src/mips/regname.c",
-                "src/mips/Gcreate_addr_space.c",
-                "src/mips/Gget_proc_info.c",
-                "src/mips/Gget_save_loc.c",
-                "src/mips/Gglobal.c",
-                "src/mips/Ginit.c",
-                "src/mips/Ginit_local.c",
-                "src/mips/Ginit_remote.c",
-                "src/mips/Gregs.c",
-                "src/mips/Gresume.c",
-                "src/mips/Gstep.c",
-                "src/mips/Lcreate_addr_space.c",
-                "src/mips/Lget_proc_info.c",
-                "src/mips/Lget_save_loc.c",
-                "src/mips/Lglobal.c",
-                "src/mips/Linit.c",
-                "src/mips/Linit_local.c",
-                "src/mips/Linit_remote.c",
-                "src/mips/Lregs.c",
-                "src/mips/Lresume.c",
-                "src/mips/Lstep.c",
-
-                "src/mips/getcontext-android.S",
-                "src/mips/Gis_signal_frame.c",
-                "src/mips/Lis_signal_frame.c",
             ],
         },
         x86: {
