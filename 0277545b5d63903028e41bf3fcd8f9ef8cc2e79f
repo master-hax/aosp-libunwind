@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "788bab71_a2836be0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2020-11-11T18:53:26Z",
+      "side": 1,
+      "message": "why is this needed on product? (i\u0027ve been +2ing all these changes where they\u0027re currently vendor_available, but i hope you\u0027re actually going to try to reduce the list to the ones that are *actually* needed? and for stuff like this it would be good to have the specific reason why you need it...)",
+      "revId": "0277545b5d63903028e41bf3fcd8f9ef8cc2e79f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
