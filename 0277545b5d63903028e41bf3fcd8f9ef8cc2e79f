@@ -34,6 +34,24 @@
       "parentUuid": "788bab71_a2836be0",
       "revId": "0277545b5d63903028e41bf3fcd8f9ef8cc2e79f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb73973b_4dd0566c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2020-11-12T17:06:45Z",
+      "side": 1,
+      "message": "ah, okay, so this is just something that rprichard will clean up for S when he switches us over to the LLVM unwinder for exception handling.\n\nis there anything in the build system that will help point out places where we can remove `product_available: true` because it\u0027s no longer used? this one\u0027s probably fine because we\u0027re actively working to remove it right now, but others are probably not going to be so obvious...",
+      "parentUuid": "d23d7341_a0d48a02",
+      "revId": "0277545b5d63903028e41bf3fcd8f9ef8cc2e79f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
