@@ -52,6 +52,24 @@
       "parentUuid": "d23d7341_a0d48a02",
       "revId": "0277545b5d63903028e41bf3fcd8f9ef8cc2e79f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df773d9a_dc2138df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1146974
+      },
+      "writtenOn": "2020-11-13T03:12:52Z",
+      "side": 1,
+      "message": "We don\u0027t have such mechanisms. This is the same for `vendor_available: true`.\nBut I don\u0027t think we need to clear it if not used. Instead we need to add it if it can be used by the other partitions.\nBuild system will not install the files if it is not used even though it is available to the partitions. So the property should be based on the availability not the actual use cases.",
+      "parentUuid": "cb73973b_4dd0566c",
+      "revId": "0277545b5d63903028e41bf3fcd8f9ef8cc2e79f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
