@@ -19,6 +19,23 @@
 // where x controls the verbosity (from 1 to 20).
 //libunwind_debug = false
 
+package {
+    default_applicable_licenses: ["external_libunwind_license"],
+}
+
+license {
+    name: "external_libunwind_license",
+    visibility: [":__subpackages__"],
+    license_kinds: [
+        "SPDX-license-identifier-Apache-2.0",
+        "SPDX-license-identifier-MIT",
+    ],
+    license_text: [
+        "COPYING",
+        "LICENSE",
+    ],
+}
+
 cc_defaults {
     name: "libunwind_defaults",
     host_supported: true,
