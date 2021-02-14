@@ -406,6 +406,10 @@ cc_test {
 
     local_include_dirs: ["include"],
     shared_libs: ["libunwind_shared"],
+    data: [":libunwind_shared"],
+    test_options: {
+        unit_test: true,
+    },
 }
 
 /*
