@@ -1,23 +1,24 @@
-//
-// Copyright (C) 2014 The Android Open Source Project
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-
 // Set to true to enable a debug build of the libraries.
 // To control what is logged, set the environment variable UNW_DEBUG_LEVEL=x,
 // where x controls the verbosity (from 1 to 20).
 //libunwind_debug = false
+
+package {
+    default_applicable_licenses: ["external_libunwind_license"],
+}
+
+license {
+    name: "external_libunwind_license",
+    visibility: [":__subpackages__"],
+    license_kinds: [
+        "SPDX-license-identifier-Apache-2.0",
+        "SPDX-license-identifier-MIT",
+    ],
+    license_text: [
+        "COPYING",
+        "LICENSE",
+    ],
+}
 
 cc_defaults {
     name: "libunwind_defaults",
@@ -406,6 +407,10 @@ cc_test {
 
     local_include_dirs: ["include"],
     shared_libs: ["libunwind_shared"],
+    data: [":libunwind_shared"],
+    test_options: {
+        unit_test: true,
+    },
 }
 
 /*
